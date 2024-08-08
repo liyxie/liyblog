@@ -1,0 +1,67 @@
+package ${package};
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import com.liy.common.ResponseResult;
+import com.liy.annotation.OperationLogger;
+import ${impPo};
+import ${impVo};
+import ${impService};
+
+@RestController
+@RequestMapping(value="/system/${strutil.toLowerCase(entityName)}")
+public class ${entityName}Controller {
+
+	@Autowired
+	private ${entityName}Service ${varName}Service;
+
+	/**
+     *${tableComment}列表
+     **/
+    @RequestMapping(value="/list", method = RequestMethod.GET)
+    public ResponseResult select${entityName}List() {
+        return ${varName}Service.select${entityName}List();
+    }
+
+    /**
+     *${tableComment}详情
+     **/
+    @RequestMapping(value="/info/{id}", method = RequestMethod.GET)
+    public ResponseResult select${entityName}ById(@PathVariable Integer id) {
+        return ${varName}Service.select${entityName}ById(id);
+    }
+
+	/**
+     *添加${tableComment}
+     **/
+    @OperationLogger(value = "添加${tableComment}")
+    @RequestMapping(value="/add", method=RequestMethod.POST)
+    public ResponseResult add${entityName}(@RequestBody ${entityName} ${varName}) {
+        return ${varName}Service.add${varName}(${varName});
+    }
+
+    /**
+     *修改${tableComment}
+     **/
+    @OperationLogger(value = "修改${tableComment}")
+    @RequestMapping(value="/update", method=RequestMethod.PUT)
+    public ResponseResult update${entityName}(@RequestBody ${entityName} ${varName}) {
+        return ${varName}Service.update${entityName}(${varName});
+    }
+
+    /**
+     *删除${tableComment}
+     **/
+    @OperationLogger(value = "删除${tableComment}")
+    @RequestMapping(value="/delete", method=RequestMethod.DELETE)
+    public ResponseResult delete${entityName}ByIds(@RequestBody List<${idType}> ids) {
+        return ${varName}Service.delete${entityName}ByIds(ids);
+    }
+}

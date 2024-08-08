@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.TagsMapper">
+
+    <delete id="deleteByArticleIds">
+        DELETE FROM b_article_tag WHERE article_id in
+            <foreach collection="ids" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+    </delete>
+
+    <select id="selectByArticleId" resultType="java.lang.String">
+        select name from b_tags where id in(select tag_id from b_article_tag where article_id=#{articleId})
+    </select>
+
+
+    <select id="selectPageRecord" resultType="com.liy.vo.tag.SystemTagListVo">
+        select a.id,a.name,a.sort,a.click_volume,a.create_time,b.articleCount from b_tags a
+            left join (select tag_id,count(id) as articleCount from b_article_tag GROUP BY tag_id) b on a.id=b.tag_id
+        <where>
+            <if test="name != null">
+                a.name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="saveArticleTags">
+        insert ignore into  b_article_tag(article_id,tag_id) values
+        <foreach collection="tags" item="tagsId" index="index" separator=",">
+            ( #{articleId},#{tagsId})
+        </foreach>
+    </insert>
+
+    <select id="getTagKeyValuePairs" resultType="java.util.Map">
+        select id,name from b_tags
+    </select>
+
+    <select id="selectTagByArticleId" resultType="com.liy.entity.Tags">
+        select * from b_tags where id in (select tag_id from b_article_tag where article_id=#{articleId})
+    </select>
+    <select id="validateTagIdIsExistArticle" resultType="java.lang.Integer" parameterType="java.lang.Long">
+        select count(id) from b_article_tag where tag_id=#{id}
+    </select>
+    <select id="selectTagListApi" resultType="com.liy.vo.tag.ApiTagListVO">
+        SELECT
+            t.id,
+            t.NAME,
+            count( a.id ) AS articleNum
+        FROM
+            b_tags t
+                LEFT JOIN b_article_tag a ON t.id = a.tag_id
+        GROUP BY
+            t.id
+        ORDER BY
+            t.sort
+    </select>
+
+</mapper>

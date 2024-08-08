@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.CategoryMapper">
+
+    <select id="getArticleCountsByCategory" resultType="com.liy.vo.category.SystemCategoryCountVO">
+        select a.name, count(b.id) as value
+        from b_category a left join b_article b
+        on a.id=b.category_id
+        GROUP BY a.id
+    </select>
+
+    <select id="selectCategory" resultType="com.liy.vo.category.SystemCategoryListVO">
+        select a.id,a.name,a.sort,a.create_time,a.click_volume,a.icon,b.articleCount from b_category a
+        left join (select category_id,count(id) as articleCount from b_article group by category_id) b on
+        a.id=b.category_id
+        <where>
+            <if test="name != null">
+                a.name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>
+    <select id="selectCategoryListApi" resultType="com.liy.vo.category.ApiCategoryListVO">
+        SELECT
+            c.id,
+            c.name,
+            c.icon,
+            count( a.id ) AS articleNum
+        FROM
+            b_category c
+                LEFT JOIN b_article a ON c.id = a.category_id
+        GROUP BY
+            c.id
+        ORDER BY
+            c.sort
+        desc
+    </select>
+
+</mapper>

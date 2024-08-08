@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.SignMapper">
+
+    <select id="selctSignByUserIdAndTime" resultType="com.liy.entity.Sign">
+        select * from b_sign where user_id = #{userId} and create_time = #{time}
+    </select>
+    <select id="getSignRecordsByUserId" resultType="java.lang.String">
+        select create_time from b_sign where user_id =#{userId} and create_time BETWEEN #{startTime} and #{endTime}
+    </select>
+    <select id="validateTodayIsSign" resultType="com.liy.entity.Sign">
+        select * from b_sign where user_id = #{userId} and create_time = #{time}
+    </select>
+</mapper>

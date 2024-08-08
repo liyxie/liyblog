@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.ImRoomMapper">
+
+
+    <select id="selectListByUserId" resultType="com.liy.vo.message.ImRoomListVO">
+        select im.id,im.create_time,toUser.id as toUserId,toUser.nickname as toUserNickname,toUser.avatar as toUserAvatar
+        from b_im_room im
+            left join (select id,nickname,avatar from b_user) fromUser
+            on fromUser.id = im.from_user_id
+            left join (select id,nickname,avatar from b_user) toUser
+            on toUser.id = im.to_user_id
+        where im.from_user_id=#{userId} order by create_time desc
+    </select>
+</mapper>

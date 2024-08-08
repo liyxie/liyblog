@@ -1,0 +1,41 @@
+package ${package};
+
+
+import com.baomidou.mybatisplus.extension.service.IService;
+
+import ${impEntity};
+
+
+<% var date = date(); %>
+/*
+ * @Description: ${tableComment}
+ * @date: ${ date , dateFormat="yyyy-MM-dd"}
+ */
+
+public class ${entityName}Service  extends IService<${entityName}> {
+
+    /**
+     * 查询列表
+     */
+    ResponseResult select${entityName}List();
+
+    /**
+     * 根据id查询
+     */
+    ResponseResult select${entityName}ById(Integer id);
+
+    /**
+     * 保存
+     */
+    ResponseResult add${entityName}(${entityName} ${varName});
+
+    /**
+     * 修改
+     */
+    ResponseResult update${entityName}(${entityName} ${varName});
+
+    /**
+     * 删除
+     */
+    ResponseResult delete${entityName}ByIds(List<${idType}> ids);
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.SayMapper">
+
+    <select id="selectPublicSayList" resultType="com.liy.vo.say.ApiSayVO">
+        select s.*,u.nickname,u.avatar from b_say s
+            left join b_user u on s.user_id = u.id
+        <if test="!showPrivate">
+            where s.is_public = 1
+        </if>
+        order by s.create_time desc
+    </select>
+</mapper>

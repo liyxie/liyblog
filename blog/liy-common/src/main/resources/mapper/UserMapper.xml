@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.UserMapper">
+
+
+    <select id="getMenuId" resultType="java.lang.Integer">
+        select menu_id from b_role_menu where role_id =
+           (select role_id from b_user where  id=#{userId})
+    </select>
+
+    <select id="selectPageRecord" resultType="com.liy.vo.user.SystemUserInfoVO">
+        select * from b_user
+        <where>
+            <if test="username != null and username != ''">
+                nickname like concat('%',#{username},'%')
+            </if>
+            <if test="loginType != null and loginType != ''">
+                and login_type=#{loginType}
+            </if>
+        </where>
+        order by create_time asc
+    </select>
+
+    <select id="getById" resultType="com.liy.vo.user.SystemUserVO">
+        select * from b_user where id = #{id}
+    </select>
+
+    <select id="selectNameAndPassword" resultType="com.liy.entity.User">
+        select id,username,role_id,status,nickname,avatar,bj_cover from b_user where username=#{username} and password=#{password}
+    </select>
+
+    <select id="selectByUserName" resultType="com.liy.vo.user.UserInfoVO">
+        select id,login_type,status,nickname,avatar,email,intro,web_site,bj_cover from b_user
+        where username = #{username}
+    </select>
+
+    <select id="selectInfoByUserId" resultType="com.liy.vo.user.UserInfoVO">
+        SELECT
+            u.id,
+            u.nickname,
+            u.avatar,
+            u.intro,
+            u.web_site,
+            u.bj_cover,
+            count( DISTINCT a.id ) AS articleCount,
+            count( DISTINCT fans.id ) AS fansCount,
+            count( DISTINCT watch.id ) AS watchCount
+        FROM
+            b_user u
+                LEFT JOIN b_article a ON u.id = a.user_id
+                LEFT JOIN b_followed fans on fans.followed_user_id = u.id
+                LEFT JOIN b_followed watch on watch.user_id = u.id
+        WHERE u.id = #{userId} group by u.id
+    </select>
+
+
+    <update id="updateLoginInfo">
+        update b_user set last_login_time = now(),ip_address=#{ip},ip_source=#{cityInfo},os=#{os},browser=#{browser} where id=#{loginId}
+    </update>
+
+</mapper>

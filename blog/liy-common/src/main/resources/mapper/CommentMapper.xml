@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.CommentMapper">
+
+    <select id="selectPageList" resultType="com.liy.vo.message.SystemCommentVO">
+        SELECT
+        c.id,
+        u.avatar,
+        u.nickname,
+        IF(ru.nickname is null,'无',ru.nickname) as replyNickname,
+        a.title as articleTitle,
+        c.content,
+        c.create_time
+        FROM
+        b_comment c
+        LEFT JOIN  b_user  u ON c.user_id = u.id
+        LEFT JOIN ( SELECT id, title FROM b_article ) a ON c.article_id = a.id
+        LEFT JOIN ( SELECT id, avatar, nickname FROM b_user ) ru ON c.reply_user_id = ru.id
+        <where>
+            <if test="keywords != null and keywords != ''">
+                u.nickname like concat('%',#{keywords},'%') or ru.nickname like concat('%',#{keywords},'%')
+            </if>
+        </where>
+        order by c.create_time desc
+    </select>
+
+
+    <select id="selectCommentPage" resultType="com.liy.vo.message.ApiCommentListVO">
+        select c.*, u.nickname as nickname, u.web_site as webSite, u.avatar as avatar
+        from b_comment c
+                 left join b_user u on c.user_id = u.id
+        where c.article_id = #{articleId}
+          and c.parent_id is null
+        order by c.create_time desc
+    </select>
+
+    <select id="selectMyComment" resultType="com.liy.vo.article.ApiArticleListVO">
+        select c.content as commentContent,c.create_time,a.title,a.id
+        from b_comment c left join b_article a on c.article_id = a.id where c.user_id = #{userId} order by c.create_time desc
+    </select>
+
+</mapper>

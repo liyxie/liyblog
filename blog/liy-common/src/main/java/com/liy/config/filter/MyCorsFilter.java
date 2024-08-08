@@ -1,0 +1,43 @@
+package com.liy.config.filter;
+
+
+import org.springframework.stereotype.Component;
+
+import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+/**
+ * 跨域过滤器
+ * @author blue
+ * @date 2022/3/11
+ * @apiNote
+ */
+@Component
+public class MyCorsFilter implements Filter {
+
+    @Override
+    public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
+        Filter.super.init(filterConfig);
+    }
+
+    @Override
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        HttpServletResponse httpResponse = (HttpServletResponse) servletResponse;
+        httpResponse.setHeader("Access-Control-Allow-Origin", "*"); // 允许所有跨域地址
+        httpResponse.setHeader("Access-Control-Allow-Headers", "*");
+        httpResponse.setHeader("Access-Control-Allow-Methods", "*");
+        httpResponse.addHeader("Access-Control-Max-Age", "3600");
+        if (((HttpServletRequest) servletRequest).getMethod().equals("OPTIONS")) {
+            httpResponse.setStatus(200);
+            return;
+        }
+        filterChain.doFilter(servletRequest, httpResponse);
+    }
+
+    @Override
+    public void destroy() {
+        Filter.super.destroy();
+    }
+}

@@ -1,0 +1,56 @@
+package ${package}.impl;
+
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import ${package}.${entityName}Service;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.transaction.annotation.Transactional;
+import ${impEntity};
+import ${impMapper};
+
+<% var date = date(); %>
+/*
+ * @Description: ${tableComment}
+ * @date: ${ date , dateFormat="yyyy-MM-dd"}
+ */
+@Service
+public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, ${entityName}> implements ${entityName}Service {
+
+    @Autowired
+    private ${entityName}Mapper ${varName}Mapper;
+
+    @Override
+    public ResponseResult select${entityName}List() {
+      Page<${entityName}> ${varName}Page = ${varName}Mapper.selectPage(new Page<>(PageUtils.getPageNo(), PageUtils.getPageSize()),null);
+         return ResponseResult.success(${varName}Page);
+    }
+
+
+    @Override
+    public  ResponseResult select${entityName}ById(Integer id) {
+      ${entityName} ${varName} = ${varName}Mapper.selectById(id);
+      return ResponseResult.success(${varName});
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult add${entityName}(${entityName} ${varName}) {
+        ${varName}Mapper.insert(${varName});
+        return ResponseResult.success();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult update${entityName}(${entityName} ${varName}) {
+        ${varName}Mapper.updateById(${varName});
+        return ResponseResult.success();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public ResponseResult delete${entityName}ByIds(List<${idType}> ids) {
+        ${varName}Mapper.deleteBatchIds(ids);
+        return ResponseResult.success();
+    }
+
+}

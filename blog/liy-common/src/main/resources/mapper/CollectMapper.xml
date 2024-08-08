@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.CollectMapper">
+
+    <select id="selectCollectList" resultType="com.liy.vo.article.ApiArticleListVO">
+        select c.create_time,a.*,u.nickname as username,u.avatar as userAvatar,   b.NAME AS categoryName,
+               b.id AS categoryId from b_article a
+            left join b_collect c on c.article_id = a.id
+            left JOIN b_category b ON a.category_id = b.id
+            left join b_user u on a.user_id = u.id
+        where c.user_id = #{userId} order by c.create_time desc
+    </select>
+</mapper>
