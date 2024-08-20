@@ -2,7 +2,11 @@ package com.liy.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.liy.common.ResponseResult;
+import com.liy.dto.system.UpdateSystemConfigDTO;
 import com.liy.entity.SystemConfig;
+import com.liy.entity.SystemFileConfig;
+
+import java.util.List;
 
 /**
  * <p>
@@ -25,11 +29,23 @@ public interface SystemConfigService extends IService<SystemConfig> {
      * @param systemConfig
      * @return
      */
-    ResponseResult updateSystemConfig(SystemConfig systemConfig);
+    ResponseResult updateSystemConfig(UpdateSystemConfigDTO systemConfig);
 
     /**
      *
      * @return
      */
     SystemConfig getCustomizeOne();
+
+    /**
+     * 查询全部文件存储配置信息
+     * @return List
+     */
+    List<SystemFileConfig> getAllSystemFileConfig();
+
+    /**
+     * 获取当前文件存储配置
+     * @return
+     */
+    Integer getNowSystemFileConfig();
 }

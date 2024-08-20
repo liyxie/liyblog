@@ -95,10 +95,10 @@
         </el-button>
 
         <!-- 账号密码提示 -->
-        <div class="mt-10 text-sm">
+        <!-- <div class="mt-10 text-sm">
           <span>{{ $t("login.username") }}: test</span>
           <span class="ml-4"> {{ $t("login.password") }}: 123456</span>
-        </div>
+        </div> -->
       </el-form>
     </el-card>
 

@@ -4,6 +4,7 @@ package com.liy.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.liy.annotation.OperationLogger;
 import com.liy.common.ResponseResult;
+import com.liy.dto.system.UpdateSystemConfigDTO;
 import com.liy.entity.SystemConfig;
 import com.liy.service.SystemConfigService;
 import io.swagger.annotations.Api;
@@ -40,7 +41,7 @@ public class SystemConfigController {
     @SaCheckPermission("system:config:update")
     @ApiOperation(value = "修改系统配置", httpMethod = "PUT", response = ResponseResult.class, notes = "修改系统配置")
     @OperationLogger(value = "修改系统配置")
-    public ResponseResult updateSystemConfig(@RequestBody SystemConfig systemConfig){
+    public ResponseResult updateSystemConfig(@RequestBody UpdateSystemConfigDTO systemConfig){
         return systemConfigService.updateSystemConfig(systemConfig);
     }
 }

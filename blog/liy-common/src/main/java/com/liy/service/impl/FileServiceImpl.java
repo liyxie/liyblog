@@ -1,20 +1,24 @@
 package com.liy.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
+import com.liy.common.FileConstants;
+import com.liy.config.FileConfig;
 import com.liy.service.FileService;
 import com.liy.service.SystemConfigService;
 import com.liy.common.Constants;
 import com.liy.common.ResponseResult;
 import com.liy.entity.Resource;
 import com.liy.enums.DataEventEnum;
-import com.liy.enums.FileUploadModelEnum;
+import com.liy.enums.file.FileUpdateModelEnum;
 import com.liy.event.DataEventPublisherService;
 import com.liy.exception.BusinessException;
 import com.liy.strategy.context.FileUploadStrategyContext;
+import com.liy.utils.FileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Objects;
 
 
@@ -22,14 +26,11 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class FileServiceImpl implements FileService {
 
-    private final SystemConfigService systemConfigService;
-
     private final FileUploadStrategyContext fileUploadStrategyContext;
-
-    private FileUploadModelEnum strategy;
 
     private final DataEventPublisherService dataEventPublisherService;
 
+    private final FileConfig fileConfig;
 
     /**
      * 上传文件
@@ -43,14 +44,19 @@ public class FileServiceImpl implements FileService {
             return ResponseResult.error("文件大小不能大于10M");
         }
         //获取文件后缀
-        String suffix = Objects.requireNonNull(file.getOriginalFilename()).substring(file.getOriginalFilename().lastIndexOf(".") + 1);
-        if (!Constants.FIELD_SUFFIX.toUpperCase().contains(suffix.toUpperCase())) {
-            return ResponseResult.error("请选择jpg,jpeg,gif,png,mp4格式的图片");
+        String suffix;
+        try {
+            suffix = FileUtils.getExtension(file.getInputStream());
+            if (!Constants.FIELD_SUFFIX.toUpperCase().contains(suffix.toUpperCase())) {
+                return ResponseResult.error("请选择jpg,jpeg,gif,png,mp4格式的图片");
+            }
+        }catch (IOException e){
+            e.printStackTrace();
+            throw new BusinessException("文件类型识别错误");
         }
-        getFileUploadWay();
-        String key = fileUploadStrategyContext.executeFileUploadStrategy(strategy.getStrategy(), file, suffix);
+        String key = fileUploadStrategyContext.executeFileUploadStrategy(file, FileConstants.Common);
 
-        Resource resource = Resource.builder().url(key).type(suffix).platform(strategy.getDesc()).userId(StpUtil.getLoginIdAsString()).build();
+        Resource resource = Resource.builder().url(key).type(suffix).platform(fileConfig.getNowFileConfig().getTypeName()).userId(StpUtil.getLoginIdAsString()).build();
         dataEventPublisherService.publishData(DataEventEnum.RESOURCE_ADD,resource);
         return ResponseResult.success(key);
     }
@@ -63,15 +69,11 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public ResponseResult delBatchFile(String ...key) {
-        getFileUploadWay();
-        Boolean isSuccess = fileUploadStrategyContext.executeDeleteFileStrategy(strategy.getStrategy(), key);
+        Boolean isSuccess = fileUploadStrategyContext.executeDeleteFileStrategy(key);
         if (!isSuccess) {
             throw new BusinessException("删除文件失败");
         }
         return ResponseResult.success();
     }
 
-    private void getFileUploadWay() {
-        strategy = FileUploadModelEnum.getStrategy(systemConfigService.getCustomizeOne().getFileUploadWay());
-    }
 }

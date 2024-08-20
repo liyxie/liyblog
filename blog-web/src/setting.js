@@ -50,6 +50,6 @@ export default {
     /**
     * 博主信息组件背景(即轮播图右侧)
     */
-    avatarBg: "https://img.shiyit.com/beijing.jpg",
+    avatarBg: "https://liy1900-1258789570.cos.ap-guangzhou.myqcloud.com/www/wwwroot/blog/common/wallhaven-p8j3we_1920x1080.png",
 
 }

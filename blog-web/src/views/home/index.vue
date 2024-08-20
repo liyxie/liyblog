@@ -63,7 +63,7 @@
 
         <div class="top-right">
           <SiteInfo />
-          <el-card class="soft">
+          <!-- <el-card class="soft">
             <a
               :href="defaultSetting.poster1Href"
               target="_blank"
@@ -78,7 +78,7 @@
               <div class="soft-info">资源推荐</div>
               <div class="overlay"></div>
             </a>
-          </el-card>
+          </el-card> -->
         </div>
       </div>
       <!-- 热门分类 -->
@@ -463,7 +463,6 @@
 <script setup name="Home">
 import WOW from "wow.js";
 import "wow.js/css/libs/animate.css";
-
 import Clipboard from "clipboard";
 import { listArticle, featchHomeData, listCategory } from "@/api";
 import { listSay } from "@/api/say";

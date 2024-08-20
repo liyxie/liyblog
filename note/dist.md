@@ -44,6 +44,20 @@ pnpm install @element-plus/icons-vue
 
 
 
+# Vue3
+
+onMounted() 内调用函数 与 立即调用函数
+
+立即调用函数：函数会在组件初始化阶段立即执行。也就是在其他生命周期钩子之前执行，在模板和DOM被渲染之前；
+
+无法访问DOM，无法保证子组件和其他异步数据是否加载；
+
+
+
+onMounted() ：Vue生命周期函数，组件挂载后执行；
+
+onMounted 的另一个问题，就是在 Vite 调试环境下，如果用了 onMounted，一旦触发了 HMR，那么有些情况下，里面的回调不会执行。因为 HMR 只是热加载它认为变化的模块，如果没有涉及当前的模块，那么很可能不会再次触发 onMounted 的回调，但是页面又真的被刷新了，导致出现了数据空白，必须在  onUpdated回调中调用，才能解决。
+
 # nodejs版本管理nvm
 
 win用nvm，Linux可以用n

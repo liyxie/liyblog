@@ -330,7 +330,7 @@ function addVideo() {
     str: "",
   });
 
-  dialogVisible = false;
+  dialogVisible.value = false;
   videoInput = "";
 }
 //上传视频

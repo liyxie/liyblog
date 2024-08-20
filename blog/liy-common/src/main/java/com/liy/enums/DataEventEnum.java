@@ -1,6 +1,9 @@
 package com.liy.enums;
 
 
+import lombok.Getter;
+
+@Getter
 public enum DataEventEnum {
 
     ES_ADD(0, "添加es数据"),
@@ -32,11 +35,4 @@ public enum DataEventEnum {
     private final String desc;
 
 
-    public Integer getType() {
-        return type;
-    }
-
-    public String getDesc() {
-        return desc;
-    }
 }

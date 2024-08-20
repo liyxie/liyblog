@@ -15,6 +15,7 @@ import com.liy.service.RedisService;
 import com.liy.utils.AesEncryptUtil;
 import com.liy.vo.user.VerifyCodeVO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ import static com.liy.common.ResultCode.ERROR_PASSWORD;
  */
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@Slf4j
 public class LoginServiceImpl implements LoginService {
 
     private final UserMapper userMapper;
@@ -71,6 +73,7 @@ public class LoginServiceImpl implements LoginService {
             throw new BusinessException(ERROR_EXCEPTION_MOBILE_CODE);
         }
 
+        log.info(dto.toString());
         //校验用户名和密码
         User user = userMapper.selectNameAndPassword(dto.getUsername(), AesEncryptUtil.aesEncrypt(dto.getPassword()));
         if (user == null){

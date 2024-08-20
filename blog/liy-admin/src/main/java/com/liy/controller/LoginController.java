@@ -34,11 +34,13 @@ public class LoginController {
         return loginService.getCaptcha();
     }
 
+    @ApiOperation(value = "登录")
     @PostMapping("login")
     public ResponseResult login(@Validated @RequestBody LoginDTO vo) {
         return loginService.login(vo);
     }
 
+    @ApiOperation(value = "登出")
     @GetMapping("logout")
     public ResponseResult logout() {
         StpUtil.logout();

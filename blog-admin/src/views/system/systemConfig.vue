@@ -1,12 +1,14 @@
 <template>
   <div class="app-container">
     <el-tabs type="border-card" @tab-click="handleClick" v-model="activeName">
-      <el-tab-pane name="one">
+      <el-tab-pane name="1">
         <template #label><svg-icon icon-class="system" />系统配置</template>
         <el-form
           style="margin-left: 20px"
           label-position="left"
           label-width="140px"
+          :model="form"
+          :rules="rules"
           ref="formRef"
         >
           <aside>通过开关选择博客的一些配置，以及文件显示方式<br /></aside>
@@ -50,10 +52,10 @@
           <el-form-item label="图片上传方式">
             <el-radio-group v-model="form.fileUploadWay" class="ml-4">
               <el-radio
-                v-for="(item, index) in fileUploadList"
-                :key="index"
-                :value="index"
-                :label="item"
+                v-for="item in form.systemFileConfigVOList"
+                :key="item.id"
+                :value="item.id"
+                :label="item.typeName"
                 border
               />
             </el-radio-group>
@@ -97,113 +99,7 @@
         </el-form>
       </el-tab-pane>
 
-      <el-tab-pane name="tow">
-        <template #label>
-          <svg-icon icon-class="download" /> 本地文件存储
-        </template>
-
-        <el-form
-          style="margin-left: 20px"
-          label-position="left"
-          :model="form"
-          label-width="120px"
-          :rules="rules"
-          ref="formRef"
-        >
-          <aside>使用IO流将文件存储本地磁盘中</aside>
-
-          <el-form-item label="本地文件域名" prop="localFileUrl">
-            <el-input
-              v-model="form.localFileUrl"
-              auto-complete="new-password"
-              style="width: 400px"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              type="primary"
-              @click="submitForm()"
-              v-hasPerm="['system:config:update']"
-              >修 改</el-button
-            >
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-
-      <el-tab-pane name="three">
-        <template #label>
-          <svg-icon icon-class="api" /> 七牛云对象存储
-        </template>
-
-        <el-form
-          style="margin-left: 20px"
-          label-position="left"
-          :model="form"
-          label-width="120px"
-          :rules="rules"
-          ref="formRef"
-        >
-          <aside>使用 <a href="#">七牛云</a> 构建对象存储服务<br /></aside>
-
-          <el-form-item label="七牛云文件域名" prop="qiNiuPictureBaseUrl">
-            <el-input
-              v-model="form.qiNiuPictureBaseUrl"
-              auto-complete="new-password"
-              style="width: 400px"
-            ></el-input>
-          </el-form-item>
-
-          <el-form-item label="七牛云公钥">
-            <el-input
-              v-model="form.qiNiuAccessKey"
-              auto-complete="new-password"
-              style="width: 400px"
-            ></el-input>
-          </el-form-item>
-
-          <el-form-item label="七牛云私钥">
-            <el-input
-              type="password"
-              v-model="form.qiNiuSecretKey"
-              auto-complete="new-password"
-              style="width: 400px"
-            ></el-input>
-          </el-form-item>
-
-          <el-form-item label="上传空间">
-            <el-input
-              v-model="form.qiNiuBucket"
-              style="width: 400px"
-            ></el-input>
-          </el-form-item>
-
-          <el-form-item label="存储区域">
-            <el-select
-              v-model="form.qiNiuArea"
-              placeholder="请选择存储区域"
-              style="width: 200px"
-              clearable
-            >
-              <el-option
-                v-for="item in areaDictList"
-                :key="item.value"
-                :label="item.name"
-                :value="item.value"
-              />
-            </el-select>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              type="primary"
-              @click="submitForm()"
-              v-hasPerm="['system:config:update']"
-              >修 改</el-button
-            >
-          </el-form-item>
-        </el-form>
-      </el-tab-pane>
-
-      <el-tab-pane name="four">
+      <el-tab-pane name="2">
         <template #label> <svg-icon icon-class="publish" /> 邮箱发送 </template>
 
         <el-form
@@ -221,7 +117,7 @@
               v-model="form.emailHost"
               auto-complete="new-password"
               style="width: 400px"
-            ></el-input>
+            />
           </el-form-item>
 
           <el-form-item label="邮箱发送者">
@@ -229,7 +125,7 @@
               v-model="form.emailUsername"
               auto-complete="new-password"
               style="width: 400px"
-            ></el-input>
+            />
           </el-form-item>
 
           <el-form-item label="邮箱授权码">
@@ -238,11 +134,11 @@
               v-model="form.emailPassword"
               auto-complete="new-password"
               style="width: 400px"
-            ></el-input>
+            />
           </el-form-item>
 
           <el-form-item label="邮箱端口">
-            <el-input v-model="form.emailPort" style="width: 400px"></el-input>
+            <el-input v-model="form.emailPort" style="width: 400px" />
           </el-form-item>
 
           <el-form-item>
@@ -256,7 +152,7 @@
         </el-form>
       </el-tab-pane>
 
-      <el-tab-pane name="five">
+      <el-tab-pane name="3">
         <template #label
           ><el-icon><BellFilled /></el-icon> 仪表盘通知</template
         >
@@ -286,6 +182,104 @@
           <el-button type="primary" @click="submitForm()">修 改</el-button>
         </div>
       </el-tab-pane>
+
+      <el-tab-pane
+        v-for="(item, index1) in form.systemFileConfigVOList"
+        :key="item.id"
+        :name="index1 + 4"
+        :label="item.typeName"
+      >
+        <template #label>
+          <svg-icon icon-class="download" /> {{ item.typeName }}
+        </template>
+
+        <el-form
+          style="margin-left: 20px"
+          label-position="left"
+          :model="form"
+          label-width="120px"
+          :rules="rules"
+          ref="formRef"
+        >
+          <aside>{{ item.typeName }}</aside>
+
+          <el-form-item label="存储主路径" prop="path">
+            <el-input v-model="item.path" style="width: 400px" />
+          </el-form-item>
+
+          <div v-if="index1 > 0">
+            <el-form-item label="域名" prop="url">
+              <el-input
+                v-model="item.url"
+                auto-complete="new-password"
+                style="width: 400px"
+              />
+            </el-form-item>
+
+            <el-form-item label="公钥">
+              <el-input
+                v-model="item.accessKey"
+                auto-complete="new-password"
+                style="width: 400px"
+              />
+            </el-form-item>
+
+            <el-form-item label="私钥">
+              <el-input
+                type="password"
+                v-model="item.secretKey"
+                auto-complete="new-password"
+                style="width: 400px"
+              />
+            </el-form-item>
+
+            <el-form-item label="上传空间/桶">
+              <el-input v-model="item.bucket" style="width: 400px" />
+            </el-form-item>
+
+            <el-form-item label="存储区域">
+              <el-select
+                v-model="item.area"
+                placeholder="请选择存储区域"
+                style="width: 200px"
+                clearable
+                v-if="item.id == '2'"
+              >
+                <el-option
+                  v-for="item1 in QiNiuAreaDictList"
+                  :key="item1.value"
+                  :label="item1.name"
+                  :value="item1.value"
+                />
+              </el-select>
+
+              <el-select
+                v-model="item.area"
+                placeholder="请选择存储区域"
+                style="width: 200px"
+                clearable
+                v-if="item.id == 3"
+              >
+                <el-option
+                  v-for="item1 in txAreaDictList"
+                  :key="item1.name"
+                  :label="item1.name"
+                  :value="item1.name"
+                />
+              </el-select>
+            </el-form-item>
+          </div>
+
+          <el-form-item>
+            <el-button
+              type="primary"
+              @click="submitForm()"
+              v-hasPerm="['system:config:update']"
+              >修 改</el-button
+            >
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -295,21 +289,29 @@ import { getSystemConfig, updateSystemConfig } from "@/api/systemConfig";
 import { getDataByDictType } from "@/api/dict";
 
 defineOptions({
-  name: "systemConfig",
+  name: "SystemConfig",
   inheritAttrs: false,
 });
 
 const index = ref("0");
-const areaDictList = ref([
+const QiNiuAreaDictList = ref([
   { name: "华东", value: "z0" },
   { name: "华北", value: "z1" },
   { name: "华南", value: "z2" },
   { name: "北美", value: "na0" },
   { name: "东南亚", value: "as0" },
 ]);
+const txAreaDictList = ref([
+  { name: "北京一区" },
+  { name: "北京" },
+  { name: "南京" },
+  { name: "上海" },
+  { name: "广州" },
+  { name: "成都" },
+  { name: "重庆" },
+]);
 const yesNoDictList = ref([]);
 const openDictList = ref([]);
-const fileUploadList = ref(["本地", "七牛云"]);
 const searchModelDictList = ref([]);
 const openDictDefaultValue = ref(null);
 const rules = ref({
@@ -326,7 +328,7 @@ const rules = ref({
     },
   ],
 });
-const activeName = ref("one");
+const activeName = ref("1");
 
 const form = reactive<any>({});
 const formRef = ref();
@@ -361,8 +363,10 @@ function getSystemConfigList() {
     if (response.data) {
       Object.assign(form, response.data);
     }
+    console.log(form);
   });
 }
+getSystemConfigList();
 
 /**
  * 提交
@@ -385,7 +389,6 @@ function submitForm() {
 
 onMounted(() => {
   getDictList();
-  getSystemConfigList();
 });
 </script>
 

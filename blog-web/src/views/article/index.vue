@@ -1,20 +1,10 @@
 <template>
-  <div
-    class="article-container container"
-    v-sy-loading="fullscreenLoading"
-  >
+  <div class="article-container container" v-sy-loading="fullscreenLoading">
     <!-- 左侧点赞和打赏 -->
     <div class="left-sidbarnav" :style="{ left: left }">
       <el-tooltip class="item" effect="dark" content="点赞" placement="left">
-        <div
-          class="left-item hand-style"
-          title="点赞"
-          @click="doLike(article.id)"
-        >
-          <el-badge
-            :value="article.likeCount == null ? 0 : article.likeCount"
-            class="item"
-          >
+        <div class="left-item hand-style" title="点赞" @click="doLike(article.id)">
+          <el-badge :value="article.likeCount == null ? 0 : article.likeCount" class="item">
             <span>
               <i v-if="article.isLike" class="iconfont icon-dianzan4"></i>
               <i v-else class="iconfont icon-dianzan1"></i>
@@ -27,57 +17,38 @@
         <div class="left-item hand-style" title="收藏" @click="doCollect">
           <el-badge :value="article.collectCount" class="item">
             <span style="font-size: 20px">
-              <el-icon v-if="article.isCollect"><Star /></el-icon>
-              <el-icon v-else><StarFilled /></el-icon>
+              <el-icon v-if="article.isCollect">
+                <Star />
+              </el-icon>
+              <el-icon v-else>
+                <StarFilled />
+              </el-icon>
             </span>
           </el-badge>
         </div>
       </el-tooltip>
 
-      <el-tooltip
-        class="item"
-        effect="dark"
-        content="评论"
-        placement="left"
-        v-if="siteStore.getWebInfo.openComment"
-      >
-        <div
-          class="left-item hand-style"
-          title="评论"
-          @click="handleNodeClick('comment')"
-        >
+      <el-tooltip class="item" effect="dark" content="评论" placement="left" v-if="siteStore.getWebInfo.openComment">
+        <div class="left-item hand-style" title="评论" @click="handleNodeClick('comment')">
           <el-badge :value="article.commentCount" class="item">
             <span>
-              <el-icon><ChatLineRound /></el-icon>
+              <el-icon>
+                <ChatLineRound />
+              </el-icon>
             </span>
           </el-badge>
         </div>
       </el-tooltip>
 
-      <el-tooltip
-        class="item"
-        effect="dark"
-        content="开启沉浸式阅读"
-        placement="left"
-      >
-        <div
-          class="left-item hand-style"
-          title="开启沉浸式阅读"
-          @click="handleImmerse"
-        >
+      <el-tooltip class="item" effect="dark" content="开启沉浸式阅读" placement="left">
+        <div class="left-item hand-style" title="开启沉浸式阅读" @click="handleImmerse">
           <span>
             <i class="iconfont icon-full-screen"></i>
           </span>
         </div>
       </el-tooltip>
 
-      <el-tooltip
-        class="item"
-        effect="dark"
-        content="打赏"
-        placement="left"
-        v-if="siteStore.getWebInfo.openAdmiration"
-      >
+      <el-tooltip class="item" effect="dark" content="打赏" placement="left" v-if="siteStore.getWebInfo.openAdmiration">
         <div class="left-item rewardMain hand-style" title="打赏">
           <span class="reward-btn">
             <i class="iconfont icon-dashang1"></i>
@@ -98,11 +69,7 @@
     <!-- 中间文章信息 -->
 
     <el-card class="article" id="articleBox">
-      <el-tag
-        @click="handleClike(article.category.id, '/category')"
-        effect="dark"
-        class="category hand-style"
-      >
+      <el-tag @click="handleClike(article.category.id, '/category')" effect="dark" class="category hand-style">
         {{ article.category.name }}
       </el-tag>
       <h1 class="article-title">
@@ -117,28 +84,29 @@
             </div>
             <div class="item">
               <span class="text textItem" v-if="article.address">
-                <el-icon color="#409eff"><Location /> </el-icon>
-                发布于 {{ article.address }}</span
-              >
+                <el-icon color="#409eff">
+                  <Location />
+                </el-icon>
+                发布于 {{ article.address }}</span>
               <span class="text textItem">
-                <el-icon color="#f56c6c"><Clock /></el-icon>
-                {{ formatDate(article.createTime) }}</span
-              >
+                <el-icon color="#f56c6c">
+                  <Clock />
+                </el-icon>
+                {{ formatDate(article.createTime) }}</span>
               <span class="text textItem">
-                <el-icon color="#67c23a"><ChatDotRound /></el-icon>
-                {{ article.commentCount }}评论</span
-              >
+                <el-icon color="#67c23a">
+                  <ChatDotRound />
+                </el-icon>
+                {{ article.commentCount }}评论</span>
               <span class="text textItem">
-                <i
-                  style="font-size: 0.7rem; color: rgb(38, 211, 153)"
-                  class="iconfont icon-dianzan1"
-                ></i>
+                <i style="font-size: 0.7rem; color: rgb(38, 211, 153)" class="iconfont icon-dianzan1"></i>
                 {{ article.likeCount == null ? 0 : article.likeCount }}点赞
               </span>
               <span class="text">
-                <el-icon color="#bedd10"><View /></el-icon>
-                {{ article.quantity }}阅读</span
-              >
+                <el-icon color="#bedd10">
+                  <View />
+                </el-icon>
+                {{ article.quantity }}阅读</span>
             </div>
           </div>
         </div>
@@ -148,7 +116,9 @@
       </div>
       <div class="divider">
         <div class="first"></div>
-        <el-icon><Bicycle /></el-icon>
+        <el-icon>
+          <Bicycle />
+        </el-icon>
         <div class="second"></div>
       </div>
       <div class="tips">
@@ -161,13 +131,7 @@
       </div>
       <!-- 文章内容 -->
       <div style="height: 100%" class="box-article">
-        <article
-          class="content"
-          :style="style"
-          ref="articleRef"
-          v-highlight
-          v-html="article.content"
-        ></article>
+        <article class="content" :style="style" ref="articleRef" v-highlight v-html="article.content"></article>
         <div v-if="article.readType != 0 && !serceShow" class="warpper">
           <div class="item-title">
             <i class="el-icon-lock"></i> 该文章部分内容已隐藏
@@ -179,30 +143,12 @@
             <div class="neirong">
               以下内容已隐藏，请{{ readDescList[article.readType] }}后查看
             </div>
-            <el-button
-              v-if="article.readType == 1"
-              @click="checkLikeAndCoomment('请到文章内容下方完成评论')"
-              class="btn"
-              type="primary"
-              size="small"
-              >立即评论</el-button
-            >
-            <el-button
-              v-if="article.readType == 2"
-              @click="checkLikeAndCoomment('请到文章内容左侧完成点赞')"
-              class="btn"
-              type="primary"
-              size="small"
-              >立即点赞</el-button
-            >
-            <el-button
-              v-if="article.readType == 3"
-              @click="dialogVisible = true"
-              class="btn"
-              type="primary"
-              size="small"
-              >立即验证</el-button
-            >
+            <el-button v-if="article.readType == 1" @click="checkLikeAndCoomment('请到文章内容下方完成评论')" class="btn"
+              type="primary" size="small">立即评论</el-button>
+            <el-button v-if="article.readType == 2" @click="checkLikeAndCoomment('请到文章内容左侧完成点赞')" class="btn"
+              type="primary" size="small">立即点赞</el-button>
+            <el-button v-if="article.readType == 3" @click="dialogVisible = true" class="btn" type="primary"
+              size="small">立即验证</el-button>
           </div>
         </div>
       </div>
@@ -232,60 +178,33 @@
       <!-- 文章标签和分享 -->
       <div class="tag-share">
         <div>
-          <a
-            class="tagBtn hand-style"
-            v-for="item in article.tagList"
-            :key="item.id"
-            @click="handleClike(item.id, '/tags')"
-          >
+          <a class="tagBtn hand-style" v-for="item in article.tagList" :key="item.id"
+            @click="handleClike(item.id, '/tags')">
             <el-tag type="info" effect="dark">{{ item.name }}</el-tag>
           </a>
         </div>
         <!-- 分享 -->
-        <div
-          class="social-share"
-          id="social-share"
-          @mouseleave="hiddenShareItmes"
-          @mouseenter="showShareItmes"
-        >
+        <div class="social-share" id="social-share" @mouseleave="hiddenShareItmes" @mouseenter="showShareItmes">
           <div class="share-item" id="share-item">
-            <a
-              href="javascript:;"
-              @click="qqShare"
-              class="social-share-icon icon-qzone"
-            >
+            <a href="javascript:;" @click="qqShare" class="social-share-icon icon-qzone">
               <i class="iconfont icon-qqkongjian"></i>
             </a>
-            <a
-              href="javascript:;"
-              @click="qqHyShare"
-              class="social-share-icon icon-qq"
-            >
+            <a href="javascript:;" @click="qqHyShare" class="social-share-icon icon-qq">
               <i class="iconfont icon-QQ"></i>
             </a>
-            <a
-              href="javascript:;"
-              @click="weixinShare"
-              class="social-share-icon icon-wechat"
-            >
+            <a href="javascript:;" @click="weixinShare" class="social-share-icon icon-wechat">
               <i class="iconfont icon-weixin"></i>
             </a>
-            <a
-              href="javascript:;"
-              @click="weiboShare"
-              class="social-share-icon icon-weibo"
-            >
+            <a href="javascript:;" @click="weiboShare" class="social-share-icon icon-weibo">
               <i class="iconfont icon-shejiaotubiao-06"></i>
             </a>
           </div>
-          <div
-            style="
+          <div style="
               width: 34px;
               display: inline-block;
               line-height: 34px;
               height: 34px;
-            "
-          >
+            ">
             <i class="iconfont icon-fenxiang share hand-style"></i>
           </div>
         </div>
@@ -309,8 +228,7 @@
           <svg-icon name="zzlink"></svg-icon>
           <span class="text name">转载链接:</span>
           <a :href="article.originalUrl" class="text">
-            {{ article.originalUrl }}</a
-          >
+            {{ article.originalUrl }}</a>
         </div>
         <div class="copyrightItem">
           <svg-icon name="link"></svg-icon>
@@ -322,10 +240,7 @@
           <span class="text name">许可协议:</span>
           <span class="text">
             本博客所有文章除特别声明外，均采用
-            <a
-              class="text"
-              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-            >
+            <a class="text" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
               CC BY-NC-SA 4.0
             </a>
             许可协议。转载请注明文章出处。
@@ -335,18 +250,12 @@
       </div>
 
       <!-- 评论 -->
-      <div
-        class="comment-mian"
-        id="comment"
-        v-if="siteStore.getWebInfo.openComment"
-      >
+      <div class="comment-mian" id="comment" v-if="siteStore.getWebInfo.openComment">
         <div class="title">
           <!-- <i class="iconfont icon-pinglun"></i> -->
           <svg-icon name="message"></svg-icon>
           评论
-          <span style="color: var(--text-color); font-size: 0.8rem"
-            >发表评论,来抢沙发</span
-          >
+          <span style="color: var(--text-color); font-size: 0.8rem">发表评论,来抢沙发</span>
         </div>
         <Comment :articleUserId="article.userId" />
       </div>
@@ -357,12 +266,7 @@
         <div style="margin-top: 80px">
           <SiteInfo />
         </div>
-        <div
-          class="directory"
-          @mouseenter="handleDireMousEnter"
-          @mouseleave="handleDireMousLeave"
-          v-if="titles.length"
-        >
+        <div class="directory" @mouseenter="handleDireMousEnter" @mouseleave="handleDireMousLeave" v-if="titles.length">
           <el-card class="directory-item">
             <template #header>
               <div style="color: var(--article-color)">
@@ -371,20 +275,12 @@
             </template>
             <el-scrollbar max-height="500px">
               <ul>
-                <li
-                  ref="directoryItem"
-                  :style="{
-                    filter: active != index ? 'blur(1px)' : 'none',
-                  }"
-                  :class="
-                    active == index
+                <li ref="directoryItem" :style="{
+                  filter: active != index ? 'blur(1px)' : 'none',
+                }" :class="active == index
                       ? 'structure active hand-style'
                       : 'structure hand-style'
-                  "
-                  v-for="(item, index) in titles"
-                  :key="index"
-                  @click="handleNodeClick(item.id)"
-                >
+                    " v-for="(item, index) in titles" :key="index" @click="handleNodeClick(item.id)">
                   <el-text line-clamp="2" size="large">
                     {{ item.title }}
                   </el-text>
@@ -397,12 +293,7 @@
     </div>
 
     <!-- 公众号扫码验证框 -->
-    <el-dialog
-      :lock-scroll="false"
-      title="关注公众号验证"
-      center
-      v-model="dialogVisible"
-    >
+    <el-dialog :lock-scroll="false" title="关注公众号验证" center v-model="dialogVisible">
       <div style="text-align: center">
         <div>
           扫码关注公众号<span style="color: red">【编程 】</span>
@@ -689,7 +580,7 @@ function handleCheckCode() {
       proxy.$modal.msgSuccess("验证成功");
       checkAfter();
     })
-    .catch((err) => {});
+    .catch((err) => { });
 }
 function checkAfter() {
   dialogVisible.value = false;
@@ -781,7 +672,7 @@ function doLike(articleId) {
         proxy.$modal.msgSuccess("点赞成功");
       }
     })
-    .catch((err) => {});
+    .catch((err) => { });
 }
 </script>
 <style lang="scss" scoped>
@@ -882,18 +773,22 @@ function doLike(articleId) {
         &:hover {
           span {
             color: var(--theme-color);
-          }
 
-          background-color: rgba(25, 153, 153, 0.2);
+            & {
+              background-color: rgba(25, 153, 153, 0.2);
+            }
+          }
         }
 
         i,
         .el-icon {
           font-size: 20px;
         }
+
         .el-icon {
           vertical-align: -2px;
         }
+
         .like-count {
           color: #fff;
           display: inline-block;
@@ -1000,9 +895,13 @@ function doLike(articleId) {
           .structure:hover {
             span {
               color: var(--theme-color);
+
+              & {
+                border-radius: 5px;
+                background-color: var(--article-structure-backcolor);
+              }
             }
-            border-radius: 5px;
-            background-color: var(--article-structure-backcolor);
+
           }
         }
       }
@@ -1096,14 +995,17 @@ function doLike(articleId) {
             display: flex;
             align-items: center;
             flex-wrap: wrap;
+
             .text {
               display: flex;
               align-items: center;
+
               .el-icon,
               i {
                 margin-right: 5px;
               }
             }
+
             .textItem::after {
               content: "·";
               margin: 0 5px;
@@ -1112,6 +1014,7 @@ function doLike(articleId) {
         }
       }
     }
+
     .divider {
       width: 100%;
       height: 2px;
@@ -1119,17 +1022,20 @@ function doLike(articleId) {
       display: -webkit-box;
       display: -ms-flexbox;
       display: flex;
+
       .first {
         -webkit-box-flex: 2;
         -ms-flex: 2;
         flex: 2;
         background: #409eff;
       }
+
       ::v-deep(.el-icon) {
         margin: -16px -10px;
         color: #67c23a;
         font-size: 20px;
       }
+
       .second {
         -webkit-box-flex: 1;
         -ms-flex: 1;
@@ -1151,6 +1057,7 @@ function doLike(articleId) {
           -webkit-clip-path: circle(0 at 0 0);
           clip-path: circle(0 at 0 0);
         }
+
         100% {
           -webkit-clip-path: circle(100%);
           clip-path: circle(100%);
@@ -1570,7 +1477,7 @@ function doLike(articleId) {
   border-top-right-radius: 5px !important;
 }
 
-.mac-icon > span {
+.mac-icon>span {
   display: inline-block !important;
   letter-spacing: 5px !important;
   word-spacing: 5px !important;

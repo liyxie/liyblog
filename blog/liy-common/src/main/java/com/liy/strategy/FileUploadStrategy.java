@@ -1,5 +1,6 @@
 package com.liy.strategy;
 
+import com.liy.entity.SystemFileConfig;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -8,12 +9,16 @@ import org.springframework.web.multipart.MultipartFile;
 public interface FileUploadStrategy {
 
     /**
+     * 初始化
+     */
+    void init();
+
+    /**
      * 上传文件
      * @param file
-     * @param suffix
      * @return
      */
-    String fileUpload(MultipartFile file,String suffix);
+    String fileUpload(MultipartFile file, String path);
 
 
     /**

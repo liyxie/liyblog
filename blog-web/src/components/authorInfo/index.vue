@@ -4,7 +4,7 @@
     <div class="user">
       <div class="avatar_wrapper">
         <img :src="webInfo.authorAvatar" alt="" class="userAvatar" />
-        <img class="guajian" :src="defaultSetting.avatarGaoda" alt="" />
+        <!-- <img class="guajian" :src="defaultSetting.avatarGaoda" alt="" /> -->
       </div>
       <a class="username">
         {{ webInfo.author }}

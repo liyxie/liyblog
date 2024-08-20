@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,6 +76,13 @@ public class ResponseResult {
 
     public static ResponseResult success(Integer code, String message) {
         return new ResponseResult(code, message,null);
+    }
+
+    public static ResponseResult check(Integer ...result) {
+        if(Arrays.stream(result).anyMatch(r -> r == 0)){
+            return error("数据库更新失败");
+        };
+        return success();
     }
 
     public ResponseResult(Integer code, String msg, Object data) {

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.SystemFileConfigMapper">
+
+
+    <!-- 批量更新操作 -->
+    <update id="updateBatchById">
+                <foreach collection="systemFileConfigList" item="item" separator=";">
+                    UPDATE b_system_file_config
+                    <set>
+                        <if test="item.url != null and item.url != ''">
+                            url = #{item.url},
+                        </if>
+                        <if test="item.area != null and item.area != ''">
+                            area = #{item.area},
+                        </if>
+                        <if test="item.bucket != null and item.bucket != ''">
+                            bucket = #{item.bucket},
+                        </if>
+                        <if test="item.accessKey != null and item.accessKey != ''">
+                            access_key = #{item.accessKey},
+                        </if>
+                        <if test="item.secretKey != null and item.secretKey != ''">
+                            secret_key = #{item.secretKey},
+                        </if>
+                        <if test="item.path != null and item.path != ''">
+                            `path` = #{item.path}
+                        </if>
+                    </set>
+                    WHERE id = #{item.id}
+                </foreach>
+
+<!--        <if test="systemFileConfigList != null">-->
+<!--            update b_system_file_config-->
+<!--            <trim prefix="set" suffixOverrides=";">-->
+<!--                <foreach collection="systemFileConfigList" item="item" index="index">-->
+<!--                    <if test="item.url != null and item.url != ''">-->
+<!--                        url = #{item.url},-->
+<!--                    </if>-->
+<!--                    <if test="item.area != null and item.area != ''">-->
+<!--                        area = #{item.area},-->
+<!--                    </if>-->
+<!--                    <if test="item.bucket != null and item.bucket != ''">-->
+<!--                        bucket = #{item.bucket},-->
+<!--                    </if>-->
+<!--                    <if test="item.accessKey != null and item.accessKey != ''">-->
+<!--                        access_key = #{item.accessKey},-->
+<!--                    </if>-->
+<!--                    <if test="item.secretKey != null and item.secretKey != ''">-->
+<!--                        secret_key = #{item.secretKey},-->
+<!--                    </if>-->
+<!--                    <if test="item.path != null and item.path != ''">-->
+<!--                        path = #{item.path},-->
+<!--                    </if>-->
+<!--                </foreach>-->
+
+<!--            </trim>-->
+<!--        </if>-->
+    </update>
+
+    <update id="MyUpdateById">
+            UPDATE b_system_file_config
+            <set>
+                <if test="systemFileConfig.url != null and systemFileConfig.url != ''">
+                    url = #{systemFileConfig.url},
+                </if>
+                <if test="systemFileConfig.area != null and systemFileConfig.area != ''">
+                    area = #{systemFileConfig.area},
+                </if>
+                <if test="systemFileConfig.bucket != null and systemFileConfig.bucket != ''">
+                    bucket = #{systemFileConfig.bucket},
+                </if>
+                <if test="systemFileConfig.accessKey != null and systemFileConfig.accessKey != ''">
+                    access_key = #{systemFileConfig.accessKey},
+                </if>
+                <if test="systemFileConfig.secretKey != null and systemFileConfig.secretKey != ''">
+                    secret_key = #{systemFileConfig.secretKey},
+                </if>
+                <if test="systemFileConfig.path != null and systemFileConfig.path != ''">
+                    `path` = #{systemFileConfig.path},
+                </if>
+            </set>
+            WHERE id = #{systemFileConfig.id} ;
+    </update>
+
+</mapper>

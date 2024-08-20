@@ -1001,7 +1001,10 @@ getCount();
         }
       }
 
-      border-bottom: 1px solid var(--border-line);
+      & {
+        border-bottom: 1px solid var(--border-line);
+      }
+      
     }
 
     .btnBox {

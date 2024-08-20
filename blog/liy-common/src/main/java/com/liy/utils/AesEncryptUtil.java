@@ -15,8 +15,8 @@ public class AesEncryptUtil {
     /**
      * 校验内容是否一致
      */
-    public static boolean validate(String target, String target1) {
-        return target.equalsIgnoreCase(aesEncrypt(target1));
+    public static boolean validate(String password, String input) {
+        return password.equalsIgnoreCase(aesEncrypt(input));
     }
 
     /**
@@ -29,7 +29,14 @@ public class AesEncryptUtil {
         return SaSecureUtil.aesEncrypt(key, password);
     }
 
+
+    public static boolean matches(String password, String input){
+        return SaSecureUtil.aesDecrypt(key, password).equals(input);
+    }
+
     public static void main(String[] args) {
-        System.out.println(aesEncrypt("123456"));
+        String i = aesEncrypt("123456");
+        System.out.println(i);
+        System.out.println(SaSecureUtil.aesDecrypt("liy1900","K29CzeYFWL8Skdn2qATp8g=="));
     }
 }

@@ -1,6 +1,7 @@
 package com.liy.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.liy.dto.system.UpdateSystemConfigDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,23 +27,8 @@ public class SystemConfig implements Serializable {
     private static final long serialVersionUID=1L;
 
     @ApiModelProperty(value = "主键")
-      @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
-
-    @ApiModelProperty(value = "七牛云公钥")
-    private String qiNiuAccessKey;
-
-    @ApiModelProperty(value = "七牛云私钥")
-    private String qiNiuSecretKey;
-
-    @ApiModelProperty(value = "七牛云上传空间")
-    private String qiNiuBucket;
-
-    @ApiModelProperty(value = "七牛云存储区域 华东（z0），华北(z1)，华南(z2)，北美(na0)，东南亚(as0)")
-    private String qiNiuArea;
-
-    @ApiModelProperty(value = "七牛云域名前缀：http://img.shiyit.com/")
-    private String qiNiuPictureBaseUrl;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Integer id;
 
     @ApiModelProperty(value = "是否开启邮件通知(0:否， 1:是)")
     private String startEmailNotification;
@@ -62,9 +48,6 @@ public class SystemConfig implements Serializable {
     @ApiModelProperty(value = "是否开启注册用户邮件激活(0:否， 1:是)")
     private String openEmailActivate;
 
-    @ApiModelProperty(value = "文件上传七牛云(0:否， 1:是)")
-    private String uploadQiNiu;
-
     @ApiModelProperty(value = "邮箱地址")
     private String emailHost;
     @ApiModelProperty(value = "邮箱发件人")
@@ -76,8 +59,6 @@ public class SystemConfig implements Serializable {
     @ApiModelProperty(value = "启用邮箱发送")
     private int openEmail;
 
-    @ApiModelProperty(value = "本地文件地址")
-    private String localFileUrl;
     @ApiModelProperty(value = "文件上传方式 0:本地 1：七牛云")
     private int fileUploadWay;
 
@@ -89,13 +70,25 @@ public class SystemConfig implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updateTime;
 
-    @ApiModelProperty(value = "阿里云AccessKey")
-    private String aliYunAccessKey;
-    @ApiModelProperty(value = "阿里云SecretKey")
-    private String aliYunSecretKey;
-    @ApiModelProperty(value = "阿里云Bucket名称")
-    private String aliYunBucket;
-    @ApiModelProperty(value = "阿里云Endpoint")
-    private String aliYunEndpoint;
 
+    public static SystemConfig DtoToPo(UpdateSystemConfigDTO systemConfigDto) {
+        if (systemConfigDto == null) {
+            return null;
+        }
+        SystemConfig systemConfig = new SystemConfig();
+        systemConfig.setId(systemConfigDto.getId());
+        systemConfig.setStartEmailNotification(systemConfigDto.getStartEmailNotification());
+        systemConfig.setOpenDashboardNotification(systemConfigDto.getOpenDashboardNotification());
+        systemConfig.setDashboardNotification(systemConfigDto.getDashboardNotification());
+        systemConfig.setDashboardNotificationMd(systemConfigDto.getDashboardNotificationMd());
+        systemConfig.setSearchModel(systemConfigDto.getSearchModel());
+        systemConfig.setOpenEmailActivate(systemConfigDto.getOpenEmailActivate());
+        systemConfig.setEmailHost(systemConfigDto.getEmailHost());
+        systemConfig.setEmailUsername(systemConfigDto.getEmailUsername());
+        systemConfig.setEmailPassword(systemConfigDto.getEmailPassword());
+        systemConfig.setEmailPort(systemConfigDto.getEmailPort());
+        systemConfig.setOpenEmail(systemConfigDto.getOpenEmail());
+        systemConfig.setFileUploadWay(systemConfigDto.getFileUploadWay());
+        return systemConfig;
+    }
 }
