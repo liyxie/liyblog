@@ -1,27 +1,20 @@
 <template>
-  <div
-    class="main-container container"
-    v-sy-loading="fullscreenLoading"
-  >
+  <div class="main-container container" v-sy-loading="fullscreenLoading">
     <div class="main">
-      <el-tooltip
-        class="box-item"
-        effect="dark"
-        content="随机视频播放"
-        placement="right"
-      >
-        <div
-          @click="drawer = true"
-          class="hand-style"
-          style="
+
+
+
+      <el-tooltip class="box-item" effect="dark" content="随机视频播放" placement="right">
+        <div @click="drawer = true" class="hand-style" style="
             color: var(--theme-color);
             position: fixed;
             left: 20px;
             bottom: 50%;
             font-size: 1.5rem;
-          "
-        >
-          <el-icon><DArrowRight /></el-icon>
+          ">
+          <el-icon>
+            <DArrowRight />
+          </el-icon>
         </div>
       </el-tooltip>
 
@@ -30,31 +23,48 @@
           <video style="width: 100%" controls autoplay :src="videoSrc"></video>
         </div>
         <div style="margin-left: 20px; margin-top: 10px">
-          <el-button
-            type="primary"
-            icon="DArrowRight"
-            @click="nextVideo"
-          ></el-button>
+          <el-button type="primary" icon="DArrowRight" @click="nextVideo"></el-button>
         </div>
       </el-drawer>
 
+      <!-- 左侧菜单 -->
+      <div class="div-menu">
+        <el-menu default-active="0" class="menu-class" @open="handleOpen" @close="handleClose"
+          active-text-color="#ffd04b" @select="handleSelect">
+          <el-menu-item index="0">
+            <el-icon><Timer /></el-icon>
+            <span>{{ categoryLocalList[0].name }}</span>
+          </el-menu-item>
+          <el-menu-item index="1">
+            <el-icon><CircleCheck /></el-icon>
+            <span>{{ categoryLocalList[1].name }}</span>
+          </el-menu-item>
+          <el-sub-menu index="2">
+            <template #title>
+              <el-icon><Coin /></el-icon>
+              <span>分类专栏</span>
+            </template>
+            <el-menu-item :index="'2-' + index" v-for="(item, index) in categoryList">
+              <el-icon style="margin-left: 3px">
+                  <component :is="item.icon" />
+                </el-icon>
+              <span>{{ item.name }}</span>
+            </el-menu-item>
+          </el-sub-menu>
+          <el-menu-item :index="'3-' + index" v-for="(item, index) in tagList">
+            <el-icon><icon-menu /></el-icon>
+            <span>{{ item.name }}</span>
+          </el-menu-item>
+         
+        </el-menu>
+      </div>
       <div class="main-box">
         <div class="bannerBox" @wheel="goWheel">
           <!-- 轮播图 -->
-          <el-carousel
-            height="150px"
-            class="banner"
-            arrow="always"
-            ref="swiper"
-            motion-blur
-          >
+          <el-carousel height="150px" class="banner" arrow="always" ref="swiper" motion-blur>
             <el-carousel-item v-for="(item, index) in bannerList" :key="index">
               <router-link class="hand-style" :to="'/article/' + item.id">
-                <img
-                  class="bannerImg"
-                  v-lazy="item.avatar"
-                  :key="item.avatar"
-                />
+                <img class="bannerImg" v-lazy="item.avatar" :key="item.avatar" />
                 <h3 class="title">{{ item.title }}</h3>
               </router-link>
             </el-carousel-item>
@@ -82,7 +92,7 @@
         </div>
       </div>
       <!-- 热门分类 -->
-      <div class="hot_category">
+      <!-- <div class="hot_category">
         <el-tabs
           v-model="activeName"
           class="demo-tabs"
@@ -103,18 +113,12 @@
             </template>
           </el-tab-pane>
         </el-tabs>
-      </div>
+      </div> -->
 
       <div class="sayBox box-shadow">
         <router-link :to="'/say'">
-          <a
-            class="say-item"
-            @mouseleave="start"
-            @mouseenter="stop"
-            v-for="(item, index) in sayList"
-            :key="index"
-            v-show="index == currentIndex"
-          >
+          <a class="say-item" @mouseleave="start" @mouseenter="stop" v-for="(item, index) in sayList" :key="index"
+            v-show="index == currentIndex">
             <svg-icon name="say"></svg-icon>
             <span class="say-content" v-html="item.content"> </span>
           </a>
@@ -123,24 +127,17 @@
 
       <div class="content">
         <!-- 左侧内容 -->
-        <div style="width: 100%">
+        <div style="width: 65%">
           <div class="articleBox" v-if="articleList.length > 0">
-            <el-card
-              class="articleItem box-shadow-top wow pulse"
-              v-for="(item, index) in articleList"
-              :key="index"
-            >
+            <el-card class="articleItem box-shadow-top wow pulse" v-for="(item, index) in articleList" :key="index">
               <div class="articleInfo">
                 <div class="articleInfo-item">
                   <div>
-                    <el-tooltip
-                      class="box-item"
-                      effect="dark"
-                      content="原创文章"
-                      placement="top"
-                    >
+                    <el-tooltip class="box-item" effect="dark" content="原创文章" placement="top">
                       <span v-if="item.isOriginal" class="original">
-                        <el-icon><Tickets /></el-icon>
+                        <el-icon>
+                          <Tickets />
+                        </el-icon>
                       </span>
                     </el-tooltip>
 
@@ -157,52 +154,28 @@
 
                   <router-link :to="'/article/' + item.id">
                     <div class="articleImgBox" style="">
-                      <img
-                        class="articleImg hand-style"
-                        v-lazy="item.avatar"
-                        :key="item.avatar"
-                      />
+                      <img class="articleImg hand-style" v-lazy="item.avatar" :key="item.avatar" />
                     </div>
                   </router-link>
                 </div>
               </div>
               <div class="bottumItem">
                 <div class="articleUser">
-                  <el-avatar
-                    class="userAvatar"
-                    :src="item.userAvatar"
-                  ></el-avatar>
+                  <el-avatar class="userAvatar" :src="item.userAvatar"></el-avatar>
                   <span>{{ item.nickname }}</span>
                 </div>
 
                 <div class="tag">
-                  <el-tooltip
-                    class="box-item"
-                    effect="dark"
-                    content="文章分类"
-                    placement="top"
-                  >
-                    <el-tag
-                      class="hand-style"
-                      @click="handleClike(item.categoryId, '/category')"
-                    >
+                  <el-tooltip class="box-item" effect="dark" content="文章分类" placement="top">
+                    <el-tag class="hand-style" @click="handleClike(item.categoryId, '/category')">
                       <i class="el-icon-folder-opened"></i>
                       {{ item.categoryName }}
                     </el-tag>
                   </el-tooltip>
-                  <el-tooltip
-                    class="box-item"
-                    effect="dark"
-                    content="文章标签"
-                    placement="top"
-                    v-for="tag in item.tagList"
-                    :key="tag.id"
-                  >
-                    <el-tag
-                      :type="tagStyle[Math.round(Math.random() * 4)]"
-                      class="hand-style"
-                      @click="handleClike(tag.id, '/tags')"
-                    >
+                  <el-tooltip class="box-item" effect="dark" content="文章标签" placement="top" v-for="tag in item.tagList"
+                    :key="tag.id">
+                    <el-tag :type="tagStyle[Math.round(Math.random() * 4)]" class="hand-style"
+                      @click="handleClike(tag.id, '/tags')">
                       <i class="el-icon-collection-tag"></i>
                       {{ tag.name }}
                     </el-tag>
@@ -211,11 +184,15 @@
 
                 <div class="articleOhter">
                   <span class="item">
-                    <el-icon><View /></el-icon>
+                    <el-icon>
+                      <View />
+                    </el-icon>
                     <span class="name">阅读</span>{{ item.quantity }}
                   </span>
                   <span class="item">
-                    <el-icon><ChatLineRound /></el-icon>
+                    <el-icon>
+                      <ChatLineRound />
+                    </el-icon>
                     <span class="name">评论</span>{{ item.commentCount }}
                   </span>
                   <!-- <span class="item">
@@ -229,53 +206,36 @@
                                         </span>
                                     </span> -->
                   <span class="item">
-                    <i
-                      style="font-size: 0.8rem"
-                      class="iconfont icon-dianzan1"
-                    ></i>
+                    <i style="font-size: 0.8rem" class="iconfont icon-dianzan1"></i>
                     <span class="name">赞</span>{{ item.likeCount }}
                   </span>
                   <span class="item">
-                    <el-icon><Clock /></el-icon>{{ item.formatCreateTime }}
+                    <el-icon>
+                      <Clock />
+                    </el-icon>{{ item.formatCreateTime }}
                   </span>
                 </div>
               </div>
             </el-card>
             <!-- 分页按钮 -->
             <div>
-              <sy-pagination
-                :pageNo="pageData.pageNo"
-                :pages="pages"
-                @changePage="handlePage"
-              />
+              <sy-pagination :pageNo="pageData.pageNo" :pages="pages" @changePage="handlePage" />
             </div>
           </div>
           <sy-empty v-else message="很抱歉，暂无文章" />
         </div>
         <!-- 右侧内容 -->
         <div class="rightBox">
-          <el-card
-            class="box-card"
-            style="perspective: 1000px; position: relative; height: 120px"
-          >
+          <el-card class="box-card" style="perspective: 1000px; position: relative; height: 120px">
             <div class="front">
-              <img
-                style="width: 100%"
-                v-lazy="defaultSetting.overturnImg"
-                :key="defaultSetting.overturnImg"
-                alt=""
-              />
+              <img style="width: 100%" v-lazy="defaultSetting.overturnImg" :key="defaultSetting.overturnImg" alt="" />
             </div>
             <div class="back">
               <div style="width: 50%">
                 <h2>扫一扫</h2>
                 <span style="margin-left: 20px"> 体验小程序 </span>
               </div>
-              <img
-                v-lazy="defaultSetting.appletImg"
-                :key="defaultSetting.appletImg"
-                alt=""
-              />
+              <img v-lazy="defaultSetting.appletImg" :key="defaultSetting.appletImg" alt="" />
             </div>
           </el-card>
           <!-- 推荐文章 -->
@@ -290,19 +250,12 @@
                     <router-link :to="'/article/' + item.id">
                       <div class="imgBox">
                         <span>{{ index + 1 }}</span>
-                        <img
-                          class="hand-style"
-                          v-lazy="item.avatar"
-                          :key="item.avatar"
-                        />
+                        <img class="hand-style" v-lazy="item.avatar" :key="item.avatar" />
                       </div>
                     </router-link>
                   </div>
                   <p class="info">
-                    <router-link
-                      class="tuijian-title hand-style"
-                      :to="'/article/' + item.id"
-                    >
+                    <router-link class="tuijian-title hand-style" :to="'/article/' + item.id">
                       {{ item.title }}
                     </router-link>
 
@@ -322,22 +275,12 @@
               <li v-show="isShow(2)">
                 <div class="guanzhu-item qq">
                   <svg-icon name="qq" />
-                  <a
-                    class="hand-style"
-                    :href="
-                      '//wpa.qq.com/msgrd?v=3&amp;uin=' +
-                      webInfo.qqNumber +
-                      '&amp;site=qq&amp;menu=yes'
-                    "
-                    target="_blank"
-                  >
+                  <a class="hand-style"
+                    :href="'//wpa.qq.com/msgrd?v=3&amp;uin=' + webInfo.qqNumbe + '&amp;site=qq&amp;menu=yes'"
+                    target="_blank">
                     {{ webInfo.qqNumber }}
                   </a>
-                  <span
-                    title="点击复制"
-                    @click="copy(webInfo.qqNumber)"
-                    class="copyBtn name hand-style"
-                  >
+                  <span title="点击复制" @click="copy(webInfo.qqNumber)" class="copyBtn name hand-style">
                     QQ号
                   </span>
                 </div>
@@ -348,11 +291,7 @@
                   <a class="hand-style" href="javascript:;">
                     {{ webInfo.qqGroup }}
                   </a>
-                  <span
-                    title="点击复制"
-                    @click="copy(webInfo.qqGroup)"
-                    class="copyBtn name hand-style"
-                  >
+                  <span title="点击复制" @click="copy(webInfo.qqGroup)" class="copyBtn name hand-style">
                     QQ群
                   </span>
                 </div>
@@ -363,11 +302,7 @@
                   <a class="hand-style" :href="webInfo.github" target="_blank">
                     {{ webInfo.github }}
                   </a>
-                  <span
-                    title="点击复制"
-                    @click="copy(webInfo.github)"
-                    class="copyBtn name hand-style"
-                  >
+                  <span title="点击复制" @click="copy(webInfo.github)" class="copyBtn name hand-style">
                     github
                   </span>
                 </div>
@@ -378,11 +313,7 @@
                   <a class="hand-style" :href="webInfo.gitee" target="_blank">
                     {{ webInfo.gitee }}
                   </a>
-                  <span
-                    title="点击复制"
-                    @click="copy(webInfo.gitee)"
-                    class="copyBtn name hand-style"
-                  >
+                  <span title="点击复制" @click="copy(webInfo.gitee)" class="copyBtn name hand-style">
                     gitee
                   </span>
                 </div>
@@ -390,19 +321,10 @@
               <li v-show="isShow(1)">
                 <div class="guanzhu-item email">
                   <svg-icon name="email" />
-                  <a
-                    class="hand-style"
-                    :href="'mailto:' + webInfo.email"
-                    target="_blank"
-                    title="邮箱"
-                  >
+                  <a class="hand-style" :href="'mailto:' + webInfo.email" target="_blank" title="邮箱">
                     {{ webInfo.email }}
                   </a>
-                  <span
-                    title="点击复制"
-                    @click="copy(webInfo.email)"
-                    class="copyBtn name hand-style"
-                  >
+                  <span title="点击复制" @click="copy(webInfo.email)" class="copyBtn name hand-style">
                     邮箱
                   </span>
                 </div>
@@ -411,11 +333,7 @@
                 <div class="guanzhu-item wechat">
                   <svg-icon name="wechat" />
                   {{ webInfo.wechat }}
-                  <span
-                    title="点击复制"
-                    @click="copy(webInfo.wechat)"
-                    class="copyBtn name hand-style"
-                  >
+                  <span title="点击复制" @click="copy(webInfo.wechat)" class="copyBtn name hand-style">
                     微信
                   </span>
                 </div>
@@ -424,7 +342,7 @@
           </el-card>
 
           <!-- 标签墙 -->
-          <el-card class="box-card tag_container">
+          <!-- <el-card class="box-card tag_container">
             <div class="clearfix">
               <span class="card-title"> 标签墙</span>
               <router-link :to="'/tags'">
@@ -432,20 +350,14 @@
               </router-link>
             </div>
             <div class="tagBox">
-              <span
-                @click="handleClike(item.id, '/tags')"
-                :style="{
-                  backgroundColor: `${randomColor()}`,
-                  fontSize: item.font,
-                }"
-                class="tag-item hand-style"
-                v-for="(item, index) in tagList"
-                :key="index"
-              >
+              <span @click="handleClike(item.id, '/tags')" :style="{
+                backgroundColor: `${randomColor()}`,
+                fontSize: item.font,
+              }" class="tag-item hand-style" v-for="(item, index) in tagList" :key="index">
                 {{ item.name }}
               </span>
             </div>
-          </el-card>
+          </el-card> -->
 
           <!-- 天气组件 -->
           <el-card class="box-card weather">
@@ -469,6 +381,7 @@ import { listSay } from "@/api/say";
 import SiteInfo from "@/components/authorInfo/index.vue";
 import { useSiteStore } from "@/store/moudel/site.js";
 import { ref } from "vue";
+import { pa } from "element-plus/es/locales.mjs";
 
 const { proxy } = getCurrentInstance();
 const defaultSetting = ref(proxy.$setting);
@@ -482,9 +395,8 @@ const pageData = ref({
   pageNo: 1,
   pageSize: 10,
 });
-const activeName = ref("0");
 const bannerList = ref([]);
-const categoryList = ref([
+const categoryLocalList = ref([
   {
     id: null,
     name: "最新",
@@ -498,6 +410,7 @@ const categoryList = ref([
     desc: "quantity",
   },
 ]);
+const categoryList = ref([])
 const articleList = ref([]);
 const pages = ref(0);
 const tagList = ref([]);
@@ -514,12 +427,61 @@ onBeforeUnmount(() => {
   clearInterval(timer);
 });
 
-//点击分类tab标签
-function handleTabClick(tab) {
-  let item = categoryList.value[tab.index];
+//点击左侧菜单
+const handleSelect = (key, keyPath) => {
+  console.log(key, keyPath)
+  let i = key.charAt(0)
+  if(i === '2'){
+    handleTabClick(key.slice(2))
+  }else if(i === '3'){
+    handleTag(key.slice(2))
+  }else{
+    handleNew(categoryLocalList.value[+key].desc)
+  }
+}
+function handleOpen(index){
+  // let i = index.charAt(0)
+  // if(i === '2'){
+  //   handleTabClick(index.slice(2))
+  // }else if(i === '3'){
+  //   handleTag(index.slice(2))
+  // }else{
+  //   handleNew(categoryLocalList.value[+index].desc)
+  // }
+}
+//重置页面文章信息
+function resetPage(){
   pageData.value.pageNo = 1;
+  pageData.value.pageSize = 10;
+  delete pageData.value.categoryId;
+  delete pageData.value.orderByDescColumn;
+  delete pageData.value.tagId;
+}
+//点击分类
+function handleTabClick(index) {
+  console.log(index);
+  let item = categoryList.value[+index];
+  resetPage();
   pageData.value.categoryId = item.id;
-  pageData.value.orderByDescColumn = item.desc;
+  listArticle(pageData.value).then((res) => {
+    articleList.value = res.data.records;
+    pages.value = res.data.pages;
+  });
+}
+//点击tag标签
+function handleTag(index){
+  let item = tagList.value[+index];
+  resetPage();
+  pageData.value.tagId = item.id;
+  listArticle(pageData.value).then((res) => {
+    articleList.value = res.data.records;
+    pages.value = res.data.pages;
+  });
+}
+//点击最新推荐
+function handleNew(desc){
+  resetPage();
+  pageData.value.orderByDescColumn = desc;
   listArticle(pageData.value).then((res) => {
     articleList.value = res.data.records;
     pages.value = res.data.pages;
@@ -541,6 +503,7 @@ function fetchCategoryList() {
   listCategory().then((res) => {
     categoryList.value.push(...res.data);
   });
+  console.log(categoryList)
 }
 
 //要显示的联系方式
@@ -665,7 +628,7 @@ function goWheel() {
 
   swiperOpen.value = false;
   setTimeout(() => {
-    swiperOpen.value = true; 
+    swiperOpen.value = true;
   }, 1000);
   event.preventDefault();
 }
@@ -731,7 +694,7 @@ onMounted(() => {
 
 .banner {
   position: relative;
-  height: 420px;
+  height: 300px;
 
   ::v-deep(.el-carousel__container) {
     height: 100% !important;
@@ -786,10 +749,10 @@ onMounted(() => {
 
   @media screen and (min-width: 1119px) {
     .main {
-      width: 65%;
+      width: 90%;
 
       .bannerBox {
-        width: 70%;
+        width: 55%;
 
         ::v-deep(.banner) {
           border-radius: 5px;
@@ -817,9 +780,9 @@ onMounted(() => {
 
       .top-right {
         display: inline-block;
-        width: 30%;
-        height: 420px;
-        margin-left: 20px;
+        width: 25%;
+        height: 300px;
+        margin-left: 25px;
 
         .soft {
           margin-top: 20px;
@@ -850,6 +813,7 @@ onMounted(() => {
             width: 100%;
             text-decoration: none;
             overflow: hidden;
+
 
             img {
               width: 100%;
@@ -897,7 +861,7 @@ onMounted(() => {
       }
 
       .rightBox {
-        width: 43%;
+        width: 19%;
         margin-left: 20px;
 
         .box-card {
@@ -1303,7 +1267,7 @@ onMounted(() => {
   }
 
   .main {
-    margin-top: 80px;
+    margin-top: 40px;
 
     .video-container {
       position: relative;
@@ -1314,9 +1278,41 @@ onMounted(() => {
       overflow: hidden;
     }
 
+    .div-menu {
+      height: 100%;
+      width: auto;
+      position: fixed;
+      // margin-top: 5px;
+    }
+
+    .menu-class {
+      border-radius: 4px;
+      max-height: 85%;
+      background-color: var(--background-color);
+      overflow: auto;
+      box-shadow: var(--el-box-shadow-light);
+      border-right:rgba(0, 0, 0, 0.3);
+
+      ::v-deep(.el-sub-menu__title) {
+        color: var(--text-color);
+      }
+
+      ::v-deep(.el-menu-item) {
+        color: var(--text-color);
+      }
+
+      ::v-deep(.el-menu) {
+        background-color: var(--background-color);
+      }
+
+
+    }
+
+
     .main-box {
       width: 100%;
       display: flex;
+      justify-content: flex-end;
     }
 
     .hot_category {
@@ -1344,6 +1340,7 @@ onMounted(() => {
         color: var(--article-color);
         animation: fade-in 0.45s linear 1;
         align-items: center;
+
         @keyframes fade-in {
           0% {
             transform: translateY(-30px);
@@ -1384,6 +1381,8 @@ onMounted(() => {
 
     .content {
       display: flex;
+      justify-content: flex-end;
+
 
       .articleBox {
         font-size: 1rem;
@@ -1428,11 +1427,9 @@ onMounted(() => {
               }
 
               .top {
-                background-image: -webkit-linear-gradient(
-                  0deg,
-                  #3ca5f6 0,
-                  #a86af9 100%
-                );
+                background-image: -webkit-linear-gradient(0deg,
+                    #3ca5f6 0,
+                    #a86af9 100%);
                 padding-left: 5px;
                 padding-right: 5px;
                 display: inline-block;
@@ -1495,9 +1492,11 @@ onMounted(() => {
 
               .item {
                 margin-right: 10px;
+
                 .el-icon {
                   vertical-align: -2px;
                 }
+
                 .name {
                   margin-right: 3px;
                 }

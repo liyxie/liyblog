@@ -15,10 +15,7 @@ export const useSettingsStore = defineStore("setting", () => {
     "sidebarLogo",
     defaultSettings.sidebarLogo
   );
-  const logoUrl = useStorage<string>(
-    "logoUrl",
-    defaultSettings.logo
-  );
+  const logoUrl = useStorage<string>("logoUrl", defaultSettings.logo);
   // 是否固定头部
   const fixedHeader = useStorage<boolean>(
     "fixedHeader",

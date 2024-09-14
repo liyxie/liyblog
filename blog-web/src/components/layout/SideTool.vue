@@ -47,7 +47,7 @@
       <a
         href="javascript:void(0)"
         class="toolbar_item hand-style"
-        @click="chageTheme"
+        @click="chageTheme()"
       >
         <i
           class="iconfont icon-taiyang theme"

@@ -156,7 +156,7 @@
 
                 <a
                   style="text-decoration: none; color: #71777c"
-                  href="https://gitee.com/quequnlong/shiyi-blog"
+                  href="https://gitee.com/LiYie/liyblog"
                   target="_blank"
                 >
                   <el-dropdown-item>
@@ -466,7 +466,7 @@ function openDrawer() {
     position: fixed;
     top: 0;
     width: 100%;
-    line-height: 60px;
+    line-height: 45px;
     z-index: 99;
     background-color: var(--header-back-color);
 
@@ -541,7 +541,7 @@ function openDrawer() {
     position: fixed;
     top: 0;
     width: 100%;
-    line-height: 60px;
+    line-height: 45px;
     z-index: 99;
     background-color: var(--header-back-color);
     backdrop-filter: blur(25px);
@@ -640,7 +640,7 @@ function openDrawer() {
             width: 180px;
             height: 35px;
             line-height: 35px;
-            margin-top: 13px;
+            margin-top: 5px;
             font-size: 15px;
             border-radius: 5px;
             color: #82848a;
@@ -666,7 +666,7 @@ function openDrawer() {
         .noticeBtn {
           ::v-deep(.el-dropdown) {
             right: 0;
-            top: 20px;
+            top: 15px;
           }
           svg {
             width: 20px;

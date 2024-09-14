@@ -139,7 +139,7 @@ function handleDelete(categoryId?: number) {
   if (ids.value.length) {
     categoryIds.value = ids.value;
   }
-  if (!categoryIds) {
+  if (!categoryIds.value) {
     ElMessage.warning("请勾选删除项");
     return;
   }

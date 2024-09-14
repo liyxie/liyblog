@@ -97,6 +97,45 @@ public boolean isTablePresent(String tableName) {
 
 [Activiti6集成springboot后不执行创建语句，直接报查询的表不存在_spring整合activiti6 pg数据库表不新建-CSDN博客](https://blog.csdn.net/sinat_34163739/article/details/103142013)
 
+
+
+# Hutool的DateUtil注意事项
+
+hutool：5.8.18
+
+在做打卡程序时出现错误，早上8点时大部分人反馈打不了卡，经过检查发现是时区设置问题；
+
+### 问题
+
+打卡业务中在查询记录时用了
+
+```sql
+date = CURRENT_DATE
+```
+
+在新插入记录时采用了hutool的api
+
+```java
+String date = DateUtil.today();
+```
+
+结果today();得到的时间是UTC（协调世界时），就是以下的格式
+
+2024-08-27T23:59:39；2024-08-28T00:00:50
+
+而Mysql的CURRENT_DATE用的是Mysql服务器时区，国内一般会是UTC+8；
+
+```sql
+-- 查询mysql服务器全局和会话级别的时区设置，SYSTEM代表使用系统时区
+SELECT @@global.time_zone, @@session.time_zone; 
+```
+
+UTC+8会比UTC少8小时，因此8点前today();得出的是前一天，CURRENT_DATE是当天，造成新打卡数据错误；
+
+### 解决
+
+设置DateUtil时区
+
 # 待做
 
 响应速度提升
@@ -104,3 +143,12 @@ public boolean isTablePresent(String tableName) {
 升级SpringBoot3.x
 
 架构改模块化或微服务
+
+https://www.shiyit.com/shiyi/oauth/callback/gitee
+
+
+
+
+
+http://localhost:8000/liy/oauth/callback/gitee?code=1d874b3860998a8f2a224d921fc0c8e12257db0817f3b77630b993755d8703f3&state=58c847f22d181dadbaa72baec426e384
+

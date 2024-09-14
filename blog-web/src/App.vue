@@ -35,7 +35,7 @@ const userStore = useUserStore();
 onMounted(() => {
   let theme = sessionStorage.getItem("theme");
   if (theme == null) {
-    theme = "light";
+    theme = "dark";
   }
   document.documentElement.dataset.theme = theme;
 });

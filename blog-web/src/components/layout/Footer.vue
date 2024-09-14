@@ -8,14 +8,20 @@
 
           <p>
             Copyright©2022-{{ nowYear }}
-            <a href="https://gitee.com/quequnlong/shiyi-blog" target="_blank">{{
+            <!-- <a href="https://gitee.com/quequnlong/shiyi-blog" target="_blank">{{
               webInfo.name
-            }}</a>
-            <a
+            }}</a> -->
+            <!-- <a
               href="https://beian.miit.gov.cn/"
               target="_blank"
               style="margin-left: 10px"
               >{{ webInfo.recordNum }}</a
+            > -->
+            <a
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              style="margin-left: 10px"
+              >粤ICP备2024286729号-2</a
             >
           </p>
           <div class="run_time">
@@ -35,8 +41,7 @@
           <i class="thumb"></i>
         </div>
         <div class="girl-info">
-          <h4>绿水本无忧，因风皱面</h4>
-          <h4>青山原不老，为雪白头</h4>
+          <!-- <h4>绿水本无忧，因风皱面</h4> -->
         </div>
       </div>
 

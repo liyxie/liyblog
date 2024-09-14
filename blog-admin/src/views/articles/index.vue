@@ -180,7 +180,7 @@ function handleDelete(id?: number) {
   if (ids.value.length) {
     formIds.value = ids.value;
   }
-  if (!formIds) {
+  if (!formIds.value) {
     ElMessage.warning("请勾选删除项");
     return;
   }
@@ -417,69 +417,28 @@ onMounted(() => {
     <div class="search-container">
       <el-form ref="queryFormRef" :model="queryParams" :inline="true">
         <el-form-item prop="title" label="文章名称">
-          <el-input
-            v-model="queryParams.title"
-            placeholder="文章名称"
-            clearable
-            @keyup.enter="handleQuery"
-          />
+          <el-input v-model="queryParams.title" placeholder="文章名称" clearable @keyup.enter="handleQuery" />
         </el-form-item>
         <el-form-item label="标签名" prop="tagId">
-          <el-select
-            style="width: 130px"
-            v-model="queryParams.tagId"
-            filterable
-            clearable
-            reserve-keyword
-            @change="handleQuery"
-            placeholder="请选择标签"
-          >
-            <el-option
-              v-for="item in tagList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select style="width: 130px" v-model="queryParams.tagId" filterable clearable reserve-keyword
+            @change="handleQuery" placeholder="请选择标签">
+            <el-option v-for="item in tagList" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="分类名" prop="categoryId">
-          <el-select
-            style="width: 130px"
-            v-model="queryParams.categoryId"
-            clearable
-            reserve-keyword
-            @change="handleQuery"
-            placeholder="请选择分类"
-          >
-            <el-option
-              v-for="item in categoryList"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select style="width: 130px" v-model="queryParams.categoryId" clearable reserve-keyword
+            @change="handleQuery" placeholder="请选择分类">
+            <el-option v-for="item in categoryList" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-form-item>
         <el-form-item label="发布状态" prop="isPublish">
-          <el-select
-            style="width: 130px"
-            v-model="queryParams.isPublish"
-            clearable
-            reserve-keyword
-            placeholder="是否发布"
-            @change="handleQuery"
-          >
-            <el-option
-              v-for="(item, index) in publishList"
-              :key="index"
-              :label="item.label"
-              :value="item.value"
-            />
+          <el-select style="width: 130px" v-model="queryParams.isPublish" clearable reserve-keyword placeholder="是否发布"
+            @change="handleQuery">
+            <el-option v-for="(item, index) in publishList" :key="index" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleQuery"
-            ><i-ep-search />搜索</el-button
-          >
+          <el-button type="primary" @click="handleQuery"><i-ep-search />搜索</el-button>
           <el-button @click="resetQuery"><i-ep-refresh />重置</el-button>
         </el-form-item>
       </el-form>
@@ -487,270 +446,134 @@ onMounted(() => {
 
     <el-card shadow="never" class="table-container">
       <template #header>
-        <el-button
-          type="success"
-          @click="openDialog()"
-          v-hasPerm="['system:article:add']"
-          ><i-ep-plus />新增</el-button
-        >
-        <el-button
-          type="primary"
-          @click="openReptile"
-          v-hasPerm="['system:article:reptile']"
-          ><el-icon><MostlyCloudy /></el-icon>csdn文章抓取</el-button
-        >
-        <el-button
-          type="info"
-          @click="handleSeo"
-          v-hasPerm="['system:article:seo']"
-          ><el-icon><MostlyCloudy /></el-icon>SEO</el-button
-        >
-        <el-button
-          type="danger"
-          :disabled="ids.length === 0"
-          v-hasPerm="['system:article:delete']"
-          @click="handleDelete()"
-          ><i-ep-delete />批量删除</el-button
-        >
+        <el-button type="success" @click="openDialog()" v-hasPerm="['system:article:add']"><i-ep-plus />新增</el-button>
+        <el-button type="primary" @click="openReptile" v-hasPerm="['system:article:reptile']"><el-icon>
+            <MostlyCloudy />
+          </el-icon>csdn文章抓取</el-button>
+        <el-button type="info" @click="handleSeo" v-hasPerm="['system:article:seo']"><el-icon>
+            <MostlyCloudy />
+          </el-icon>SEO</el-button>
+        <el-button type="danger" :disabled="ids.length === 0" v-hasPerm="['system:article:delete']"
+          @click="handleDelete()"><i-ep-delete />批量删除</el-button>
       </template>
 
-      <el-table
-        ref="dataTableRef"
-        :data="tableData"
-        highlight-current-row
-        stripe
-        fit
-        @selection-change="handleSelectionChange"
-        v-loading="loading"
-        max-height="600px"
-      >
+      <el-table ref="dataTableRef" :data="tableData" highlight-current-row stripe fit
+        @selection-change="handleSelectionChange" v-loading="loading" max-height="600px">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column width="170" align="center" label="文章封面">
           <template #default="scope">
             <el-image class="article-cover" :src="scope.row.avatar" />
           </template>
         </el-table-column>
-        <el-table-column
-          prop="title"
-          align="center"
-          label="文章名称"
-          width="220"
-        >
+        <el-table-column prop="title" align="center" label="文章名称" width="220">
           <template #default="scope">
-            <el-link
-              :underline="false"
-              :href="homeUrl + scope.row.id"
-              target="_blank"
-              >{{ scope.row.title }}</el-link
-            >
+            <el-link :underline="false" :href="homeUrl + scope.row.id" target="_blank">{{ scope.row.title }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="nickname"
-          width="120"
-          align="center"
-          label="文章作者"
-        />
+        <el-table-column prop="nickname" width="120" align="center" label="文章作者" />
         <el-table-column align="center" width="116" label="类型">
           <template #default="scope">
             <span v-for="(item, index) in isOriginalList" :key="index">
-              <el-tag
-                :type="scope.row.isOriginal === 0 ? 'warning' : 'success'"
-                :key="index"
-                v-if="scope.row.isOriginal === index"
-                >{{ item }}
+              <el-tag :type="scope.row.isOriginal === 0 ? 'warning' : 'success'" :key="index"
+                v-if="scope.row.isOriginal === index">{{ item }}
               </el-tag>
             </span>
           </template>
         </el-table-column>
         <el-table-column align="center" width="125" label="分类">
           <template #default="scope">
-            <el-tag style="margin-left: 3px" align="center" type="warning"
-              >{{ scope.row.categoryName }}
+            <el-tag style="margin-left: 3px" align="center" type="warning">{{ scope.row.categoryName }}
             </el-tag>
           </template>
         </el-table-column>
         <el-table-column align="center" width="220" label="标签">
           <template #default="scope">
-            <el-tag
-              style="margin-left: 3px"
-              align="center"
-              type="primary"
-              v-for="item in strSplit(scope.row.tagNames)"
-              :key="item"
-              >{{ item }}
+            <el-tag style="margin-left: 3px" align="center" type="primary" v-for="item in strSplit(scope.row.tagNames)"
+              :key="item">{{ item }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column
-          prop="isStick"
-          align="center"
-          width="120"
-          label="置顶"
-          v-hasPerm="['system:article:top']"
-        >
+        <el-table-column prop="isStick" align="center" width="120" label="置顶" v-hasPerm="['system:article:top']">
           <template #default="scope">
-            <el-switch
-              v-model="scope.row.isStick"
-              :active-value="1"
-              :inactive-value="0"
-              @change="handleTop(scope.row)"
-              active-color="#13ce66"
-            >
-            </el-switch>
+            <el-switch v-model="scope.row.isStick" :active-value="1" :inactive-value="0" @change="handleTop(scope.row)"
+              active-color="#13ce66" />
           </template>
         </el-table-column>
         <el-table-column align="center" width="120" label="阅读方式">
           <template #default="scope">
             <el-tag :type="readTypeStyle[scope.row.readType]">{{
               readTypeList[scope.row.readType]
-            }}</el-tag>
+              }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column align="center" width="120" label="状态">
           <template #default="scope">
             <span v-for="(item, index) in publishList" :key="index">
-              <el-tag
-                v-if="item.value == scope.row.isPublish"
-                :type="item.style"
-                >{{ item.label }}</el-tag
-              >
+              <el-tag v-if="item.value == scope.row.isPublish" :type="item.style">{{ item.label }}</el-tag>
             </span>
           </template>
         </el-table-column>
-        <el-table-column
-          width="200"
-          align="center"
-          prop="createTime"
-          sortable
-          label="添加时间"
-        />
+        <el-table-column width="200" align="center" prop="createTime" sortable label="添加时间" />
         <el-table-column width="220" fixed="right" align="center" label="操作">
           <template #default="scope">
-            <el-button
-              v-hasPerm="['system:article:toggleArticlePublication']"
-              type="info"
-              link
-              size="small"
-              v-if="scope.row.isPublish === 1"
-              @click="handleUpdateStatus(scope.row, 0)"
-              icon="Bottom"
-              >下架</el-button
-            >
-            <el-button
-              v-hasPerm="['system:article:toggleArticlePublication']"
-              v-if="scope.row.isPublish === 0"
-              type="success"
-              link
-              size="small"
-              @click="handleUpdateStatus(scope.row, 1)"
-              icon="Position"
-            >
+            <el-button v-hasPerm="['system:article:toggleArticlePublication']" type="info" link size="small"
+              v-if="scope.row.isPublish === 1" @click="handleUpdateStatus(scope.row, 0)" icon="Bottom">下架</el-button>
+            <el-button v-hasPerm="['system:article:toggleArticlePublication']" v-if="scope.row.isPublish === 0"
+              type="success" link size="small" @click="handleUpdateStatus(scope.row, 1)" icon="Position">
               发布
             </el-button>
-            <el-button
-              type="primary"
-              size="small"
-              link
-              @click="openDialog(scope.row)"
-              icon="Edit"
-              v-hasPerm="['system:article:update']"
-              >编辑</el-button
-            >
-            <el-button
-              size="small"
-              link
-              type="danger"
-              @click="handleDelete(scope.row.id)"
-              icon="Delete"
-              v-hasPerm="['system:article:delete']"
-              >删除</el-button
-            >
+            <el-button type="primary" size="small" link @click="openDialog(scope.row)" icon="Edit"
+              v-hasPerm="['system:article:update']">编辑</el-button>
+            <el-button size="small" link type="danger" @click="handleDelete(scope.row.id)" icon="Delete"
+              v-hasPerm="['system:article:delete']">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <pagination
-        v-if="total > 0"
-        v-model:total="total"
-        v-model:page="queryParams.pageNo"
-        v-model:limit="queryParams.pageSize"
-        @pagination="handleQuery"
-      />
+      <pagination v-if="total > 0" v-model:total="total" v-model:page="queryParams.pageNo"
+        v-model:limit="queryParams.pageSize" @pagination="handleQuery" />
     </el-card>
 
     <!--添加or修改区域-->
-    <el-dialog
-      center
-      :title="dialog.title"
-      @close="closeDialog"
-      v-model="dialog.visible"
-      fullscreen
-    >
-      <el-form
-        :rules="rules"
-        ref="formRef"
-        :model="formData"
-        style="margin-top: 10px"
-      >
+    <el-dialog center :title="dialog.title" @close="closeDialog" v-model="dialog.visible" fullscreen>
+      <el-form :rules="rules" ref="formRef" :model="formData" style="margin-top: 10px">
         <el-row>
           <el-col :span="10">
             <el-form-item label="文章名称" prop="title">
-              <el-input v-model="formData.title" auto-complete="off"></el-input>
+              <el-input v-model="formData.title" auto-complete="off" />
             </el-form-item>
             <el-form-item label="文章简介" prop="summary">
-              <el-input
-                auto-complete="off"
-                type="textarea"
-                v-model="formData.summary"
-              ></el-input>
+              <el-input auto-complete="off" type="textarea" v-model="formData.summary" />
             </el-form-item>
           </el-col>
-          <el-col :span="1"> </el-col>
+          <el-col :span="1" />
           <el-col :span="12">
             <el-form-item>
               <template #label>
                 <div style="display: flex; align-items: center">
                   <span>标题图:</span>
-                  <el-popover
-                    placement="top"
-                    width="160"
-                    trigger="hover"
-                    v-model="visible"
-                  >
+                  <el-popover placement="top" width="160" trigger="hover" v-model="visible">
                     <p>随机获取一张图片</p>
                     <div style="text-align: right; margin: 0">
-                      <el-button type="info" link @click="visible = false"
-                        >取消</el-button
-                      >
-                      <el-button type="primary" @click="randomImg()"
-                        >确定</el-button
-                      >
+                      <el-button type="info" link @click="visible = false">取消</el-button>
+                      <el-button type="primary" @click="randomImg()">确定</el-button>
                     </div>
                     <template #reference>
-                      <el-icon><QuestionFilled /></el-icon>
+                      <el-icon>
+                        <QuestionFilled />
+                      </el-icon>
                     </template>
                   </el-popover>
                 </div>
               </template>
 
-              <el-upload
-                v-loading="loading"
-                style="width: 80px; height: 80px"
-                class="avatar-uploader"
-                :show-file-list="false"
-                name="filedatas"
-                :action="uploadPictureHost"
-                :before-upload="uploadBefore"
-                :http-request="uploadSectionFile"
-                multiple
-              >
-                <img
-                  v-if="formData.avatar"
-                  :src="formData.avatar"
-                  class="imgAvatar"
-                />
-                <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+              <el-upload v-loading="loading" style="width: 80px; height: 80px" class="avatar-uploader"
+                :show-file-list="false" name="filedatas" :action="uploadPictureHost" :before-upload="uploadBefore"
+                :http-request="uploadSectionFile" multiple>
+                <img v-if="formData.avatar" :src="formData.avatar" class="imgAvatar" />
+                <el-icon v-else class="avatar-uploader-icon">
+                  <Plus />
+                </el-icon>
               </el-upload>
             </el-form-item>
           </el-col>
@@ -758,39 +581,22 @@ onMounted(() => {
         <el-row style="margin-top: 20px">
           <el-col :span="6">
             <el-form-item label="标签" prop="tags">
-              <el-tag
-                v-for="(item, index) of formData.tags"
-                :key="index"
-                style="margin: 0 1rem 0 0"
-                :closable="true"
-                @close="removeTag(item)"
-              >
+              <el-tag v-for="(item, index) of formData.tags" :key="index" style="margin: 0 1rem 0 0" :closable="true"
+                @close="removeTag(item)">
                 {{ item }}
               </el-tag>
               <!-- 标签选项 -->
-              <el-popover
-                placement="bottom-start"
-                width="460"
-                trigger="click"
-                v-if="formData.tags && formData.tags.length < 3"
-              >
+              <el-popover placement="bottom-start" width="460" trigger="click"
+                v-if="formData.tags && formData.tags.length < 3">
                 <div class="popover-title">标签</div>
                 <!-- 搜索框 -->
-                <el-input
-                  style="width: 100%"
-                  v-model="tagName"
-                  placeholder="请输入标签名,enter添加自定义标签"
-                  @keyup.enter="saveTag"
-                />
+                <el-input style="width: 100%" v-model="tagName" placeholder="请输入标签名,enter添加自定义标签"
+                  @keyup.enter="saveTag" />
                 <!-- 标签 -->
                 <div class="popover-container">
                   <div>添加标签</div>
-                  <el-tag
-                    v-for="(item, index) of tagList"
-                    :key="index"
-                    style="margin-left: 3px; margin-top: 2px"
-                    @click="addTag(item)"
-                  >
+                  <el-tag v-for="(item, index) of tagList" :key="index" style="margin-left: 3px; margin-top: 2px"
+                    @click="addTag(item)">
                     {{ item.name }}
                   </el-tag>
                 </div>
@@ -802,40 +608,21 @@ onMounted(() => {
           </el-col>
           <el-col :span="4">
             <el-form-item label="分类" prop="categoryName">
-              <el-tag
-                type="success"
-                v-show="formData.categoryName"
-                style="margin: 0 1rem 0 0"
-                :closable="true"
-                @close="removeCategory"
-              >
+              <el-tag type="success" v-show="formData.categoryName" style="margin: 0 1rem 0 0" :closable="true"
+                @close="removeCategory">
                 {{ formData.categoryName }}
               </el-tag>
               <!-- 分类选项 -->
-              <el-popover
-                placement="bottom-start"
-                width="460"
-                trigger="click"
-                v-if="!formData.categoryName"
-              >
+              <el-popover placement="bottom-start" width="460" trigger="click" v-if="!formData.categoryName">
                 <div class="popover-title">分类</div>
                 <!-- 输入框 -->
-                <el-input
-                  style="width: 100%"
-                  v-model="categoryName"
-                  placeholder="请输入分类名,enter添加自定义分类"
-                  @keyup.enter="saveCategory"
-                />
+                <el-input style="width: 100%" v-model="categoryName" placeholder="请输入分类名,enter添加自定义分类"
+                  @keyup.enter="saveCategory" />
                 <!-- 分类 -->
                 <div class="popover-container">
                   <div>添加分类</div>
-                  <el-tag
-                    v-for="(item, index) of categoryList"
-                    :key="index"
-                    style="margin-left: 3px; margin-top: 2px"
-                    class="category-item"
-                    @click="addCategory(item)"
-                  >
+                  <el-tag v-for="(item, index) of categoryList" :key="index" style="margin-left: 3px; margin-top: 2px"
+                    class="category-item" @click="addCategory(item)">
                     {{ item.name }}
                   </el-tag>
                 </div>
@@ -848,26 +635,16 @@ onMounted(() => {
           <el-col :span="5">
             <el-form-item label="是否置顶" prop="isStick">
               <el-radio-group v-model="formData.isStick">
-                <el-radio
-                  v-for="(item, index) in yesOrNoList"
-                  :value="parseInt(item.value)"
-                  :label="item.label"
-                  border
-                  :key="index"
-                />
+                <el-radio v-for="(item, index) in yesOrNoList" :value="parseInt(item.value)" :label="item.label" border
+                  :key="index" />
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="是否发布" prop="isPublish">
               <el-radio-group v-model="formData.isPublish">
-                <el-radio
-                  v-for="(item, index) in publishList"
-                  :key="index"
-                  :value="parseInt(item.value)"
-                  :label="item.label"
-                  border
-                />
+                <el-radio v-for="(item, index) in publishList" :key="index" :value="parseInt(item.value)"
+                  :label="item.label" border />
               </el-radio-group>
             </el-form-item>
           </el-col>
@@ -876,69 +653,43 @@ onMounted(() => {
         <el-row style="margin-top: 20px">
           <el-col :span="4">
             <el-form-item label="阅读方式" prop="readType">
-              <el-select
-                style="width: 150px"
-                v-model="formData.readType"
-                placeholder="请选择阅读方式"
-              >
-                <el-option
-                  v-for="(item, index) in readTypeList"
-                  :key="index"
-                  :label="item"
-                  :value="index"
-                >
-                </el-option>
+              <el-select style="width: 150px" v-model="formData.readType" placeholder="请选择阅读方式">
+                <el-option v-for="(item, index) in readTypeList" :key="index" :label="item" :value="index" />
               </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="创作类型" prop="isOriginal">
               <el-radio-group v-model="formData.isOriginal">
-                <el-radio
-                  v-for="(item, index) in isOriginalList"
-                  :label="item"
-                  :value="index"
-                  :key="index"
-                  border
-                />
+                <el-radio v-for="(item, index) in isOriginalList" :label="item" :value="index" :key="index" border />
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col v-if="formData.isOriginal === 0" :span="5">
             <el-form-item label="原文链接" prop="originalUrl">
-              <el-input v-model="formData.originalUrl"></el-input>
+              <el-input v-model="formData.originalUrl" />
             </el-form-item>
           </el-col>
 
           <el-col :span="5">
             <el-form-item label="是否推荐" prop="isRecommend">
               <el-radio-group v-model="formData.isRecommend">
-                <el-radio
-                  v-for="(item, index) in yesOrNoList"
-                  :value="parseInt(item.value)"
-                  :label="item.label"
-                  border
-                  :key="index"
-                />
+                <el-radio v-for="(item, index) in yesOrNoList" :value="parseInt(item.value)" :label="item.label" border
+                  :key="index" />
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="是否首页轮播" prop="isCarousel">
               <el-radio-group v-model="formData.isCarousel">
-                <el-radio
-                  v-for="(item, index) in yesOrNoList"
-                  :value="parseInt(item.value)"
-                  :label="item.label"
-                  border
-                  :key="index"
-                />
+                <el-radio v-for="(item, index) in yesOrNoList" :value="parseInt(item.value)" :label="item.label" border
+                  :key="index" />
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="5">
             <el-form-item label="SEO关键词">
-              <el-input v-model="formData.keywords"></el-input>
+              <el-input v-model="formData.keywords" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -946,33 +697,22 @@ onMounted(() => {
         <el-row style="margin-top: 20px">
           <el-col :spam="24">
             <el-form-item label="内容" prop="contentMd">
-              <mavon-editor
-                placeholder="输入文章内容..."
-                style="height: 500px; width: 100%"
-                ref="mdRef"
-                v-model="formData.contentMd"
-                @imgDel="imgDel"
-                @imgAdd="imgAdd"
-              >
+              <mavon-editor placeholder="输入文章内容..." style="height: 500px; width: 100%" ref="mdRef"
+                v-model="formData.contentMd" @img-del="imgDel" @img-add="imgAdd" codeStyle="dark" :ishljs="true"
+                toolbarsBackground="#3d3c3c">
                 <template #left-toolbar-after>
                   <el-dropdown>
                     <span class="el-dropdown-link">
                       <i title="上传视频"></i>
-                      <el-icon class="op-icon fa el-icon-video-camera"
-                        ><VideoPlay
-                      /></el-icon>
+                      <el-icon class="op-icon fa el-icon-video-camera">
+                        <VideoPlay />
+                      </el-icon>
                     </span>
                     <template #dropdown>
                       <el-dropdown-menu>
                         <el-dropdown-item>
-                          <el-upload
-                            style="display: inline-block"
-                            :show-file-list="false"
-                            name="filedatas"
-                            action=""
-                            :http-request="uploadVideo"
-                            multiple
-                          >
+                          <el-upload style="display: inline-block" :show-file-list="false" name="filedatas" action=""
+                            :http-request="uploadVideo" multiple>
                             <span>上传视频</span>
                           </el-upload>
                         </el-dropdown-item>
@@ -997,7 +737,7 @@ onMounted(() => {
     </el-dialog>
 
     <el-dialog center title="添加视频" v-model="dialogVisible" width="30%">
-      <el-input v-model="videoInput" placeholder="视频地址"></el-input>
+      <el-input v-model="videoInput" placeholder="视频地址" />
 
       <template #footer>
         <div class="dialog-footer">
@@ -1010,7 +750,7 @@ onMounted(() => {
     <el-dialog title="文章抓取" v-model="dialogTableVisible">
       <el-form>
         <el-form-item label="目标地址url">
-          <el-input v-model="reptileUrl" autocomplete="off"></el-input>
+          <el-input v-model="reptileUrl" autocomplete="off" />
         </el-form-item>
         <el-form-item label="tip">
           <span style="color: limegreen">
