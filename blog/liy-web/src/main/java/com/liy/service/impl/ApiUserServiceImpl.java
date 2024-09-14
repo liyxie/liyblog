@@ -43,6 +43,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.zhyd.oauth.model.AuthResponse;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,6 +75,8 @@ public class ApiUserServiceImpl implements ApiUserService {
 
     private final EmailService emailService;
 
+    @Value("${httpRedirect}")
+    private String redirect;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -225,7 +228,7 @@ public class ApiUserServiceImpl implements ApiUserService {
     public void authLogin(AuthResponse response, String source,  HttpServletResponse httpServletResponse) throws IOException {
         if (response.getData() == null) {
             log.info("用户取消了 {} 第三方登录",source);
-            httpServletResponse.sendRedirect("http://www.shiyit.com");
+            httpServletResponse.sendRedirect(redirect);
             return;
         }
         String result = com.alibaba.fastjson.JSONObject.toJSONString(response.getData());
@@ -263,7 +266,7 @@ public class ApiUserServiceImpl implements ApiUserService {
         }
 
         StpUtil.setLoginId(user.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
-        httpServletResponse.sendRedirect("http://www.shiyit.com/?token=" + StpUtil.getTokenValue());
+        httpServletResponse.sendRedirect(redirect + "/?token=" + StpUtil.getTokenValue());
     }
 
     @Override

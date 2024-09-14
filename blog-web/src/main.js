@@ -51,9 +51,9 @@ import VueLazyLoad from 'vue-lazyload'
 app.use(VueLazyLoad, {
   preLoad: 1,
   // 懒加载默认加载图片
-  loading: 'https://img.shiyit.com/20240123_1705973123698.gif',
+  loading: 'https://liy1900-1258789570.cos.ap-guangzhou.myqcloud.com/www/wwwroot/blog/system/20240823161551.gif',
   // 加载失败后加载的图片
-  error: 'https://img.shiyit.com/20240123_1705973581037.png',
+  error: 'https://liy1900-1258789570.cos.ap-guangzhou.myqcloud.com/www/wwwroot/blog/common/JiaZaiShiBai.svg',
   attempt: 1
 })
 
@@ -62,7 +62,6 @@ app.use(Loading)
 
 import defaultSetting from "@/setting";
 app.config.globalProperties.$setting = defaultSetting
-
 
 
 //全局导入el图标

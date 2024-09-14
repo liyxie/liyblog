@@ -16,7 +16,7 @@
         </span>
         <span class="content" v-html="siteStore.getWebInfo.bulletin"></span>
         <span class="closeBtn hand-style " @click="closeMsg">
-          关闭 <el-icon><CloseBold /></el-icon>
+          关闭 <el-icon><CloseBold /></el-icon> 
         </span>
       </span>
     </marquee>
@@ -32,6 +32,7 @@ const showNotice = ref(siteStore.getWebInfo.showBulletin == 1);
 const noticeRef = ref();
 
 function closeMsg() {
+  console.log("closeMsg")
   var message = document.getElementById("message");
   message.style.opacity = 0;
   setTimeout(function () {
@@ -49,13 +50,14 @@ function start() {
 </script>
 <style scoped lang='scss'>
 .message {
+  z-index: 20;
   width: 100%;
   overflow: hidden;
   position: relative;
   height: 30px;
   line-height: 30px;
   color: var(--text-color1);
-  top: 60px;
+  top: 40px;
   transition: all 0.5s linear;
 
   .msg {

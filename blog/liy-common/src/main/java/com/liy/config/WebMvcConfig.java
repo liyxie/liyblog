@@ -28,7 +28,7 @@ public class WebMvcConfig implements WebMvcConfigurer  {
         registry.addInterceptor(new PageableInterceptor());
 
         // 注册Sa-Token的路由拦截器
-        registry.addInterceptor(new SaRouteInterceptor()).addPathPatterns("/system/**").excludePathPatterns("/login","/logout","/verify");
+        registry.addInterceptor(new SaRouteInterceptor()).addPathPatterns("/system/**").addPathPatterns("/v1/**").excludePathPatterns("/login","/logout","/verify");
 
     }
 

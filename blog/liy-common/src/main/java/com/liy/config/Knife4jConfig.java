@@ -32,7 +32,7 @@ public class Knife4jConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .description("liy博客接口文档")
-                .contact(new Contact("liy", "https://www..com", "1248954763@qq.com"))
+                .contact(new Contact("liy", "https://www.liy1900.xyz", "liy200110@163.com"))
                 .version("v1.1.0")
                 .title("liy博客接口文档")
                 .build();

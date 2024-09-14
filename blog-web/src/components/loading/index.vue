@@ -1,7 +1,7 @@
 <template>
   <div class="loading-container" v-if="show">
     <div class="loader"></div>
-    <div class="tips">正在快马加鞭的加载中....</div>
+    <div class="tips">正在加载中....</div>
   </div>
 </template>
 
@@ -69,9 +69,9 @@ defineExpose({
   inset: -150% -150%;
   background: repeating-conic-gradient(
     from 30deg,
-    #ffabab 0 60deg,
-    #abe4ff 0 120deg,
-    #ff7373 0 180deg
+    #62d35e 0 60deg,
+    #0fabf4 0 120deg,
+    #5204e2 0 180deg
   );
   animation: inherit;
   animation-direction: reverse;

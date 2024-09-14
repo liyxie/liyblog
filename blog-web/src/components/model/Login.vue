@@ -48,7 +48,7 @@
         <div>
           <div class="social-login-title">社交账号登录</div>
           <div class="social-login-wrapper">
-            <el-tooltip
+            <!-- <el-tooltip
               class="box-item"
               effect="dark"
               content="QQ登录"
@@ -61,7 +61,7 @@
               >
                 <svg-icon name="qq" />
               </a>
-            </el-tooltip>
+            </el-tooltip> -->
 
             <el-tooltip
               class="box-item"
@@ -78,7 +78,7 @@
               </a>
             </el-tooltip>
 
-            <el-tooltip
+            <!-- <el-tooltip
               class="box-item"
               effect="dark"
               content="微博登录"
@@ -91,9 +91,9 @@
               >
                 <svg-icon name="weibo" />
               </a>
-            </el-tooltip>
+            </el-tooltip> -->
 
-            <el-tooltip
+            <!-- <el-tooltip
               class="box-item"
               effect="dark"
               content="公众号登录"
@@ -106,7 +106,7 @@
               >
                 <svg-icon name="wechat" />
               </a>
-            </el-tooltip>
+            </el-tooltip> -->
 
             <el-tooltip
               class="box-item"
