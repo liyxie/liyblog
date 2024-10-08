@@ -2,6 +2,7 @@ package com.liy.controller;
 
 import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.liy.annotation.AccessLimit;
+import com.liy.annotation.ArticleMoniter;
 import com.liy.annotation.BusinessLogger;
 import com.liy.common.ResponseResult;
 import com.liy.dto.article.ArticlePostDTO;
@@ -34,6 +35,7 @@ public class ApiArticleController {
     }
 
     @BusinessLogger(value = "门户-用户查看文章详情",type = "查询",desc = "查看文章详情")
+    @ArticleMoniter
     @GetMapping(value = "/info/{id}")
     @ApiOperation(value = "文章详情", httpMethod = "GET", response = ResponseResult.class, notes = "文章详情")
     public ResponseResult selectArticleInfo(@PathVariable Integer id) {

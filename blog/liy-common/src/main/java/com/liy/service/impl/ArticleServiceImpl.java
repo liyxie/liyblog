@@ -306,6 +306,15 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         return ResponseResult.success("https://picsum.photos/500/300?random=" + System.currentTimeMillis());
     }
 
+    @Override
+    public void updateQuantityAdd(List<Article> articles) {
+        articles = articles.stream()
+                .filter(Objects::nonNull)
+                .filter(a-> a.getQuantity() != null && a.getQuantity() != 0)
+                .collect(Collectors.toList());
+        baseMapper.updateQuantityAdd(articles);
+    }
+
 
     /**
      * 将数据库不存在的标签新增

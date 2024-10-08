@@ -102,6 +102,25 @@
         set is_stick = #{article.isStick}
         where id = #{article.id}
     </update>
+
+    <update id="updateQuantityAdd">
+        update b_article
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="quantity =case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    <if test="item.quantity != null">
+                        when id = #{item.id}
+                        then quantity + #{item.quantity}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where id in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item.id}
+        </foreach>
+    </update>
+
     <select id="selectSearchArticle" resultType="com.liy.vo.article.ApiArticleSearchVO">
         select a.id,
                a.title,

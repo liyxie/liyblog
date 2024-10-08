@@ -23,14 +23,14 @@ const routes = [
         path: "/",
         component: layout,
         meta: {
-            title: "liy-一个专注于技术分享的博客平台"
+            title: "liy-技术分享的平台"
         },
         children: [
             {
                 path: "/",
                 component: home,
                 meta: {
-                    title: "liy-一个专注于技术分享的博客平台"
+                    title: "liy-技术分享的平台"
                 }
             },
             {

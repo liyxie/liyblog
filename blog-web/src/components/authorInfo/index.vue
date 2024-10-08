@@ -59,7 +59,7 @@
         >
           <svg-icon name="email" />
         </a>
-        <a
+        <!-- <a
           class="weibo hand-style"
           href="https://weibo.com/u/5747542477"
           target="_blank"
@@ -67,8 +67,8 @@
           rel="noopener noreferrer nofollow"
         >
           <svg-icon name="weibo" />
-        </a>
-        <a
+        </a> -->
+        <!-- <a
           class="zhihu hand-style"
           href="https://www.zhihu.com/people/he-he-85-83-34"
           target="_blank"
@@ -76,7 +76,7 @@
           rel="noopener noreferrer nofollow"
         >
           <svg-icon name="zhihu" />
-        </a>
+        </a> -->
       </div>
       <!-- 收藏本站 -->
       <div class="collect">

@@ -62,7 +62,7 @@ public class OperationLoggerAspect {
 
     }
 
-    @Around(value = "pointcut(operationLogger)")
+    @Around(value = "pointcut(operationLogger)", argNames = "joinPoint,operationLogger")
     public Object doAround(ProceedingJoinPoint joinPoint, OperationLogger operationLogger) throws Throwable {
         HttpServletRequest request = IpUtil.getRequest();
         StpUtil.checkLogin();

@@ -11,27 +11,24 @@
             <!-- <a href="https://gitee.com/quequnlong/shiyi-blog" target="_blank">{{
               webInfo.name
             }}</a> -->
-            <!-- <a
-              href="https://beian.miit.gov.cn/"
-              target="_blank"
-              style="margin-left: 10px"
-              >{{ webInfo.recordNum }}</a
-            > -->
             <a
               href="https://beian.miit.gov.cn/"
               target="_blank"
               style="margin-left: 10px"
+              >{{ webInfo.recordNum }}</a>
+            <!-- <a
+              href="https://beian.miit.gov.cn/"
+              target="_blank"
+              style="margin-left: 10px"
               >粤ICP备2024286729号-2</a
-            >
+            > -->
           </p>
           <div class="run_time">
             <svg-icon name="shandian"></svg-icon>
-            <span
-              >风风雨雨 <strong>{{ day }}</strong> 天
+            <span>风风雨雨 <strong>{{ day }}</strong> 天
               <strong>{{ hours }}</strong> 时 <strong>{{ minute }}</strong> 分
               <strong>{{ second }}</strong>
-              秒</span
-            >
+              秒</span>
           </div>
         </div>
       </div>

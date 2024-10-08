@@ -86,4 +86,9 @@ public interface ArticleService extends IService<Article> {
      */
     ResponseResult randomImg();
 
+    /**
+     * 自动更新redis阅读量到数据库
+     * @param articles
+     */
+    void updateQuantityAdd(List<Article> articles);
 }

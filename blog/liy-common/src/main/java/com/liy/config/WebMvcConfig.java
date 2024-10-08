@@ -28,14 +28,17 @@ public class WebMvcConfig implements WebMvcConfigurer  {
         registry.addInterceptor(new PageableInterceptor());
 
         // 注册Sa-Token的路由拦截器
-        registry.addInterceptor(new SaRouteInterceptor()).addPathPatterns("/system/**").addPathPatterns("/v1/**").excludePathPatterns("/login","/logout","/verify");
+        registry.addInterceptor(new SaRouteInterceptor())
+                .addPathPatterns("/system/**")
+//                .addPathPatterns("/v1/**")
+                .excludePathPatterns("/login","/logout","/verify");
 
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-            registry.addResourceHandler("/webjars/**").addResourceLocations(
+        registry.addResourceHandler("/webjars/**").addResourceLocations(
                     "classpath:/META-INF/resources/webjars/");
         registry.addResourceHandler("doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/img/**").addResourceLocations("fileUpload:" + UPLOAD_FOLDER);

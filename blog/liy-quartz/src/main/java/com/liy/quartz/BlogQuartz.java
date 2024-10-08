@@ -10,9 +10,7 @@ import com.liy.service.TagsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.liy.common.RedisConstants.ARTICLE_READING;
 import static com.liy.common.RedisConstants.TAG_CLICK_VOLUME;
@@ -54,7 +52,7 @@ public class BlogQuartz {
     }
 
     /**
-     *  自动更新阅读数，每天凌晨四点更新数据
+     *  自动更新阅读数
      * @author blue
      * @date: 2021/8/18 17:58
      */
@@ -67,10 +65,24 @@ public class BlogQuartz {
             String id = stringEntry.getKey();
             List<String> list = (List<String>) stringEntry.getValue();
             Article article = Article.builder()
-                    .id(Long.parseLong(id)).quantity(list.size())
+                    .id(Long.parseLong(id))
+                    .quantity(list.size())
                     .build();
             articles.add(article);
         }
+        articleService.updateQuantityAdd(articles);
+        redisService.deleteObject(ARTICLE_READING);
+    }
+
+    /**
+     * 自动增加阅读量
+     */
+    public void addReadQuantity(){
+        List<Article> articles = articleService.list();
+
+        articles.stream().filter(Objects::nonNull).forEach(a -> {
+            a.setQuantity(a.getQuantity() + new Random().nextInt(10));
+        });
         articleService.updateBatchById(articles);
     }
 
@@ -92,7 +104,7 @@ public class BlogQuartz {
         List<Tags> tagsList = new ArrayList<>();
         for (Map.Entry<String, Object> stringEntry : map.entrySet()) {
             String id = stringEntry.getKey();
-            Integer value = (Integer) stringEntry.getValue();
+            Integer value = (Integer) stringEntry.getValue() + new Random().nextInt(10);
             Tags tags = new Tags(Long.parseLong(id),value);
             tagsList.add(tags);
         }

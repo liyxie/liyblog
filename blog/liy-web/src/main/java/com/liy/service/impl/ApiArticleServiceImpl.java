@@ -111,6 +111,13 @@ public class ApiArticleServiceImpl implements ApiArticleService {
         if (map!= null && map.size() > 0){
             apiArticleInfoVO.setLikeCount(map.get(id.toString()));
         }
+        // 获取浏览量
+        Object value = redisService.hGet(ARTICLE_READING, id.toString());
+        if (value instanceof List) {
+            // 转换为List并获取大小
+            int listSize = ((List<?>) value).size();
+            apiArticleInfoVO.setQuantity(apiArticleInfoVO.getQuantity() + listSize);
+        }
         //获取当前登录用户是否点赞该文章
         Object userId = StpUtil.getLoginIdDefaultNull();
         if (userId != null){
@@ -150,7 +157,7 @@ public class ApiArticleServiceImpl implements ApiArticleService {
         }
 
         //增加文章阅读量
-        redisService.incrArticle(id.longValue(),ARTICLE_READING,IpUtil.getIp());
+//        redisService.incrArticle(id.longValue(),ARTICLE_READING,IpUtil.getIp());
         return ResponseResult.success(apiArticleInfoVO);
     }
 

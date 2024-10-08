@@ -50,6 +50,8 @@ public class JobInvokeUtil {
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException
     {
+//        System.out.println(methodParams.toString());
+//        System.out.println(bean.toString());
         if (methodParams != null && methodParams.size() > 0)
         {
             Method method = bean.getClass().getDeclaredMethod(methodName, getMethodParamsType(methodParams));

@@ -115,4 +115,11 @@ public interface ArticleMapper extends BaseMapper<Article> {
      * @return
      */
     ArticlePostDTO selectMyArticleInfo(Long id);
+
+    /**
+     * redis更新阅读量
+     * @param articles
+     * @return
+     */
+    int updateQuantityAdd(List<Article> articles);
 }

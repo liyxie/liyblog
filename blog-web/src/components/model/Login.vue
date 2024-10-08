@@ -346,6 +346,7 @@ const rules = {
 const dialogFormVisible = computed({
   get() {
     index.value = 1;
+    console.log("dialogFormVisible " + userStore.getLoginFlag)
     return userStore.getLoginFlag;
   },
   set(value) {

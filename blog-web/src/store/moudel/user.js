@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', {
     },
     actions: {
         setLoginFlag(value) {
+            console.log(value)
             this.loginFlag = value
         },
         setUserInfo(value) {
