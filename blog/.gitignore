@@ -19,8 +19,7 @@
 *.ipr
 *.yml
 workspace.xml
-/liy-admin/src/main/java/com/liy/util/myFC
-/liy-admin/target/classes/com/liy/util/myFC
+/liy-admin/src/main/java/com/liy/util/myFC/
 
 ### NetBeans ###
 /nbproject/private/

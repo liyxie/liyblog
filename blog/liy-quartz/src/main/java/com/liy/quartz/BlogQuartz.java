@@ -61,17 +61,21 @@ public class BlogQuartz {
         List<Article> articles = new ArrayList<>();
         Map<String, Object> map = redisService.getCacheMap(ARTICLE_READING);
         // 取出所有数据更新到数据库
-        for (Map.Entry<String, Object> stringEntry : map.entrySet()) {
-            String id = stringEntry.getKey();
-            List<String> list = (List<String>) stringEntry.getValue();
-            Article article = Article.builder()
-                    .id(Long.parseLong(id))
-                    .quantity(list.size())
-                    .build();
-            articles.add(article);
+        if(map.size() > 1){
+            for (Map.Entry<String, Object> stringEntry : map.entrySet()) {
+                String id = stringEntry.getKey();
+                List<String> list = (List<String>) stringEntry.getValue();
+                Article article = Article.builder()
+                        .id(Long.parseLong(id))
+                        .quantity(list.size())
+                        .build();
+                articles.add(article);
+            }
+
+            articleService.updateQuantityAdd(articles);
+            redisService.deleteObject(ARTICLE_READING);
         }
-        articleService.updateQuantityAdd(articles);
-        redisService.deleteObject(ARTICLE_READING);
+
     }
 
     /**

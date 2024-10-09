@@ -3,7 +3,7 @@
     <div class="main">
 
 
-
+      <!-- 随机视频 -->
       <el-tooltip class="box-item" effect="dark" content="随机视频播放" placement="right">
         <div @click="drawer = true" class="hand-style" style="
             color: var(--theme-color);
@@ -18,9 +18,9 @@
         </div>
       </el-tooltip>
 
-      <el-drawer title="我是标题" v-model="drawer" :with-header="false">
+      <el-drawer title="随机视频" v-model="drawer" :with-header="false" :before-close="closeVideo">
         <div class="video-container">
-          <video style="width: 100%" controls autoplay :src="videoSrc"></video>
+          <video id="myVideo" style="width: 100%" controls autoplay :src="videoSrc" muted></video>
         </div>
         <div style="margin-left: 20px; margin-top: 10px">
           <el-button type="primary" icon="DArrowRight" @click="nextVideo"></el-button>
@@ -30,34 +30,50 @@
       <!-- 左侧菜单 -->
       <div class="div-menu">
         <el-menu default-active="0" class="menu-class" @open="handleOpen" @close="handleClose"
-          active-text-color="#ffd04b" @select="handleSelect">
+          active-text-color="#ffd04b" @select="handleSelect" :default-openeds="openeds">
           <el-menu-item index="0">
-            <el-icon><Timer /></el-icon>
+            <el-icon>
+              <Timer />
+            </el-icon>
             <span>{{ categoryLocalList[0].name }}</span>
           </el-menu-item>
           <el-menu-item index="1">
-            <el-icon><CircleCheck /></el-icon>
+            <el-icon>
+              <CircleCheck />
+            </el-icon>
             <span>{{ categoryLocalList[1].name }}</span>
           </el-menu-item>
           <el-sub-menu index="2">
             <template #title>
-              <el-icon><Coin /></el-icon>
-              <span>分类专栏</span>
+              <el-icon>
+                <Coin />
+              </el-icon>
+              <span>分类</span>
             </template>
             <el-menu-item :index="'2-' + index" v-for="(item, index) in categoryList">
               <el-icon style="margin-left: 3px">
-                  <component :is="item.icon" />
-                </el-icon>
+                <component :is="item.icon" />
+              </el-icon>
               <span>{{ item.name }}</span>
             </el-menu-item>
           </el-sub-menu>
-          <el-menu-item :index="'3-' + index" v-for="(item, index) in tagList">
-            <el-icon><icon-menu /></el-icon>
-            <span>{{ item.name }}</span>
-          </el-menu-item>
-         
+          <el-sub-menu index="3">
+            <template #title>
+              <el-icon>
+                <Coin />
+              </el-icon>
+              <span>标签</span>
+            </template>
+            <el-menu-item :index="'3-' + index" v-for="(item, index) in tagList">
+              <el-icon><icon-menu /></el-icon>
+              <span>{{ item.name }}</span>
+            </el-menu-item>
+          </el-sub-menu>
+
+
         </el-menu>
       </div>
+      <!-- 轮播图 -->
       <div class="main-box">
         <div class="bannerBox" @wheel="goWheel">
           <!-- 轮播图 -->
@@ -71,6 +87,7 @@
           </el-carousel>
         </div>
 
+        <!-- 信息个人 -->
         <div class="top-right">
           <SiteInfo />
           <!-- <el-card class="soft">
@@ -91,30 +108,8 @@
           </el-card> -->
         </div>
       </div>
-      <!-- 热门分类 -->
-      <!-- <div class="hot_category">
-        <el-tabs
-          v-model="activeName"
-          class="demo-tabs"
-          @tab-click="handleTabClick"
-        >
-          <el-tab-pane
-            v-for="(item, index) in categoryList"
-            :key="index"
-            :name="index + ''"
-          >
-            <template #label>
-              <span class="custom-tabs-label">
-                <el-icon style="margin-left: 3px">
-                  <component :is="item.icon" />
-                </el-icon>
-                <span>{{ item.name }}</span>
-              </span>
-            </template>
-          </el-tab-pane>
-        </el-tabs>
-      </div> -->
 
+      <!-- 说说 -->
       <div class="sayBox box-shadow">
         <router-link :to="'/say'">
           <a class="say-item" @mouseleave="start" @mouseenter="stop" v-for="(item, index) in sayList" :key="index"
@@ -126,7 +121,7 @@
       </div>
 
       <div class="content">
-        <!-- 左侧内容 -->
+        <!-- 左侧内容 文章-->
         <div style="width: 65%">
           <div class="articleBox" v-if="articleList.length > 0">
             <el-card class="articleItem box-shadow-top wow pulse" v-for="(item, index) in articleList" :key="index">
@@ -226,6 +221,7 @@
         </div>
         <!-- 右侧内容 -->
         <div class="rightBox">
+          <!-- 微信扫一扫 -->
           <el-card class="box-card" style="perspective: 1000px; position: relative; height: 120px">
             <div class="front">
               <img style="width: 100%" v-lazy="defaultSetting.overturnImg" :key="defaultSetting.overturnImg" alt="" />
@@ -285,7 +281,7 @@
                   </span>
                 </div>
               </li>
-              <li v-show="isShow(6)">
+              <!-- <li v-show="isShow(6)">
                 <div class="guanzhu-item qqgroup">
                   <svg-icon name="qqgroup" />
                   <a class="hand-style" href="javascript:;">
@@ -295,7 +291,7 @@
                     QQ群
                   </span>
                 </div>
-              </li>
+              </li> -->
               <li v-show="isShow(3)">
                 <div class="guanzhu-item github">
                   <svg-icon name="github" />
@@ -341,24 +337,6 @@
             </ul>
           </el-card>
 
-          <!-- 标签墙 -->
-          <!-- <el-card class="box-card tag_container">
-            <div class="clearfix">
-              <span class="card-title"> 标签墙</span>
-              <router-link :to="'/tags'">
-                <a class="more hand-style no-select">更多</a>
-              </router-link>
-            </div>
-            <div class="tagBox">
-              <span @click="handleClike(item.id, '/tags')" :style="{
-                backgroundColor: `${randomColor()}`,
-                fontSize: item.font,
-              }" class="tag-item hand-style" v-for="(item, index) in tagList" :key="index">
-                {{ item.name }}
-              </span>
-            </div>
-          </el-card> -->
-
           <!-- 天气组件 -->
           <el-card class="box-card weather">
             <div class="clearfix">
@@ -381,13 +359,15 @@ import { listSay } from "@/api/say";
 import SiteInfo from "@/components/authorInfo/index.vue";
 import { useSiteStore } from "@/store/moudel/site.js";
 import { ref } from "vue";
+import { storeToRefs } from "pinia"; //引入pinia转换
+import { ElMessageBox } from 'element-plus'
 import { pa } from "element-plus/es/locales.mjs";
 
 const { proxy } = getCurrentInstance();
 const defaultSetting = ref(proxy.$setting);
 const router = useRouter();
 const siteStore = useSiteStore();
-const webInfo = ref(siteStore.getWebInfo);
+const webInfo = storeToRefs(siteStore).getWebInfo;
 const centerDialogVisible = ref(false);
 const drawer = ref(false);
 const videoSrc = ref("http://api.yujn.cn/api/zzxjj.php");
@@ -422,6 +402,8 @@ const timer = ref();
 const fullscreenLoading = ref(true);
 const swiper = ref();
 const swiperOpen = ref(true);
+// 左侧默认展开子菜单
+const openeds = ref(['3'])
 
 onBeforeUnmount(() => {
   clearInterval(timer);
@@ -429,17 +411,16 @@ onBeforeUnmount(() => {
 
 //点击左侧菜单
 const handleSelect = (key, keyPath) => {
-  console.log(key, keyPath)
   let i = key.charAt(0)
-  if(i === '2'){
+  if (i === '2') {
     handleTabClick(key.slice(2))
-  }else if(i === '3'){
+  } else if (i === '3') {
     handleTag(key.slice(2))
-  }else{
+  } else {
     handleNew(categoryLocalList.value[+key].desc)
   }
 }
-function handleOpen(index){
+function handleOpen(index) {
   // let i = index.charAt(0)
   // if(i === '2'){
   //   handleTabClick(index.slice(2))
@@ -450,7 +431,7 @@ function handleOpen(index){
   // }
 }
 //重置页面文章信息
-function resetPage(){
+function resetPage() {
   pageData.value.pageNo = 1;
   pageData.value.pageSize = 10;
   delete pageData.value.categoryId;
@@ -459,7 +440,7 @@ function resetPage(){
 }
 //点击分类
 function handleTabClick(index) {
-  console.log(index);
+  // console.log(index);
   let item = categoryList.value[+index];
   resetPage();
   pageData.value.categoryId = item.id;
@@ -469,7 +450,7 @@ function handleTabClick(index) {
   });
 }
 //点击tag标签
-function handleTag(index){
+function handleTag(index) {
   let item = tagList.value[+index];
   resetPage();
   pageData.value.tagId = item.id;
@@ -479,7 +460,7 @@ function handleTag(index){
   });
 }
 //点击最新推荐
-function handleNew(desc){
+function handleNew(desc) {
   resetPage();
   pageData.value.orderByDescColumn = desc;
   listArticle(pageData.value).then((res) => {
@@ -535,6 +516,18 @@ function randomColor() {
 //切换视频
 function nextVideo() {
   videoSrc.value = videoSrc.value + "?temps=" + new Date().getTime();
+}
+// 自动关闭视频
+function closeVideo(done) {
+  // ElMessageBox.confirm('Are you sure you want to close this?')
+  //   .then(() => {
+  //     done();
+  //   })
+  //   .catch(() => {
+  //   });
+  var video = document.getElementById('myVideo');
+  video.pause();
+  done();
 }
 //复制
 function copy(value) {
@@ -1291,7 +1284,7 @@ onMounted(() => {
       background-color: var(--background-color);
       overflow: auto;
       box-shadow: var(--el-box-shadow-light);
-      border-right:rgba(0, 0, 0, 0.3);
+      border-right: rgba(0, 0, 0, 0.3);
 
       ::v-deep(.el-sub-menu__title) {
         color: var(--text-color);

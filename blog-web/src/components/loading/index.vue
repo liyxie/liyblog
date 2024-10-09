@@ -39,7 +39,7 @@ defineExpose({
   right: 0;
   bottom: 0;
   z-index: 9999;
-  background-color: rgba(255, 255, 255, .9);
+  background-color: rgba(24, 24, 24, 0.9);
 }
 .tips {
   font-family: "Open Sans";

@@ -2,10 +2,13 @@
 
 <template>
   <Header />
+  <!-- 登录界面 -->
   <Login />
+  <!-- 搜索 -->
   <Search />
   <SideTool />
   <SideNavBar />
+  <!-- 顶部公告栏 -->
   <Notice />
   <Loading />
    <metainfo></metainfo>

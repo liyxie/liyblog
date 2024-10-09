@@ -87,11 +87,12 @@
 </template>
 <script setup name="site">
 import { useSiteStore } from "@/store/moudel/site.js";
+import { storeToRefs } from "pinia"; //引入pinia转换
 
 const { proxy } = getCurrentInstance();
 const defaultSetting = ref(proxy.$setting);
 const siteStore = useSiteStore();
-const webInfo = ref(siteStore.getWebInfo);
+const webInfo = storeToRefs(siteStore).getWebInfo;
 
 function isShow(type) {
   return webInfo.value.showList.indexOf(type) != -1;

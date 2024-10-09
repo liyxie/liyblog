@@ -25,11 +25,14 @@
 
 <script setup name='NoticeBar'>
 import { useSiteStore } from "@/store/moudel/site.js";
+import { storeToRefs } from "pinia"; //引入pinia转换
+
 
 const siteStore = useSiteStore();
 const webInfo = ref(siteStore.getWebInfo) ;
-const showNotice = ref(siteStore.getWebInfo.showBulletin == 1);
+const showNotice = storeToRefs(siteStore.getWebInfo.showBulletin == 1);
 const noticeRef = ref();
+
 
 function closeMsg() {
   console.log("closeMsg")

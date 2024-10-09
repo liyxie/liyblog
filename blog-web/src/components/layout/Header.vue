@@ -103,13 +103,13 @@
           </span>
         </li>
 
-        <li :class="path === '/software' ? 'active' : ''">
+        <!-- <li :class="path === '/software' ? 'active' : ''">
           <span>
             <router-link :to="'/software'" class="hand-style">
               <svg-icon name="navication"></svg-icon> 开源软件
             </router-link>
           </span>
-        </li>
+        </li> -->
 
         <li :class="path === '/hot' ? 'active' : ''">
           <span>
