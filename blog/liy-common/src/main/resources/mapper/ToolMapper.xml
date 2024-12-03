@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liy.mapper.ToolMapper">
+
+    <update id="deleteByIdState">
+        update b_tool
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="is_delete = case" suffix="end,">
+                <foreach collection="list" item="item" index="index">
+                    when id = #{item}
+                    then `is_delete` = 0
+                </foreach>
+            </trim>
+        </trim>
+        where id in
+        <foreach collection="list" item="item" index="index" separator="," open="(" close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <select id="selectToolList" resultType="com.liy.entity.Tool">
+        select t.*
+        from b_tool t
+        where t.state = 1 and is_delete = 1
+    </select>
+    <select id="selectAllToolList" resultType="com.liy.entity.Tool">
+        select t.*
+        from b_tool t
+        where is_delete = 1
+    </select>
+    <select id="selectFind" resultType="com.liy.entity.Tool">
+        select t.*
+        from b_tool t
+        <where>
+            <if test="toolDto.id != null or toolDto.id != ''">
+                t.id = #{toolDto.id}
+            </if>
+            <if test="toolDto.name != null or toolDto.name != ''">
+                t.name = #{toolDto.name}
+            </if>
+            <if test="toolDto.describe != null or toolDto.describe != ''">
+                t.describe LIKE CONCAT('%', #{toolDto.describe}, '%')
+            </if>
+            <if test="toolDto.parentId != null or toolDto.parentId != ''">
+                t.parentId = #{toolDto.parentId}
+            </if>
+        </where>
+        ORDER BY t.grade, t.sort ASC;
+    </select>
+
+    <select id="selectToolMenu" resultType="com.liy.entity.Tool">
+        select t.*
+        from b_tool t
+        where t.state = 1 and t.type = 2 and is_delete = 1
+        ORDER BY t.grade, t.sort ASC;
+    </select>
+</mapper>

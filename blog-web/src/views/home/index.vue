@@ -31,18 +31,21 @@
       <div class="div-menu">
         <el-menu default-active="0" class="menu-class" @open="handleOpen" @close="handleClose"
           active-text-color="#ffd04b" @select="handleSelect" :default-openeds="openeds">
+          <!-- 最新 -->
           <el-menu-item index="0">
             <el-icon>
               <Timer />
             </el-icon>
             <span>{{ categoryLocalList[0].name }}</span>
           </el-menu-item>
+          <!-- 最热 -->
           <el-menu-item index="1">
             <el-icon>
               <CircleCheck />
             </el-icon>
             <span>{{ categoryLocalList[1].name }}</span>
           </el-menu-item>
+          <!-- 分类 -->
           <el-sub-menu index="2">
             <template #title>
               <el-icon>
@@ -50,13 +53,14 @@
               </el-icon>
               <span>分类</span>
             </template>
-            <el-menu-item :index="'2-' + index" v-for="(item, index) in categoryList">
+            <el-menu-item :index="item.id" v-for="(item, index) in categoryList">
               <el-icon style="margin-left: 3px">
                 <component :is="item.icon" />
               </el-icon>
               <span>{{ item.name }}</span>
             </el-menu-item>
           </el-sub-menu>
+          <!-- 标签 -->
           <el-sub-menu index="3">
             <template #title>
               <el-icon>
@@ -64,11 +68,45 @@
               </el-icon>
               <span>标签</span>
             </template>
-            <el-menu-item :index="'3-' + index" v-for="(item, index) in tagList">
+            <el-menu-item :index="item.id" v-for="(item, index) in tagList">
               <el-icon><icon-menu /></el-icon>
               <span>{{ item.name }}</span>
             </el-menu-item>
           </el-sub-menu>
+          <!-- 工具 -->
+          <el-sub-menu index="4">
+            <template #title>
+              <el-icon>
+                <Coin />
+              </el-icon>
+              <span>工具</span>
+            </template>
+            <menu-list :items="toolList" :isFirst="true"></menu-list>
+          </el-sub-menu>
+
+          <!-- <el-sub-menu index="4">
+            <template #title>
+              <span>工具</span>
+            </template>
+            <menu-list :items="toolList"></menu-list>
+
+            <template v-for="(item, index) in toolList">
+              <template v-if="item.type === 2">
+                <el-sub-menu :index="item.id">
+                  <template #title>
+                    <span>{{ item.name }}</span>
+                  </template>
+                  <el-menu-item :index="'4-' + index + index2" v-for="(item2, index2) in item.childToolList">{{item2.name}}</el-menu-item>
+                </el-sub-menu>
+              </template>
+              
+              <template v-else>
+                <el-menu-item :index="item.id">{{item.name}}</el-menu-item>
+              </template>
+              
+            </template>
+
+          </el-sub-menu> -->
 
 
         </el-menu>
@@ -354,12 +392,13 @@
 import WOW from "wow.js";
 import "wow.js/css/libs/animate.css";
 import Clipboard from "clipboard";
-import { listArticle, featchHomeData, listCategory } from "@/api";
+import { listArticle, featchHomeData, listCategory, listTool } from "@/api";
 import { listSay } from "@/api/say";
 import SiteInfo from "@/components/authorInfo/index.vue";
 import { useSiteStore } from "@/store/moudel/site.js";
 import { ref } from "vue";
 import { storeToRefs } from "pinia"; //引入pinia转换
+import MenuList from "@/components/comment/MenuList.vue";
 import { ElMessageBox } from 'element-plus'
 import { pa } from "element-plus/es/locales.mjs";
 
@@ -390,6 +429,8 @@ const categoryLocalList = ref([
     desc: "quantity",
   },
 ]);
+// 工具链接
+const toolList = ref([])
 const categoryList = ref([])
 const articleList = ref([]);
 const pages = ref(0);
@@ -411,24 +452,21 @@ onBeforeUnmount(() => {
 
 //点击左侧菜单
 const handleSelect = (key, keyPath) => {
-  let i = key.charAt(0)
+  console.log(key, keyPath)
+  let i = keyPath[0]
   if (i === '2') {
-    handleTabClick(key.slice(2))
+    handleTabClick(key)
   } else if (i === '3') {
-    handleTag(key.slice(2))
-  } else {
+    handleTag(key)
+  } else if(i === '4'){
+    handTool(keyPath)
+  }
+  else {
     handleNew(categoryLocalList.value[+key].desc)
   }
 }
 function handleOpen(index) {
-  // let i = index.charAt(0)
-  // if(i === '2'){
-  //   handleTabClick(index.slice(2))
-  // }else if(i === '3'){
-  //   handleTag(index.slice(2))
-  // }else{
-  //   handleNew(categoryLocalList.value[+index].desc)
-  // }
+
 }
 //重置页面文章信息
 function resetPage() {
@@ -443,7 +481,7 @@ function handleTabClick(index) {
   // console.log(index);
   let item = categoryList.value[+index];
   resetPage();
-  pageData.value.categoryId = item.id;
+  pageData.value.categoryId = index;
   listArticle(pageData.value).then((res) => {
     articleList.value = res.data.records;
     pages.value = res.data.pages;
@@ -453,11 +491,27 @@ function handleTabClick(index) {
 function handleTag(index) {
   let item = tagList.value[+index];
   resetPage();
-  pageData.value.tagId = item.id;
+  pageData.value.tagId = index;
   listArticle(pageData.value).then((res) => {
     articleList.value = res.data.records;
     pages.value = res.data.pages;
   });
+}
+//点击工具链接
+function handTool(keyPath){
+  let tempToolList = toolList.value;
+  console.log(tempToolList)
+  for (let index = 1; index < keyPath.length; index++) {
+    console.log(index)
+    let tool = tempToolList.find(t => t.id === keyPath[index])
+    console.log(tool)
+    if(tool.type === 1){
+      window.open(tool.url)
+    }
+    else{
+      tempToolList = tool.childToolList;
+    }
+  }
 }
 //点击最新推荐
 function handleNew(desc) {
@@ -500,6 +554,14 @@ function getArticleList() {
       pages.value = res.data.pages;
     })
     .finally(() => (fullscreenLoading.value = false));
+}
+
+// 获取工具菜单
+function getToolList() {
+  listTool().then((res) => {
+    toolList.value.push(...res.data);
+  })
+  console.log(toolList)
 }
 
 //随机颜色
@@ -641,6 +703,7 @@ onMounted(() => {
   wow.init();
 
   getHomeData();
+  getToolList();
   getArticleList();
   insertWeather();
   fetchCategoryList();

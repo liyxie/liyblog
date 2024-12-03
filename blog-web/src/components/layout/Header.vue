@@ -5,14 +5,10 @@
       <div class="logo">
         <div class="logoBox">
           <router-link :to="'/'" class="hand-style">
-            <el-image
-              class="img"
-              style="
+            <el-image class="img" style="
                 width: 35px;
                 height: 35px;
-              "
-              :src="siteStore.getWebInfo.logo"
-            >
+              " :src="siteStore.getWebInfo.logo">
             </el-image>
             <span class="name">{{ siteStore.getWebInfo.name }}</span>
           </router-link>
@@ -40,13 +36,10 @@
           </span>
         </li>
 
-        <li
-          :class="
-            path === '/archive' || path === '/categorys' || path === '/tag'
-              ? 'active'
-              : ''
-          "
-        >
+        <li :class="path === '/archive' || path === '/categorys' || path === '/tag'
+          ? 'active'
+          : ''
+          ">
           <el-dropdown>
             <span class="el-dropdown-link hand-style">
               <svg-icon name="archive"></svg-icon> 文章归档
@@ -56,10 +49,7 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <router-link
-                  style="text-decoration: none; color: #71777c"
-                  :to="'/archive'"
-                >
+                <router-link style="text-decoration: none; color: #71777c" :to="'/archive'">
                   <el-dropdown-item>
                     <el-icon>
                       <Wallet />
@@ -67,10 +57,7 @@
                     归档
                   </el-dropdown-item>
                 </router-link>
-                <router-link
-                  style="text-decoration: none; color: #71777c"
-                  :to="'/category'"
-                >
+                <router-link style="text-decoration: none; color: #71777c" :to="'/category'">
                   <el-dropdown-item>
                     <el-icon>
                       <DocumentCopy />
@@ -79,10 +66,7 @@
                   </el-dropdown-item>
                 </router-link>
 
-                <router-link
-                  style="text-decoration: none; color: #71777c"
-                  :to="'/tags'"
-                >
+                <router-link style="text-decoration: none; color: #71777c" :to="'/tags'">
                   <el-dropdown-item>
                     <el-icon>
                       <PictureRounded />
@@ -127,9 +111,24 @@
         </li>
         <li :class="path === '/link' ? 'active' : ''">
           <span>
-            <router-link :to="'/link'" class="hand-style">
-              <svg-icon name="friendLink"></svg-icon> 友情链接
-            </router-link>
+            <!-- <router-link :to="'/link'" class="hand-style">
+              <svg-icon name="friendLink"></svg-icon> 有用外链
+            </router-link> -->
+            <menu-list :items="toolList"></menu-list>
+            <!-- <el-menu default-active="0" class="menu-class" @open="handleOpen" @close="handleClose"
+              active-text-color="#ffd04b" @select="handleSelect" :default-openeds="openeds">
+              <el-sub-menu index="0">
+                <template #title>
+                  <el-icon>
+                    <Coin />
+                  </el-icon>
+                  <span>有用外链</span>
+                </template>
+
+
+              </el-sub-menu>
+
+            </el-menu> -->
           </span>
         </li>
         <li :class="path === '/about' ? 'active' : ''">
@@ -142,10 +141,7 @@
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <router-link
-                  style="text-decoration: none; color: #71777c"
-                  :to="'/about'"
-                >
+                <router-link style="text-decoration: none; color: #71777c" :to="'/about'">
                   <el-dropdown-item>
                     <el-icon>
                       <Monitor />
@@ -154,26 +150,27 @@
                   </el-dropdown-item>
                 </router-link>
 
-                <a
-                  style="text-decoration: none; color: #71777c"
-                  href="https://gitee.com/LiYie/liyblog"
-                  target="_blank"
-                >
+                <a style="text-decoration: none; color: #71777c" href="https://gitee.com/LiYie/liyblog" target="_blank">
                   <el-dropdown-item>
                     <i class="iconfont icon-zitidaima"></i>网站源码
                   </el-dropdown-item>
                 </a>
 
-                <a
-                  style="text-decoration: none; color: #71777c"
-                  :href="adminUrl"
-                  target="_blank"
-                >
+                <a style="text-decoration: none; color: #71777c" :href="adminUrl" target="_blank">
                   <el-dropdown-item>
                     <el-icon>
                       <Tools />
                     </el-icon>
                     后台管理
+                  </el-dropdown-item>
+                </a>
+
+                <a style="text-decoration: none; color: #71777c" :href="qingLongUrl" target="_blank">
+                  <el-dropdown-item>
+                    <el-icon>
+                      <Tools />
+                    </el-icon>
+                    青龙
                   </el-dropdown-item>
                 </a>
               </el-dropdown-menu>
@@ -195,20 +192,13 @@
 
         <div class="noticeBtn" v-if="showUser">
           <el-dropdown>
-            <span
-              class="el-dropdown-link hand-style"
-              @click="handleClickNotice(null)"
-            >
+            <span class="el-dropdown-link hand-style" @click="handleClickNotice(null)">
               <svg-icon name="notice"></svg-icon>
               <div v-if="topBageShow()" class="notice-bage topBage"></div>
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item
-                  v-for="(item, index) in noticeList"
-                  :key="index"
-                  @click="handleClickNotice(index)"
-                >
+                <el-dropdown-item v-for="(item, index) in noticeList" :key="index" @click="handleClickNotice(index)">
                   {{ item }}
                   <span v-if="validata(index)" class="notice-item-bage"></span>
                 </el-dropdown-item>
@@ -221,30 +211,23 @@
         <div class="userInfo" v-if="showUser">
           <el-dropdown>
             <span class="el-dropdown-link hand-style">
-              <el-avatar
-                v-if="!userInfoTemp"
-                :size="45"
-                :src="defaultSetting.touristAvatar"
-                alt=""
-              />
+              <el-avatar v-if="!userInfoTemp" :size="45" :src="defaultSetting.touristAvatar" alt="" />
               <el-avatar v-else :size="40" :src="userInfoTemp.avatar" />
             </span>
             <template #dropdown>
               <el-dropdown-menu v-if="userInfoTemp">
-                <router-link
-                  style="text-decoration: none; color: #71777c"
-                  :to="'/user'"
-                >
+                <router-link style="text-decoration: none; color: #71777c" :to="'/user'">
                   <el-dropdown-item>
-                    <el-icon><User /></el-icon> 个人中心
+                    <el-icon>
+                      <User />
+                    </el-icon> 个人中心
                   </el-dropdown-item>
                 </router-link>
-                <a
-                  style="text-decoration: none; color: #71777c"
-                  @click="handleLogout"
-                >
+                <a style="text-decoration: none; color: #71777c" @click="handleLogout">
                   <el-dropdown-item>
-                    <el-icon><Position /></el-icon> 退出登录
+                    <el-icon>
+                      <Position />
+                    </el-icon> 退出登录
                   </el-dropdown-item>
                 </a>
               </el-dropdown-menu>
@@ -253,19 +236,19 @@
                   <p>登录网站，获取以下权益</p>
                   <div style="margin-top: 10px">
                     <span>
-                      <el-icon><ChatLineRound /></el-icon> 参与互动评论
+                      <el-icon>
+                        <ChatLineRound />
+                      </el-icon> 参与互动评论
                     </span>
 
                     <span style="margin-left: 10px">
-                      <el-icon><Document /></el-icon> 发表优质文章
+                      <el-icon>
+                        <Document />
+                      </el-icon> 发表优质文章
                     </span>
                   </div>
-                  <el-button
-                    @click="handleLogin()"
-                    style="display: block; margin: 10px auto 0"
-                    type="success"
-                    size="small"
-                    >立即登录
+                  <el-button @click="handleLogin()" style="display: block; margin: 10px auto 0" type="success"
+                    size="small">立即登录
                   </el-button>
                 </div>
               </el-dropdown-menu>
@@ -281,6 +264,7 @@ import { removeToken } from "@/utils/cookie.js";
 import { logout } from "@/api";
 import { useSiteStore } from "@/store/moudel/site.js";
 import { useUserStore } from "@/store/moudel/user.js";
+import MenuList from "@/components/comment/MenuList.vue";
 import { storeToRefs } from "pinia";
 
 const { proxy } = getCurrentInstance();
@@ -301,6 +285,8 @@ const windowWidth = ref(window.innerWidth);
 let headerClass = ref("header");
 const noticeList = ref(["系统通知", "评论", "私信"]);
 const adminUrl = ref(import.meta.env.VITE_APP_ADMIN_API);
+// 青龙面板url
+const qingLongUrl = ref("https://ql.liy1900.xyz")
 const userInfo = ref(userStore.getUserInfo);
 
 //控制登录框显示的方法
@@ -440,6 +426,7 @@ function openDrawer() {
 ::v-deep(.el-dropdown-link svg) {
   margin-right: 5px !important;
 }
+
 .notice-bage,
 .notice-item-bage {
   width: 8px;
@@ -448,6 +435,7 @@ function openDrawer() {
   background-color: red;
   display: inline-block;
 }
+
 .notice-bage {
   position: absolute;
   top: -5px;
@@ -526,6 +514,7 @@ function openDrawer() {
 }
 
 @media screen and (min-width: 1119px) {
+
   /*针对宽度小于等于767px的屏幕设备，定义如下样式*/
   .slideDown {
     transition: transform 0.5s ease-out;
@@ -617,6 +606,7 @@ function openDrawer() {
         }
 
         .active {
+
           a,
           span {
             color: var(--theme-color) !important;
@@ -645,13 +635,16 @@ function openDrawer() {
             border-radius: 5px;
             color: #82848a;
             border: 2px solid transparent;
+
             &:hover {
               border: 2px solid var(--theme-color);
             }
+
             .iconfont {
               font-weight: 700;
               margin: 0 5px;
             }
+
             span {
               background: var(--docsearch-key-gradient);
               border-radius: 3px;
@@ -668,6 +661,7 @@ function openDrawer() {
             right: 0;
             top: 15px;
           }
+
           svg {
             width: 20px;
             height: 20px;

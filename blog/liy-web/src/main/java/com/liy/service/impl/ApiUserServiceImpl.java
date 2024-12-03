@@ -36,6 +36,7 @@ import com.liy.exception.BusinessException;
 import com.liy.service.EmailService;
 import com.liy.service.RedisService;
 
+import com.liy.vo.user.SystemUserVO;
 import com.liy.vo.user.UserInfoVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -180,6 +181,12 @@ public class ApiUserServiceImpl implements ApiUserService {
         userId = StringUtils.isNotBlank(userId) ? userId : StpUtil.getLoginIdAsString();
         UserInfoVO userInfo = userMapper.selectInfoByUserId(userId);
         return ResponseResult.success(userInfo);
+    }
+
+    public SystemUserVO getUser(String userId) {
+        userId = StringUtils.isNotBlank(userId) ? userId : StpUtil.getLoginIdAsString();
+        SystemUserVO userInfo = userMapper.getById(userId);
+        return userInfo;
     }
 
     /**

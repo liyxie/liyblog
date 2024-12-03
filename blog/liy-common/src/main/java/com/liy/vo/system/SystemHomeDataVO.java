@@ -19,4 +19,6 @@ public class SystemHomeDataVO {
     private List<Map<String,Object>> tagsList;
     private String dashboard;
     private List<Article> articles;
+
+    private String openDashboardNotification;
 }

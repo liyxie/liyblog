@@ -236,6 +236,13 @@ export function listCategory() {
     })
 }
 
+export function listTool(){
+    return request({
+        url: '/v1/tool/',
+        method: 'get'
+    })
+}
+
 export function addFeedback(data) {
     return request({
         url: '/v1/feedback/',

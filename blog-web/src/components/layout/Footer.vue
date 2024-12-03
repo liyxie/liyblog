@@ -95,7 +95,8 @@ watch(
 var timer = setInterval(runTime, 1000);
 
 function runTime() {
-  var timeold = new Date().getTime() - new Date(1627747200000).getTime();
+  // 2022年7月31日21:00:00
+  var timeold = new Date().getTime() - new Date(1659240400000).getTime();
   var msPerDay = 24 * 60 * 60 * 1000;
   var daysold = Math.floor(timeold / msPerDay);
   var time = new Date();

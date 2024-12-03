@@ -3,6 +3,7 @@ package com.liy.strategy.imp.fileUpload;
 import com.liy.config.FileConfig;
 import com.liy.entity.SystemFileConfig;
 import com.liy.enums.file.FileUpdateModelEnum;
+import com.liy.exception.BusinessException;
 import com.liy.strategy.FileUploadStrategy;
 import com.liy.utils.DateUtil;
 import com.liy.utils.FileUtils;
@@ -49,18 +50,21 @@ public class LocalUploadStrategyImpl implements FileUploadStrategy {
 
         String savePath = systemFileConfig.getPath();
         File savePathFile = new File(savePath);
-        if (!savePathFile.exists()) {
-            //若不存在该目录，则创建目录
-            savePathFile.mkdir();
-        }
-        //通过UUID生成唯一文件名
-        String filename = FileUtils.splicingUrl('.', UUIDUtils.getUuid(), suffix);
+
+        String filename = null;
         try {
+            if (!savePathFile.exists()) {
+                //若不存在该目录，则创建目录
+                savePathFile.mkdir();
+            }
             suffix = FileUtils.getExtension(file.getInputStream());
+            //通过UUID生成唯一文件名
+            filename = FileUtils.splicingUrl('.', UUIDUtils.getUuid(), suffix);
             //将文件保存指定目录
             file.transferTo(new File(savePath + path + filename));
         } catch (Exception e) {
             e.printStackTrace();
+            throw new BusinessException();
         }
         //返回文件名称
         return FileUtils.splicingUrl('/', systemFileConfig.getPath(), path, filename);

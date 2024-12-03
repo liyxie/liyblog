@@ -90,6 +90,8 @@ public class BlogQuartz {
         articleService.updateBatchById(articles);
     }
 
+//    public void add
+
 
     /**
      * 删除redis当天验证码通过的ip

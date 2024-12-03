@@ -85,6 +85,13 @@ public class ResponseResult {
         return success();
     }
 
+    public static ResponseResult check(boolean f) {
+        if(f){
+            return success();
+        };
+        return error("数据操作失败");
+    }
+
     public ResponseResult(Integer code, String msg, Object data) {
         this.code = code;
         this.message = msg;

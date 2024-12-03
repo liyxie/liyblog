@@ -7,10 +7,7 @@
       <el-row justify="space-between">
         <el-col :span="18" :xs="24">
           <div class="flex h-full items-center">
-            <img
-              class="w-20 h-20 mr-5 rounded-full"
-              :src="userStore.user.avatar + '?imageView2/1/w/80/h/80'"
-            />
+            <img class="w-20 h-20 mr-5 rounded-full" :src="userStore.user.avatar + '?imageView2/1/w/80/h/80'" />
             <div>
               <p>{{ greetings }}</p>
               <p class="text-sm text-gray">
@@ -38,7 +35,9 @@
             <el-statistic :value="topData.viewsCount">
               <template #title>
                 <div class="flex items-center">
-                  <el-icon size="20px" color="red"><View /></el-icon>
+                  <el-icon size="20px" color="red">
+                    <View />
+                  </el-icon>
                   <span class="text-[16px] ml-1">总访客数</span>
                 </div>
               </template>
@@ -73,6 +72,7 @@
     </el-row>
 
     <!-- Echarts 图表 -->
+    <!-- 文章阅读量排行 -->
     <el-row :gutter="10" class="mt-3">
       <el-col :sm="24" :lg="8" class="mb-2">
         <el-card>
@@ -80,17 +80,12 @@
           <el-table :data="articles" style="padding-top: 25px" fit>
             <el-table-column label="标题" width="400">
               <template #default="scope">
-                <el-link
-                  style="
+                <el-link style="
                     overflow: hidden;
                     text-overflow: ellipsis;
                     white-space: nowrap;
-                  "
-                  :underline="false"
-                  :href="url + 'article/' + scope.row.id"
-                  target="_blank"
-                  >{{ scope.row.title }}</el-link
-                >
+                  " :underline="false" :href="url + 'article/' + scope.row.id" target="_blank">{{ scope.row.title
+                  }}</el-link>
               </template>
             </el-table-column>
             <el-table-column label="阅读量" prop="quantity" align="center" />
@@ -102,11 +97,7 @@
         <el-card>
           <div class="e-title">文章分类统计</div>
           <div class="chart-wrapper">
-            <div
-              id="categoryChart"
-              class="chart"
-              style="height: 310px; width: 100%"
-            ></div>
+            <div id="categoryChart" class="chart" style="height: 310px; width: 100%"></div>
           </div>
         </el-card>
       </el-col>
@@ -126,12 +117,7 @@
       </el-card>
     </el-row>
 
-    <el-dialog
-      title="通知"
-      :close-on-click-modal="false"
-      v-model="centerDialogVisible"
-      center
-    >
+    <el-dialog title="通知" v-model="centerDialogVisible" center>
       <span v-html="dashboard"></span>
     </el-dialog>
   </div>
@@ -159,6 +145,7 @@ const dashboard = ref();
 const tagsList = ref<any>([]);
 const topData = ref<any>({});
 const url = ref(import.meta.env.VITE_APP_HOME_URL);
+// 显示弹窗
 const centerDialogVisible = ref(false);
 
 const greetings = computed(() => {
@@ -189,7 +176,7 @@ function initContributeDate(contributeDate: any, blogContributeCount: any) {
       text: "文章贡献度",
       subtext: "一年内博客提交的数量",
       left: "center",
-      color: "#000",
+      color: "#29a348d1",
     },
     tooltip: {
       trigger: "item",
@@ -202,7 +189,7 @@ function initContributeDate(contributeDate: any, blogContributeCount: any) {
       left: "100",
       data: ["文章数"],
       // 设置字体颜色
-      color: "#000",
+      color: "#29a348d1",
     },
     calendar: [
       {
@@ -222,13 +209,13 @@ function initContributeDate(contributeDate: any, blogContributeCount: any) {
         dayLabel: {
           nameMap: ["周日", "周一", "周二", "周三", "周四", "周五", "周六"], // 设置中文显示
           // 设置周显示颜色
-          color: "#000",
+          color: "#29a348d1",
           firstDay: 1, // 从周一开始
         },
         monthLabel: {
           nameMap: "cn", // 设置中文显示
           // 设置月显示颜色
-          color: "#000",
+          color: "#29a348d1",
         },
         itemStyle: {
           // 设置背景颜色
@@ -404,6 +391,7 @@ function setOptions(data: any) {
 
 onMounted(() => {
   getDashboardBottomStatistics().then((res) => {
+    console.log(res.data);
     dashboard.value = res.data.dashboard;
     tagsList.value = res.data.tagsList;
     articles.value = res.data.articles;
@@ -416,7 +404,7 @@ onMounted(() => {
       res.data.categoryList.result
     );
     initUserAccessChart(res.data.userAccess);
-    centerDialogVisible.value = true;
+    centerDialogVisible.value = res.data.openDashboardNotification == 1;
   });
   getDashboardTopStatistics().then((res) => {
     topData.value = res.data;

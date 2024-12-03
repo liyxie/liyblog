@@ -84,7 +84,12 @@ const homeUrl = ref(import.meta.env.VITE_APP_HOME_URL + "article/");
 const dialogVisible = ref(false);
 const videoInput = ref("");
 
+// csdn文章抓取弹窗控制
 const dialogTableVisible = ref(false);
+// 随机图床弹窗控制
+const coverPlanDialogTableVisible = ref(false);
+// 随机图床链接
+const coverPlanUrl = ref("");
 const reptileUrl = ref("");
 
 const uploadPictureHost = ref(
@@ -386,6 +391,14 @@ function openReptile() {
 }
 
 /**
+ * 打卡随机图床弹窗
+ */
+function openCoverPlan() {
+  // CoverPlanDialogTableVisible.value = true;
+  // reptileUrl.value = "";
+}
+
+/**
  * 抓取文章
  */
 function handleReptile() {
@@ -497,17 +510,19 @@ onMounted(() => {
           type="primary"
           @click="openReptile"
           v-hasPerm="['system:article:reptile']"
-          ><el-icon>
-            <MostlyCloudy /> </el-icon
-          >csdn文章抓取</el-button
+          ><el-icon> <MostlyCloudy /> </el-icon>csdn文章抓取</el-button
+        >
+        <el-button
+          type="primary"
+          @click="openCoverPlan"
+          v-hasPerm="['system:article:coverPlan']"
+          ><el-icon> <MostlyCloudy /> </el-icon>随机图床</el-button
         >
         <el-button
           type="info"
           @click="handleSeo"
           v-hasPerm="['system:article:seo']"
-          ><el-icon>
-            <MostlyCloudy /> </el-icon
-          >SEO</el-button
+          ><el-icon> <MostlyCloudy /> </el-icon>SEO</el-button
         >
         <el-button
           type="danger"
@@ -518,6 +533,7 @@ onMounted(() => {
         >
       </template>
 
+      <!-- 列表 -->
       <el-table
         ref="dataTableRef"
         :data="tableData"
@@ -528,8 +544,8 @@ onMounted(() => {
         v-loading="loading"
         max-height="600px"
       >
-        <el-table-column type="selection" width="55" align="center" />
-        <el-table-column width="170" align="center" label="文章封面">
+        <el-table-column type="selection" width="30" align="center" />
+        <el-table-column width="150" align="center" label="文章封面">
           <template #default="scope">
             <el-image class="article-cover" :src="scope.row.avatar" />
           </template>
@@ -549,25 +565,18 @@ onMounted(() => {
             >
           </template>
         </el-table-column>
-        <el-table-column
-          prop="nickname"
-          width="120"
-          align="center"
-          label="文章作者"
-        />
-        <el-table-column align="center" width="116" label="类型">
+        <el-table-column align="center" width="120" label="状态">
           <template #default="scope">
-            <span v-for="(item, index) in isOriginalList" :key="index">
+            <span v-for="(item, index) in publishList" :key="index">
               <el-tag
-                :type="scope.row.isOriginal === 0 ? 'warning' : 'success'"
-                :key="index"
-                v-if="scope.row.isOriginal === index"
-                >{{ item }}
-              </el-tag>
+                v-if="item.value == scope.row.isPublish"
+                :type="item.style"
+                >{{ item.label }}</el-tag
+              >
             </span>
           </template>
         </el-table-column>
-        <el-table-column align="center" width="125" label="分类">
+        <el-table-column align="center" width="100" label="分类">
           <template #default="scope">
             <el-tag style="margin-left: 3px" align="center" type="warning"
               >{{ scope.row.categoryName }}
@@ -610,17 +619,12 @@ onMounted(() => {
             }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column align="center" width="120" label="状态">
-          <template #default="scope">
-            <span v-for="(item, index) in publishList" :key="index">
-              <el-tag
-                v-if="item.value == scope.row.isPublish"
-                :type="item.style"
-                >{{ item.label }}</el-tag
-              >
-            </span>
-          </template>
-        </el-table-column>
+        <el-table-column
+          prop="nickname"
+          width="100"
+          align="center"
+          label="文章作者"
+        />
         <el-table-column
           width="200"
           align="center"
@@ -628,6 +632,18 @@ onMounted(() => {
           sortable
           label="添加时间"
         />
+        <el-table-column align="center" width="100" label="类型">
+          <template #default="scope">
+            <span v-for="(item, index) in isOriginalList" :key="index">
+              <el-tag
+                :type="scope.row.isOriginal === 0 ? 'warning' : 'success'"
+                :key="index"
+                v-if="scope.row.isOriginal === index"
+                >{{ item }}
+              </el-tag>
+            </span>
+          </template>
+        </el-table-column>
         <el-table-column width="220" fixed="right" align="center" label="操作">
           <template #default="scope">
             <el-button
@@ -667,8 +683,7 @@ onMounted(() => {
               @click="handleDelete(scope.row.id)"
               icon="Delete"
               v-hasPerm="['system:article:delete']"
-              >删除</el-button
-            >
+              >删除</el-button>
           </template>
         </el-table-column>
       </el-table>

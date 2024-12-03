@@ -494,3 +494,20 @@ appstorrent：https://appstorrent.ru/
 三顿导航：https://www.sandunppt.com/
 
 MacBl：https://www.macbl.com/
+
+
+
+
+
+Object 的1不能直接转为Integer 
+
+先转换为String 再Integer.parseInt()转换
+
+```java
+Object i = StpUtil.getLoginId();
+if (i instanceof String) {
+    int id = Integer.parseInt((String) i);
+    System.out.println("Converted ID: " + id);
+}
+tool.setCreateBy((Integer) StpUtil.getLoginId());
+```

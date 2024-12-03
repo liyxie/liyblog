@@ -18,7 +18,6 @@ export interface CategoryPageVO {
    * 创建时间
    */
   createTime?: Date;
-  
 }
 
 /**
@@ -28,7 +27,6 @@ export interface CategoryQuery extends PageQuery {
   name?: string;
 }
 
-
 /**
  * 表单请求参数
  */
@@ -36,7 +34,7 @@ export interface CategoryForm {
   /**
    * id
    */
-  id:string;
+  id: string;
   /**
    * 名称
    */
@@ -44,7 +42,7 @@ export interface CategoryForm {
   /**
    * 图标
    */
-  icon:string;
+  icon: string;
   /**
    * 排序
    */

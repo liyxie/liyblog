@@ -267,7 +267,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
             Article entity = Article.builder().userId(StpUtil.getLoginIdAsString()).contentMd(markdown)
                     .categoryId(16L).isOriginal(YesOrNoEnum.NO.getCode()).originalUrl(url)
-                    .title(title.get(0).text()).avatar("https://picsum.photos/500/300").content(newContent).build();
+                    .title(title.get(0).text()).avatar("https://picsum.photos/500/300?random=" + System.currentTimeMillis()).content(newContent).build();
 
             baseMapper.insert(entity);
             //为该文章添加标签

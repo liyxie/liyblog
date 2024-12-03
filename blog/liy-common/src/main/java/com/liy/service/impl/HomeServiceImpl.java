@@ -87,6 +87,7 @@ public class HomeServiceImpl {
             SystemConfig systemConfig = systemConfigService.getCustomizeOne();
             if (systemConfig != null) {
                 systemHomeDataVO.setDashboard(systemConfig.getDashboardNotification());
+                systemHomeDataVO.setOpenDashboardNotification(systemConfig.getOpenDashboardNotification());
             } else {
                 log.warn("系统配置获取失败或为空");
             }

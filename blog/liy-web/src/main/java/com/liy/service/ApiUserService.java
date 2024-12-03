@@ -6,6 +6,8 @@ import com.liy.dto.user.EmailForgetPasswordDTO;
 import com.liy.dto.user.EmailLoginDTO;
 import com.liy.dto.user.EmailRegisterDTO;
 import com.liy.dto.user.UserInfoDTO;
+import com.liy.entity.User;
+import com.liy.vo.user.SystemUserVO;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.zhyd.oauth.model.AuthResponse;
 
@@ -107,4 +109,5 @@ public interface ApiUserService {
      */
     ResponseResult appletLogin(WechatAppletDTO wechatAppletDTO);
 
+    SystemUserVO getUser(String userId);
 }
