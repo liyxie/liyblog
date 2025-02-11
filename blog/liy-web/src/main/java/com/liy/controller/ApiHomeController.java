@@ -8,6 +8,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 
 /**
  * <p>
@@ -47,6 +49,8 @@ public class ApiHomeController {
     @GetMapping("/hot")
     @ApiOperation(value = "获取各大平台热搜", httpMethod = "GET", response = ResponseResult.class, notes = "获取各大平台热搜")
     public ResponseResult hot(String type){
+        if(Objects.equals(type, "xianbao")) return homeService.hotXianBao(type);
+        if(Objects.equals(type, "doying")) return homeService.hotDoYing(type);
         return homeService.hot(type);
     }
 

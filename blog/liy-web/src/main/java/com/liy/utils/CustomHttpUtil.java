@@ -1,6 +1,7 @@
 package com.liy.utils;
 
 import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.HashMap;
@@ -22,5 +23,15 @@ public class CustomHttpUtil {
         paramMap.put("secret-key", sk);
         String result= HttpUtil.get(url, paramMap);
         return JSONObject.parseObject(result);
+    }
+
+    public static JSONObject sendApiHttpUrlByO(String url) {
+        String result= HttpUtil.get(url);
+        return JSONObject.parseObject(result);
+    }
+
+    public static JSONArray sendApiHttpUrl(String url) {
+        String result= HttpUtil.get(url);
+        return JSONObject.parseArray(result);
     }
 }

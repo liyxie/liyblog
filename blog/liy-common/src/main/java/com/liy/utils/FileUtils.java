@@ -151,24 +151,24 @@ public class FileUtils {
      * @param str 参与拼接字符串
      * @return url
      */
-    public static String splicingUrl(char delimiter, String ...str){
-        StringBuilder url = new StringBuilder(str[0]);
-        for (int i = 1; i < str.length; i++) {
-            boolean currentEndsWithDelimiter = url.charAt(url.length() - 1) == delimiter;
-
-            // 检查下一个字符串的开头是否是分隔符
-            boolean nextStartsWithDelimiter = str[i].charAt(0) == delimiter;
-
-            // 如果当前字符串末尾不是分隔符，且下一个字符串开头不是分隔符，则添加分隔符
-            if (!currentEndsWithDelimiter && !nextStartsWithDelimiter) {
-                url.append(delimiter);
-            }
-
-            // 添加下一个字符串到URL
-            url.append(str[i]);
-        }
-        return url.toString();
-    }
+//    public static String splicingUrl(char delimiter, String ...str){
+//        StringBuilder url = new StringBuilder(str[0]);
+//        for (int i = 1; i < str.length; i++) {
+//            boolean currentEndsWithDelimiter = url.charAt(url.length() - 1) == delimiter;
+//
+//            // 检查下一个字符串的开头是否是分隔符
+//            boolean nextStartsWithDelimiter = str[i].charAt(0) == delimiter;
+//
+//            // 如果当前字符串末尾不是分隔符，且下一个字符串开头不是分隔符，则添加分隔符
+//            if (!currentEndsWithDelimiter && !nextStartsWithDelimiter) {
+//                url.append(delimiter);
+//            }
+//
+//            // 添加下一个字符串到URL
+//            url.append(str[i]);
+//        }
+//        return url.toString();
+//    }
 
 
 

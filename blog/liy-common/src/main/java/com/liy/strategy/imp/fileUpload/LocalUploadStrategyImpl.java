@@ -7,6 +7,7 @@ import com.liy.exception.BusinessException;
 import com.liy.strategy.FileUploadStrategy;
 import com.liy.utils.DateUtil;
 import com.liy.utils.FileUtils;
+import com.liy.utils.StringUtils;
 import com.liy.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.dromara.x.file.storage.core.FileInfo;
@@ -59,7 +60,7 @@ public class LocalUploadStrategyImpl implements FileUploadStrategy {
             }
             suffix = FileUtils.getExtension(file.getInputStream());
             //通过UUID生成唯一文件名
-            filename = FileUtils.splicingUrl('.', UUIDUtils.getUuid(), suffix);
+            filename = StringUtils.splicingUrl('.', UUIDUtils.getUuid(), suffix);
             //将文件保存指定目录
             file.transferTo(new File(savePath + path + filename));
         } catch (Exception e) {
@@ -67,7 +68,7 @@ public class LocalUploadStrategyImpl implements FileUploadStrategy {
             throw new BusinessException();
         }
         //返回文件名称
-        return FileUtils.splicingUrl('/', systemFileConfig.getPath(), path, filename);
+        return StringUtils.splicingUrl('/', systemFileConfig.getPath(), path, filename);
     }
 
     /**

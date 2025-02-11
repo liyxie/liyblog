@@ -40,6 +40,7 @@ public class ApiToolServiceImpl implements ApiToolService {
                 }
             }
         }
+
         List<Tool> toolList = toolMapper.selectToolList();
         List<ToolMenuVo> toolMenuVos = toolService.doMenuTree(toolList);
         return ResponseResult.success(toolMenuVos);

@@ -11,16 +11,16 @@ public enum FileUpdateModelEnum {
     /**
      * 本地上传
      */
-    LOCAL(0, "本地", "localUploadStrategyImpl", "local-1"),
+    LOCAL(1, "本地", "localUploadStrategyImpl", "local-1"),
     /**
      * 七牛云上传
      */
-    QIN(1, "七牛云", "qiNiuUploadStrategyImpl", "qin-1"),
+    QIN(2, "七牛云", "qiNiuUploadStrategyImpl", "qin-1"),
 
     /**
      * 阿里云上传
      */
-    ALI(2, "阿里云", "aliUploadStrategyImpl", "ali-1"),
+    ALI(4, "阿里云", "aliUploadStrategyImpl", "ali-1"),
 
     /**
      * 腾讯云

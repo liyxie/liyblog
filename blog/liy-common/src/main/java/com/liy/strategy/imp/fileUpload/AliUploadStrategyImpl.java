@@ -11,6 +11,7 @@ import com.liy.service.SystemConfigService;
 import com.liy.strategy.FileUploadStrategy;
 import com.liy.utils.DateUtil;
 import com.liy.utils.FileUtils;
+import com.liy.utils.StringUtils;
 import com.liy.utils.UUIDUtils;
 import lombok.RequiredArgsConstructor;
 import org.dromara.x.file.storage.core.FileStorageProperties;
@@ -95,7 +96,7 @@ public class AliUploadStrategyImpl implements FileUploadStrategy {
             ossClient.putObject(systemFileConfig.getBucket(), newFileName, inputStream);
 
             //把上传之后的文件路径返回，需要把上传到阿里云路径返回    https://edu-guli-eric.oss-cn-beijing.aliyuncs.com/1.jpg
-            key = FileUtils.splicingUrl('/', systemFileConfig.getUrl(), path, newFileName);
+            key = StringUtils.splicingUrl('/', systemFileConfig.getUrl(), path, newFileName);
         } catch (IOException e) {
             e.printStackTrace();
         }finally {

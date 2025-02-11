@@ -22,6 +22,45 @@
         </div>
       </div>
       <div class="hot">
+        <div class="xianbao">
+          <div class="title">
+            <a href="http://new.xianbao.fun" target="_blank">
+              <span>线报热搜</span>
+            </a>
+          </div>
+          <ul>
+            <li
+              v-for="(item, index) in xianbaoList"
+              class="hand-style"
+              style="margin-bottom: 2px;"
+              :key="index"
+              @click="go('http://new.xianbao.fun' + item.url)"
+            >
+              <span class="index">
+                {{ index + 1 }}
+              </span>
+              <span>{{ item.title }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="doying">
+          <div class="title">
+            <span>抖音热搜</span>
+          </div>
+          <ul>
+            <li
+              v-for="(item, index) in doyingList"
+              class="hand-style"
+              :key="index"
+              @click="go(item.url)"
+            >
+              <span class="index">
+                {{ index + 1 }}
+              </span>
+              <span>{{ item.title }}</span>
+            </li>
+          </ul>
+        </div>
         <div class="weibo">
           <div class="title">
             <span>微博热搜</span>
@@ -144,12 +183,17 @@
 import { getHot } from "@/api";
 
 const { proxy } = getCurrentInstance();
+// 热榜
 const baiduList = ref([]);
+const xianbaoList = ref([])
 const weiboList = ref([]);
 const zhihuList = ref([]);
+const doyingList = ref([])
 const csdnList = ref([]);
 const toutiaoList = ref([]);
+
 const text = ref(null);
+// 搜索引擎
 const siteList = ref([
   "百度",
   "谷歌",
@@ -193,7 +237,8 @@ function color(index) {
   }
 }
 function go(url) {
-  window.open(url, "_blank");
+  window.location.href = url;
+  // window.open(url);
 }
 function handleCommit() {
   if (!text.value) {
@@ -208,6 +253,9 @@ function handleClose() {
   proxy.$modal.msgSuccess("切换成功");
 }
 
+getHot("xianbao").then((res) => {
+  xianbaoList.value = res.data;
+});
 getHot("baidu").then((res) => {
   baiduList.value = res.data.data;
 });
@@ -219,6 +267,9 @@ getHot("zhihu").then((res) => {
 });
 getHot("csdn").then((res) => {
   csdnList.value = res.data.data;
+});
+getHot("doying").then((res) => {
+  doyingList.value = res.data.data;
 });
 getHot("toutiao").then((res) => {
   toutiaoList.value = res.data.data;
@@ -236,6 +287,8 @@ getHot("toutiao").then((res) => {
       }
 
       .weibo,
+      .doying,
+      .xianbao,
       .baidu,
       .zhihu,
       .csdn,
@@ -260,6 +313,8 @@ getHot("toutiao").then((res) => {
         display: grid;
 
         .weibo,
+        .doying,
+        .xianbao,
         .baidu,
         .zhihu,
         .csdn,
@@ -336,32 +391,44 @@ getHot("toutiao").then((res) => {
     .hot {
       margin-top: 50px;
 
+      .xianbao .title {
+        background-color: #3c54f0;
+        background-image: radial-gradient(circle at 50% 3%, #5ab5ed, #424eec);
+      }
+
       .weibo .title {
         background-color: #d52c2b;
-        background-image: radial-gradient(circle at 50% 3%, #d63736, #d52c2b);
+        background-image: radial-gradient(circle at 50% 3%, #ea649c, #d52c2b);
+      }
+
+      .doying .title{
+        background-color: #faa90e;
+        background-image: radial-gradient(circle at 50% 3%, #f8dc6c, #d52c2b);
       }
 
       .toutiao .title {
         background-color: #d10808;
-        background-image: radial-gradient(circle at 50% 3%, #d63736, #d52c2b);
+        background-image: radial-gradient(circle at 50% 3%, #ecc060, #d52c2b);
       }
 
       .baidu .title {
         background-color: #4e6ef2;
-        background-image: radial-gradient(circle at 50% -45%, #53a7f5, #4e6ef2);
+        background-image: radial-gradient(circle at 50% -45%, #543b76, #4e6ef2);
       }
 
       .zhihu .title {
         background-color: #53a7f5;
-        background-image: radial-gradient(circle at 50% -45%, #53a7f5, #4e6ef2);
+        background-image: radial-gradient(circle at 50% -45%, #7f61e1, #4e6ef2);
       }
 
       .csdn .title {
         background-color: #fc5632;
-        background-image: radial-gradient(circle at 50% 3%, #f07a56, #fc5632);
+        background-image: radial-gradient(circle at 50% 3%, #eb964b, #fc5632);
       }
 
       .weibo,
+      .doying,
+      .xianbao,
       .baidu,
       .zhihu,
       .csdn,

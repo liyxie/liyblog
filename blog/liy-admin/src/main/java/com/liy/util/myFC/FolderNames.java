@@ -2,7 +2,8 @@ package com.liy.util.myFC;
 /**
  * @Author LiY
  */
-import com.alibaba.excel.EasyExcel;
+
+import cn.idev.excel.EasyExcel;
 
 import java.io.File;
 import java.util.*;
@@ -13,20 +14,24 @@ import java.util.stream.Collectors;
 public class FolderNames {
 
     static List<String> Mtrait = List.of(
-            "酷", "长", "长发", "冷", "嫩", "双马尾", "幼", "罩", "泳衣", "死库水",
-            "双飞", "短", "短发", "艳", "淫", "欲", "润", "可爱", "瘦", "jk", "三无", "巫女",
-            "金", "黑", "黑长直", "拍差", "浴衣", "呆", "码", "口罩", "甜", "黄", "野外", "4K",
-            "面码", "美", "漂亮", "白", "遮", "眼码", "cos", "大", "睡", "眼镜", "圣诞", "高",
-            "羞", "敏", "声", "双机位", "学生", "4k", "秀", "小", "脸大", "身材", "没感情",
-            "紫", "清秀", "熟女", "套", "熟", "圆脸", "制服", "3p", "三合一", "飞鸟酱", "旧",
-            "道具", "二合一", "纯");
+            "酷", "冷","艳", "淫", "欲", "润", "可爱","呆","甜","美",
+            "漂亮", "白","羞", "敏", "声","秀","清秀", "纯","熟", "圆脸","熟女",
+            "长", "长发", "双马尾","短", "短发","金", "黑", "黑长直", "马尾", "黄","紫",
+            "嫩", "幼", "瘦", "廋","大","小", "脸大", "身材", "高",
+            "罩", "面码","码", "口罩", "遮", "眼码",
+            "泳衣", "死库水","jk","巫女", "浴衣", "cos","眼镜", "圣诞", "学生","制服",
+            "双飞",  "三无", "没感情","3p",
+            "拍差", "4K", "双机位", "4k",
+            "公车", "车", "电车","野外","睡","道具","套",
+            "moke", "未性年", "二合一", "飞鸟酱", "三合一", "旧"
+    );
 
 
 
     public static void main(String[] args) {
 
         String[] directoryPaths = new String[]{
-                "I:\\", "J:\\", "H:\\学习资料\\day01-SpringCloud01\\资料\\F", "G:\\新建文件夹", "E:\\杂\\新建文件夹"
+                "I:\\", "J:\\", "H:\\学习资料\\day01-SpringCloud01\\资料\\F", "E:\\杂\\新建文件夹"
         };
 
         String path = "I:\\";
@@ -45,7 +50,7 @@ public class FolderNames {
                 // 过滤掉非F或f开头的文件夹名
                 .filter(f -> f.getFullName().startsWith("FC") || f.getFullName().startsWith("fc"))
                 // 将文件夹名替换为其弟2个"-"后的6位数字
-                .map(fc -> {
+                .peek(fc -> {
                     Matcher matcher = pattern.matcher(fc.getFullName());
                     if (matcher.find()) {
                         int endIndex = matcher.end();
@@ -68,7 +73,6 @@ public class FolderNames {
                             fc.setTrait(String.join(", ", traits));
                         }
                     }
-                    return fc;
                 })
                 .collect(Collectors.toList());
 

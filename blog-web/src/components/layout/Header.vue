@@ -79,13 +79,13 @@
           </el-dropdown>
         </li>
 
-        <li :class="path === '/say' ? 'active' : ''">
+        <!-- <li :class="path === '/say' ? 'active' : ''">
           <span>
             <router-link :to="'/say'" class="hand-style">
               <svg-icon name="say"></svg-icon> 说说
             </router-link>
           </span>
-        </li>
+        </li> -->
 
         <!-- <li :class="path === '/software' ? 'active' : ''">
           <span>
@@ -165,14 +165,14 @@
                   </el-dropdown-item>
                 </a>
 
-                <a style="text-decoration: none; color: #71777c" :href="qingLongUrl" target="_blank">
+                <!-- <a style="text-decoration: none; color: #71777c" :href="qingLongUrl" target="_blank">
                   <el-dropdown-item>
                     <el-icon>
                       <Tools />
                     </el-icon>
                     青龙
                   </el-dropdown-item>
-                </a>
+                </a> -->
               </el-dropdown-menu>
             </template>
           </el-dropdown>

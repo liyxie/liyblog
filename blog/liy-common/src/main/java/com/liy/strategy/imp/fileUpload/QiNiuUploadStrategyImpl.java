@@ -10,6 +10,7 @@ import com.liy.entity.SystemConfig;
 import com.liy.service.SystemConfigService;
 import com.liy.utils.DateUtil;
 import com.liy.utils.FileUtils;
+import com.liy.utils.StringUtils;
 import com.liy.utils.UUIDUtils;
 import com.qiniu.common.QiniuException;
 import com.qiniu.http.Response;
@@ -68,17 +69,18 @@ public class QiNiuUploadStrategyImpl implements FileUploadStrategy {
 
     @Override
     public String fileUpload(MultipartFile file, String path) {
-        String suffix = null;
+        String suffix;
 
         FileInputStream inputStream = null;
-        String key = systemFileConfig.getPath() + path + UUIDUtils.getUuid() + "." + suffix;
+        String key = null;
         try {
             suffix = FileUtils.getExtension(file.getInputStream());
+            key = StringUtils.splicingUrl('/', systemFileConfig.getPath(), path , UUIDUtils.getUuid() + "." + suffix);
             inputStream = (FileInputStream) file.getInputStream();
             Response response = uploadManager.put(inputStream, key, upToken,null,null);
             //解析上传成功的结果
             QiNiuPutRet putRet = response.jsonToObject(QiNiuPutRet.class);
-            key = FileUtils.splicingUrl('/', systemFileConfig.getUrl(), putRet.key);
+            key = StringUtils.splicingUrl('/', systemFileConfig.getUrl(), putRet.key);
         } catch (QiniuException ex) {
             Response r = ex.response;
             logger.info("QiniuException:{}",r.toString());

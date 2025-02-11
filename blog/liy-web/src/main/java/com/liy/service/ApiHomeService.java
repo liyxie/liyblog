@@ -29,4 +29,8 @@ public interface ApiHomeService {
      * @return
      */
     public ResponseResult hot(String type);
+
+    ResponseResult hotXianBao(String type);
+
+    ResponseResult hotDoYing(String type);
 }

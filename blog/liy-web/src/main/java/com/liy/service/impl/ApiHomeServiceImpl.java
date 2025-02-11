@@ -1,6 +1,8 @@
 package com.liy.service.impl;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.liy.mapper.ArticleMapper;
 import com.liy.mapper.TagsMapper;
@@ -24,6 +26,7 @@ import org.springframework.util.DigestUtils;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 
 @Service
@@ -37,6 +40,7 @@ public class ApiHomeServiceImpl implements ApiHomeService {
     private final ArticleMapper articleMapper;
 
     private final TagsMapper tagsMapper;
+
 
 
     /**
@@ -116,5 +120,35 @@ public class ApiHomeServiceImpl implements ApiHomeService {
         String url = "https://www.coderutil.com/api/resou/v1/" + type;
         JSONObject jsonObject = CustomHttpUtil.sendCuApiHttpUrl(url);
         return ResponseResult.success(jsonObject);
+    }
+
+    /**
+     * 线报榜单 http://new.ixbk.net
+     * 6小时榜单，最快300秒请求一次
+     * @param type 平台
+     * @return 榜单
+     */
+    @Override
+    public ResponseResult hotXianBao(String type) {
+        JSONArray jsonArray;
+        List<Object> list;
+        if(redisService.hasKey("xianbao")){
+            list = JSON.parseArray( (String) redisService.getCacheObject("XianBao"));
+        }
+        else {
+            String url = "http://new.ixbk.net/plus/json/rank/sanxiaoshi.json";
+            jsonArray = CustomHttpUtil.sendApiHttpUrl(url);
+            list = jsonArray.subList(0, Math.min(15, jsonArray.size()));
+            // 缓存，10分钟更新
+            redisService.setCacheObject("XianBao", list.toString(),600, TimeUnit.SECONDS);
+        }
+        return ResponseResult.success(list);
+    }
+
+    @Override
+    public ResponseResult hotDoYing(String type) {
+        String url = "https://dsp.lenovo.com.cn/lenovo/bid?positionId=50411";
+        JSONObject jsonArray = CustomHttpUtil.sendApiHttpUrlByO(url);
+        return ResponseResult.success(jsonArray);
     }
 }

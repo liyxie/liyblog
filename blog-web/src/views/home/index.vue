@@ -379,6 +379,7 @@
           <el-card class="box-card weather">
             <div class="clearfix">
               <span class="card-title"> 今日天气</span>
+              <iframe width="232" scrolling="no" height="80" frameborder="0" allowtransparency="true" src="https://i.tianqi.com?c=code&id=8&py=&icon=1&site=12&lang=cn"></iframe>
             </div>
             <div id="he-plugin-standard"></div>
           </el-card>
@@ -444,7 +445,7 @@ const fullscreenLoading = ref(true);
 const swiper = ref();
 const swiperOpen = ref(true);
 // 左侧默认展开子菜单
-const openeds = ref(['3'])
+// const openeds = ref(['3'])
 
 onBeforeUnmount(() => {
   clearInterval(timer);
@@ -616,6 +617,7 @@ function handleClike(id, path) {
     query: { id: id },
   });
 }
+
 //初始化天气
 function insertWeather() {
   window.WIDGET = {
