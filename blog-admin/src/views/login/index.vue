@@ -104,7 +104,7 @@
 
     <!-- ICP备案 -->
     <!-- <div class="absolute bottom-1 text-[10px] text-center" v-show="icpVisible">
-      <p>Copyright © 2022 - 2024 shiyit.com All Rights Reserved.</p>
+      <p>Copyright © 2022 - 2024 All Rights Reserved.</p>
     </div> -->
   </div>
 </template>

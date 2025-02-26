@@ -3,7 +3,7 @@
     <div class="say-containner">
       <div class="cover">
         <img
-          src="http://img.shiyit.com/72d9854940be46579f098b49f9d9035c.jpg"
+          src="https://www.img.liy1900.xyz/www/blog/component/wallhaven-1k1kdv_1920x1080%20%281%29.png"
           alt=""
         />
         <div class="info">说说</div>

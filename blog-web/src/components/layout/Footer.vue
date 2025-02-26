@@ -8,9 +8,9 @@
 
           <p>
             Copyright©2022-{{ nowYear }}
-            <!-- <a href="https://gitee.com/quequnlong/shiyi-blog" target="_blank">{{
+            <a href="https://gitee.com/LiYie/liyblog" target="_blank">{{
               webInfo.name
-            }}</a> -->
+            }}</a>
             <a
               href="https://beian.miit.gov.cn/"
               target="_blank"
@@ -214,7 +214,7 @@ function runTime() {
       .thumb {
         display: block;
         padding-top: 60%;
-        background-image: url(https://img.shiyit.com/cyxy.png);
+        background-image: url(https://www.img.liy1900.xyz/www/blog/component/0663.jpg);
       }
       .girl-info {
         margin-bottom: 55px;

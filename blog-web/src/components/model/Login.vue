@@ -272,7 +272,7 @@
       </div>
 
       <div v-if="index == 4">
-        <el-image class="wxImg" src="http://img.shiyit.com/wechatQr.jpg">
+        <el-image class="wxImg" src="https://www.img.liy1900.xyz/www/blog/component/%E5%BE%AE%E4%BF%A1.png">
           <template #placeholder>
             <div class="image-slot">加载中<span class="dot">...</span></div>
           </template>
@@ -500,7 +500,7 @@ function openAuthLogin(source) {
 
 <style lang="scss" scoped>
 ::v-deep(.el-overlay-dialog) {
-  background-image: url(https://img.shiyit.com/20231007_1696659441438.jpg) !important;
+  background-image: url(https://www.img.liy1900.xyz/www/blog/component/1587.png) !important;
 }
 @media screen and (min-width: 1119px) {
   ::v-deep(.el-dialog) {

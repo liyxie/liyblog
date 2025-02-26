@@ -209,9 +209,6 @@
           </div>
         </div>
       </div>
-      <div class="wechatImg">
-        <img src="http://img.shiyit.com/souyisou1.png" alt="" />
-      </div>
       <!-- 版权 -->
       <div class="copyright">
         <div class="copyrightItem">

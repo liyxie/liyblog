@@ -35,7 +35,7 @@
       </div>
       <template #dropdown>
         <el-dropdown-menu>
-          <a target="_blank" href="https://gitee.com/quequnlong/shiyi-blog">
+          <a target="_blank" href="https://gitee.com/LiYie/liyblog">
             <el-dropdown-item>{{ $t("navbar.gitee") }}</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click="openDialog">

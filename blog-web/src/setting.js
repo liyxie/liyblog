@@ -2,54 +2,54 @@ export default {
     /**
      * 小程序图片
      */
-    appletImg: "https://img.shiyit.com/20231117_1700185199582.jpg",
+    appletImg: "",
 
     /**
     * 公众号图片
     */
-    wxOpenImg: "https://img.shiyit.com/wechatQr.jpg",
+    wxOpenImg: "",
 
     /**
     * 翻转图片-正面
     */
-    overturnImg: "https://img.shiyit.com/1.jpg",
+    overturnImg: "https://www.img.liy1900.xyz/www/blog/component/0663.jpg",
 
     /**
     * 广告图片1
     */
-    poster1Img: "https://img.shiyit.com/20231010_1696930367538.jpg",
+    poster1Img: "",
 
     /**
     * 广告图片1-标题
     */
-    poster1Title: "高效便宜可靠的服务器",
+    poster1Title: "",
 
     /**
     * 广告图片1-跳转地址
     */
-    poster1Href: "https://www.zhisu1.com/aff/DIHZPJNL",
+    poster1Href: "",
 
     /**
     * 留言墙背景图片
     */
-    messageBkImg: "https://img.shiyit.com/1642481294001.png",
+    messageBkImg: "https://www.img.liy1900.xyz/www/blog/component/1587.png",
 
 
     /**
     * 游客头像
     */
-    touristAvatar: "https://img.shiyit.com/touristAvatar.png",
+    touristAvatar: "https://www.img.liy1900.xyz/www/blog/component/wallhaven-3l2kmd_3840x2160.png",
 
 
     /**
     * 头像挂件
     */
-    avatarGaoda: "https://img.shiyit.com/gaoda.png",
+    avatarGaoda: "https://www.img.liy1900.xyz/www/blog/component/gaoda.png",
 
 
     /**
     * 博主信息组件背景(即轮播图右侧)
     */
-    avatarBg: "https://liy1900-1258789570.cos.ap-guangzhou.myqcloud.com/www/wwwroot/blog/common/wallhaven-p8j3we_1920x1080.png",
+    avatarBg: "https://www.img.liy1900.xyz/www/blog/component/wallhaven-p8j3we_1920x1080.png",
 
 }
