@@ -174,6 +174,9 @@ function resetForm() {
   formRef.value.resetFields();
   formRef.value.clearValidate();
   formData.id = undefined;
+  formData.avatar = undefined;
+  formData.createTime = undefined;
+  formData.keywords = undefined;
 }
 
 /** 删除 */
@@ -512,12 +515,12 @@ onMounted(() => {
           v-hasPerm="['system:article:reptile']"
           ><el-icon> <MostlyCloudy /> </el-icon>csdn文章抓取</el-button
         >
-        <el-button
+        <!-- <el-button
           type="primary"
           @click="openCoverPlan"
           v-hasPerm="['system:article:coverPlan']"
           ><el-icon> <MostlyCloudy /> </el-icon>随机图床</el-button
-        >
+        > -->
         <el-button
           type="info"
           @click="handleSeo"
