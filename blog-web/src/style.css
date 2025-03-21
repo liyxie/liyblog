@@ -278,15 +278,21 @@ html {
     display: inline-block;
     border-radius: 5px;
     padding: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
     color: #fff;
     transition: all .3s;
+    background-image: linear-gradient(to bottom right, transparent 20%, rgba(255,255,255,0.3));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s;
+
 }
 
 .tag-item:hover {
-    border-radius: 0;
-    background-color: #000 !important;
+    border-radius: 10;
+    background-color: #000000 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgb(1, 255, 18);
 }
 
 @media screen and (max-width: 1118px) {
