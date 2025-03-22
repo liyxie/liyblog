@@ -6,6 +6,7 @@
   <Login />
   <!-- 搜索 -->
   <Search />
+  <!-- 右弹边框 -->
   <SideTool />
   <SideNavBar />
   <!-- 顶部公告栏 -->

@@ -2,21 +2,8 @@
   <div>
     <el-dialog title="搜索文章" v-model="dialogFormVisible" class="custom-dialog-width">
       <div>
-        <el-input v-model="pageData.keyword" @input="inputChage" placeholder="请输入要搜索的关键词"></el-input>
+        <el-input v-model="pageData.keyword" @input="inputChage" placeholder="请输入"></el-input>
       </div>
-
-      <!-- <div class="dividerBox">
-        <div class="divider">
-          <svg-icon name="car"></svg-icon>
-        </div>
-      </div> -->
-
-      <!-- <div class="dividerBox">
-        <div class="divider">
-          <svg-icon name="car" :animate="true" :frame-interval="300"
-            style="color: #1890ff; font-size: 28px;"></svg-icon>
-        </div>
-      </div> -->
 
       <div class="tagBox" v-if="!list.length">
         <div class="tag-title">标签搜索</div>
@@ -142,112 +129,6 @@ getTagList();
   }
 }
 
-// .dividerBox {
-//   margin-top: 15px;
-//   margin-bottom: 20px;
-
-//   .divider {
-//     position: relative;
-//     border: 2px dashed #d2ebfd;
-
-//     &:hover svg {
-//       left: 90%;
-//     }
-
-//     svg {
-//       width: 25px;
-//       height: 25px;
-//       position: absolute;
-//       top: -15px;
-//       left: 5%;
-//       transition: all 1s ease-in-out;
-
-//       &:hover {
-//         left: 90%;
-//       }
-//     }
-//   }
-// }
-
-// .dividerBox {
-//   margin: 15px 0 20px;
-//   cursor: pointer;  // 明确悬停区域的可交互性
-
-//   .divider {
-//     position: relative;
-//     height: 4px;  // 明确高度以扩大悬停区域
-//     background: repeating-linear-gradient(
-//       90deg,
-//       transparent,
-//       transparent 10px,
-//       #d2ebfd 10px,
-//       #d2ebfd 20px
-//     ); // 替代虚线边框的现代实现方案
-
-//     svg {
-//       width: 28px;
-//       height: 28px;
-//       position: absolute;
-//       top: 50%;
-//       left: 0;
-//       transform: translate(-50%, -50%); // 精准中心定位
-//       transition: 
-//         left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), // 弹性动画曲线
-//         filter 0.3s ease; // 增加微交互
-//       filter: 
-//         drop-shadow(0 2px 4px rgba(0,0,0,0.1)) 
-//         brightness(1); // 初始状态
-//     }
-
-//     &:hover svg {
-//       left: 100%; // 移动到最右侧
-//       filter: 
-//         drop-shadow(0 4px 8px rgba(0,0,0,0.2)) 
-//         brightness(1.2); // 悬停时提升视觉效果
-//     }
-//   }
-// }
-
-// .dividerBox {
-//   .divider {
-//     svg {
-//       transition:
-//         left 4s cubic-bezier(0.25, 0.46, 0.45, 0.94), // 慢速缓动
-//         filter 0.3s ease;
-
-//       // 关键帧动画增强细节
-//       animation:
-//         bounce 1s ease-in-out infinite,
-//         rotate 2s linear infinite;
-//     }
-
-//     @keyframes bounce {
-
-//       0%,
-//       100% {
-//         transform: translate(-50%, -50%) scale(1);
-//       }
-
-//       50% {
-//         transform: translate(-50%, -60%) scale(1.1);
-//       }
-//     }
-
-//     @keyframes rotate {
-//       0% {
-//         rotate: -5deg;
-//       }
-
-//       50% {
-//         rotate: 5deg;
-//       }
-
-//       100% {
-//         rotate: -5deg;
-//       }
-//     }
-//   }
-// }
 
 .dividerBox {
   .divider {

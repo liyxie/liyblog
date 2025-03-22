@@ -241,6 +241,11 @@ html {
     border-color: var(--theme-color) !important;
 }
 
+.el-input{
+    --el-input-bg-color: var(--text-color) !important;
+    --el-input-border-color: var(--text-color) !important;
+}
+
 .box-shadow-top {
     transition: box-shadow .35s, transform .35s !important;
 }
@@ -275,12 +280,12 @@ html {
 }
 
 .tag-item {
+    color: var(--text-color1);
     display: inline-block;
     border-radius: 5px;
     padding: 5px;
     margin-right: 10px;
     margin-bottom: 10px;
-    color: #fff;
     transition: all .3s;
     background-image: linear-gradient(to bottom right, transparent 20%, rgba(255,255,255,0.3));
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -289,6 +294,7 @@ html {
 }
 
 .tag-item:hover {
+    color: #b5f9d5;
     border-radius: 10;
     background-color: #000000 !important;
     transform: translateY(-2px);

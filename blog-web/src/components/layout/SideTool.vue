@@ -1,4 +1,5 @@
 <template>
+  <!-- 右弹边框 -->
   <div class="toolbar1" :style="{ right: right }">
     <el-tooltip class="item" effect="dark" content="聊天室" placement="left">
       <a
@@ -105,6 +106,7 @@ onMounted(() => {
   window.addEventListener("scroll", toTop, true);
 });
 
+// 切换主题色
 function chageTheme() {
   theme.value = sessionStorage.getItem("theme");
   let val = "";
