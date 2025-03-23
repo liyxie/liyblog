@@ -10,7 +10,7 @@
     </div>
     <div class="tips" v-else>
       <div class="divider"></div>
-      <div class="content">😛我也是有底线的.....</div>
+      <div class="content">----- 没有更多了 -----</div>
       <div class="divider"></div>
     </div>
   </div>

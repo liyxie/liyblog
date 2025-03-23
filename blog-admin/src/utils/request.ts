@@ -1,7 +1,7 @@
 import axios, { InternalAxiosRequestConfig, AxiosResponse } from "axios";
 import { useUserStoreHook } from "@/store/modules/user";
 
-let isRelogin = { show: false }; // 是否显示弹框
+const isRelogin = { show: false }; // 是否显示弹框
 
 // 创建 axios 实例
 const service = axios.create({
@@ -36,7 +36,6 @@ service.interceptors.response.use(
       return response;
     }
     // token 过期,重新登录
-
     if (code === 401) {
       if (!isRelogin.show) {
         isRelogin.show = true;

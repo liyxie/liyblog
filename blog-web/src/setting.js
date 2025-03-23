@@ -15,6 +15,11 @@ export default {
     overturnImg: "https://www.img.liy1900.xyz/www/blog/component/0663.jpg",
 
     /**
+     * 底部图片
+     */
+    bottomImg: "https://www.img.liy1900.xyz/www/blog/component/0663.jpg",
+
+    /**
     * 广告图片1
     */
     poster1Img: "",

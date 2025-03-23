@@ -13,7 +13,7 @@
   <Notice />
   <Loading />
    <metainfo></metainfo>
-  <router-view style="min-height: 80vh" />
+  <router-view style="min-height: 80vh" :key="$route.fullPath"/>
 
   <Footer />
 </template>

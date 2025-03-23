@@ -39,7 +39,7 @@
 }
 
 html[data-theme='dark'] {
-    --theme-color: #9999FF;
+    --theme-color: #49e846ac;
     --background-color: #232323;
     --body-color: #2b2b2b;
     --text-color: #909399;
@@ -62,7 +62,7 @@ html[data-theme='dark'] {
     --say-background: #303133;
     --footer-background-color: #232323e0;
     --forum-background-color: #303133;
-    --article-table-back-color: #000;
+    --article-table-back-color: #1f1f1f;
     --article-table-border-color: #303133;
     --pagination-background-color: #303133;
     --pagination-border-color: #60626657;
@@ -123,7 +123,7 @@ html {
 
 /* 设置鼠标小手样式 */
 .hand-style {
-    cursor: url(https://www.img.liy1900.xyz/www/blog/component/link1.cur), pointer;
+    /* cursor: url(https://www.img.liy1900.xyz/www/blog/component/link1.cur), pointer; */
 }
 
 
@@ -268,8 +268,9 @@ html {
     justify-content: center;
 }
 
+/* 鼠标悬停亮进度条 */
 .xiahuaxian {
-    background: linear-gradient(to right, #9459c5, #4cbec2) no-repeat right bottom;
+    background: linear-gradient(to right, #af65efac, #2ef245df, #1DE9B6) no-repeat right bottom;
     background-size: 0px 2px;
     transition: background-size .35s;
 }

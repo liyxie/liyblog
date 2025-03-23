@@ -40,21 +40,11 @@ const props = defineProps({
 const currentFrame = ref(1)
 let animationInterval = null
 
-watchEffect(() => {
-  if (props.animate) {
-    animationInterval = setInterval(() => {
-      currentFrame.value = currentFrame.value % 3 + 1 // 循环1-3
-    }, props.frameInterval)
-  } else {
-    clearInterval(animationInterval)
-    currentFrame.value = 1 // 重置为第一帧
-  }
-})
 onUnmounted(() => clearInterval(animationInterval))
 
 // 动态计算图标名称
-const iconName = computed(() => `#icon-${props.name}-${currentFrame.value}`)
-// const iconName = computed(()=>`#icon-${props.name}`);
+// const iconName = computed(() => `#icon-${props.name}-${currentFrame.value}`)
+const iconName = computed(()=>`#icon-${props.name}`);
 
 const mr = computed(()=>`#icon-${props.mr}`);
 const svgClass = computed(()=> {

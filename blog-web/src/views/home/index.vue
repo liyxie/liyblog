@@ -315,7 +315,7 @@
                     {{ webInfo.qqNumber }}
                   </a>
                   <span title="点击复制" @click="copy(webInfo.qqNumber)" class="copyBtn name hand-style">
-                    QQ号
+                    QQ
                   </span>
                 </div>
               </li>
@@ -1215,7 +1215,7 @@ onMounted(() => {
               }
 
               &:hover .name {
-                width: 80px;
+                width: 30px;
               }
 
               svg {

@@ -1,10 +1,9 @@
 <template>
-  <footer v-if="!showFooter" class="footer_container">
+  <footer v-if="!showFooter" class="footer_container" :style="{ backgroundImage: `url(${defaultSetting.bottomImg})` }">
     <div class="content">
       <div class="site">
         <h2>liy</h2>
         <div class="site-p">
-          <p>Dean【热衷于互联网的发展】</p>
 
           <p>
             Copyright©2022-{{ nowYear }}
@@ -32,15 +31,15 @@
           </div>
         </div>
       </div>
-
+<!-- 
       <div class="site-girl">
         <div class="girl">
           <i class="thumb"></i>
         </div>
         <div class="girl-info">
-          <!-- <h4>绿水本无忧，因风皱面</h4> -->
+          <h4>绿水本无忧，因风皱面</h4>
         </div>
-      </div>
+      </div> -->
 
       <div class="site-fav">
         <a class="btn-orange hand-style">Ctrl+D收藏本站</a>
@@ -68,6 +67,8 @@
 </template>
 <script setup name="footer">
 import { useSiteStore } from "@/store/moudel/site.js";
+const { proxy } = getCurrentInstance();
+const defaultSetting = ref(proxy.$setting);
 
 const siteStore = useSiteStore();
 const webInfo = ref(siteStore.getWebInfo);
@@ -116,9 +117,20 @@ function runTime() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--footer-background-color);
-  background-position: 100% 0;
+  // background: var(--footer-background-color);
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.3),
+      rgba(255, 255, 255, 0.3)
+    );
+  background-size: cover;
+  background-position: center;  /* 关键：图片居中显示 */
+  background-repeat: no-repeat; /* 防止平铺 */
   margin-top: 50px;
+  position: relative;
+  overflow: hidden; /* 隐藏伪元素溢出 */
+  background-color: transparent;
+  backdrop-filter: brightness(0.98); 
+  opacity: 0.7;
   &:hover {
     .content .site-girl .girl {
       left: -130px;
@@ -279,11 +291,11 @@ function runTime() {
       }
 
       .pv_num {
-        background: linear-gradient(0deg, #d0339b, #d03336);
+        background: linear-gradient(0deg, #7dbcf798, #28eda2bb);
       }
 
       .uv_num {
-        background: linear-gradient(0deg, #e2c63a, #f58044);
+        background: linear-gradient(0deg, #78f33bc3, #f7e525bc);
       }
     }
   }

@@ -12,11 +12,12 @@
             class="tag-item hand-style" v-for="(tag, index) in tagList" :key="index">{{ tag.name }}</span>
         </div>
       </div>
+      <!-- 搜索文章 -->
       <el-scrollbar :height="list.length ? '500px' : '0px'">
         <div class="search-article" :key="refKey">
-          <div class="item" v-for="(item, index) in list" :key="index">
+          <div class="item box-shadow-top" v-for="(item, index) in list" :key="index">
             <router-link :to="'/article/' + item.id">
-              <a class="xiahuaxian article-title" v-html="item.title"></a>
+              <span class="xiahuaxian article-title" v-html="item.title"></span>
             </router-link>
             <div class="summary">
               <el-text line-clamp="2" v-html="item.summary" />
@@ -95,22 +96,23 @@ function getTagList() {
     tagList.value = res.data;
   });
 }
-function randomColor() {
-  // var letters = "0123456789ABCDEF";
-  // var color = "#";
-  // do {
-  //   for (var i = 0; i < 6; i++) {
-  //     color += letters[Math.floor(Math.random() * 16)];
-  //   }
-  // } while (color === "#FFFFFF" || color === "#000000");
-  // return color;
 
-  // 随机色相（0-360），固定较低的饱和度和较高的亮度
+// 标签随机颜色
+function randomColor() {
   const h = Math.floor(Math.random() * 360);
   const s = 60 + Math.floor(Math.random() * 20);  // 饱和度 60-80%
   const l = 75 + Math.floor(Math.random() * 15);  // 亮度 75-90%
   const a = 0.6;  // 透明度 0.6
   return `hsla(${h}, ${s}%, ${l}%, ${a})`;
+}
+
+// 文章页搜索强制刷新跳转
+function reloadArticle(id){
+  if (this.$route.article.id === id.toString()) {
+      this.$router.replace({ path: "/refresh" }).then(() => {
+        this.$router.replace({ path: "/article/" + id });
+      });
+    }
 }
 
 onBeforeUnmount(() => {
@@ -185,12 +187,15 @@ getTagList();
 
 .search-article {
   margin-top: 20px;
-  // max-height: 400px;
-  // /* 垂直滚动 */
-  // overflow-y: scroll;
+  background-color: var(--background-color);
 
   .item {
     margin-bottom: 20px;
+    position: relative;
+    padding: 5px 5px 5px 15px;
+    background-color: var(--article-table-back-color);
+    border-radius: 7px;
+    margin: 10px 10px;
 
     a {
       text-decoration: none;
@@ -211,19 +216,28 @@ getTagList();
     max-width: 90%;
 
     &::before {
-      content: "";
-      width: 5px;
-      height: 5px;
-      border: 5px solid var(--theme-color);
-      position: absolute;
-      border-radius: 50%;
-      left: 0;
-      bottom: 3px;
+      content: "✦";
+    font-size: 20px;
+    color: var(--theme-color);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    animation: transform 0.5s ease-in-out; /* 旋转动画 */
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     &:hover {
       color: var(--theme-color);
     }
+
+    &:hover::before {
+      animation: spin 2s linear infinite; /* 鼠标悬停时触发旋转 */
+    }
+
   }
 
   .summary {
