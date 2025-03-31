@@ -400,8 +400,6 @@ import { useSiteStore } from "@/store/moudel/site.js";
 import { ref } from "vue";
 import { storeToRefs } from "pinia"; //引入pinia转换
 import MenuList from "@/components/comment/MenuList.vue";
-import { ElMessageBox } from 'element-plus'
-import { pa } from "element-plus/es/locales.mjs";
 
 const { proxy } = getCurrentInstance();
 const defaultSetting = ref(proxy.$setting);

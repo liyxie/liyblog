@@ -331,11 +331,11 @@ function addVideo() {
   });
 
   dialogVisible.value = false;
-  videoInput = "";
+  videoInput.value = "";
 }
 //上传视频
 function uploadVideo(param) {
-  files = param.file;
+  files.value = param.file;
   // FormData 对象
   var formData = new FormData();
   // 文件对象

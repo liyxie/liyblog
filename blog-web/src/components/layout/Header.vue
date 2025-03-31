@@ -177,6 +177,13 @@
             </template>
           </el-dropdown>
         </li>
+        <li :class="path === '/calendar' ? 'active' : ''">
+          <span>
+            <router-link to="/calendar" class="hand-style">
+              <svg-icon name="calendar"></svg-icon> 事件日历
+            </router-link>
+          </span>
+        </li>
       </ul>
 
       <div class="right-tools">

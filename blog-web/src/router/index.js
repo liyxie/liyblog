@@ -17,6 +17,7 @@ import software from '@/views/software/index.vue'
 import chat from '@/views/chat/index.vue'
 import notice from '@/views/notice/index.vue'
 import user from '@/views/user/index.vue'
+import calendar from '@/views/calendar/index.vue'
 
 const routes = [
     {
@@ -114,6 +115,13 @@ const routes = [
                 component: user,
                 meta: {
                     title: "个人中心"
+                }
+            },
+            {
+                path: "/calendar",
+                component: calendar,
+                meta: {
+                    title: "事件日历"
                 }
             },
         ],
