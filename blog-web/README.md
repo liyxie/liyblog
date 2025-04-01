@@ -6,7 +6,7 @@
 再通过 var() 引用
 例如要设置某段文字的主题色
 // style.css
-html.dark {
+.root {
     --text-color: #fff
 }
 html[data-theme='dark'] {
