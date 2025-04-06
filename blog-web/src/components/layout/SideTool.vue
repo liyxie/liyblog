@@ -87,11 +87,14 @@
 
 <script setup>
 import { useUserStore } from "@/store/moudel/user.js";
+import { useSiteStore } from "@/store/moudel/site.js";
 
 const router = useRouter()
 const { proxy } = getCurrentInstance();
 const userStore = useUserStore();
-const theme = ref(sessionStorage.getItem("theme"));
+const siteStore = useSiteStore();
+// const theme = ref(sessionStorage.getItem("theme"));
+const theme = siteStore.getTheme;
 const show = ref(false);
 const right = ref("-80px");
 const percentage = ref(0);
@@ -108,21 +111,18 @@ onMounted(() => {
 
 // 切换主题色
 function chageTheme() {
-  theme.value = sessionStorage.getItem("theme");
-  let val = "";
-  if (!theme.value || theme.value == "light") {
+  console.log(theme);
+  console.log(siteStore.isDark);
+  if (!siteStore.isDark) {
     //浅色模式
-    val = "dark";
     document.getElementById("dark").style.transform = "translateX(0)";
     document.getElementById("light").style.transform = "translateX(30px)";
   } else {
-    val = "light";
     document.getElementById("light").style.transform = "translateX(0)";
     document.getElementById("dark").style.transform = "translateX(-30px)";
   }
-  theme.value = val;
-  sessionStorage.setItem("theme", val);
-  document.documentElement.dataset.theme = val;
+  siteStore.toggleTheme();
+  document.documentElement.dataset.theme = siteStore.getTheme;
 }
 
 function handleMouseEnter() {

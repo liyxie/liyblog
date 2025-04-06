@@ -1,8 +1,8 @@
 <template>
   <div style="margin-top: 40px;">
-    <vue-cal v-bind="config" locale="zh-cn"/>
+    <vue-cal v-bind="config" locale="zh-cn" />
   </div>
-  
+
 </template>
 
 <script setup name="Calendar">
@@ -14,29 +14,24 @@ import zhCn from '/node_modules/vue-cal/dist/i18n/zh-cn.js'
 useLocale(zhCn)
 import 'vue-cal/style'
 // 获取存储的主题
-const theme = ref(sessionStorage.getItem("theme") || "light");
-// 监听 theme 变化，并更新 config.dark
-watch(theme, (newTheme) => {
-  console.log(newTheme)
-  config.dark = newTheme === "dark";
-});
+const siteStore = useSiteStore();
 
 // 配置
-const config = reactive({
-  // 是否隐藏周末
-  hideWeekends: false,
-  // 是否显示当前时间点
-  time: true,
-  // 是否显示月周数
-  weekNumbers: true,
-  // 显示时间视图选择范围
-  views: ['year', 'month', 'week', 'day'],
-  // 默认显示日历视图
-  view: 'week',
-  // dark: isDark,
+const config = computed(() => ({
+    // 是否隐藏周末
+    hideWeekends: false,
+    // 是否显示当前时间点
+    time: true,
+    // 是否显示月周数
+    weekNumbers: true,
+    // 显示时间视图选择范围
+    views: ['year', 'month', 'week', 'day'],
+    // 默认显示日历视图
+    view: 'week',
+    dark: siteStore.isDark,
 
-
-})
+  })
+)
 
 
 </script>
@@ -53,5 +48,4 @@ const config = reactive({
   overflow: hidden;
 
 }
-
 </style>

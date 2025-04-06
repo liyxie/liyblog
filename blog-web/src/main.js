@@ -16,6 +16,14 @@ app.use(store);
 import SvgIcon from '@/components/SvgIcon.vue'// svg component
 app.component('svg-icon', SvgIcon)
 
+// pinia缓存
+import { createPinia } from 'pinia';
+const pinia = createPinia()
+import piniaPersist from 'pinia-plugin-persistedstate'
+pinia.use(piniaPersist)
+app.use(pinia)
+
+
 //分页
 import pagination from '@/components/pagination/index.vue'
 app.component("sy-pagination", pagination);
