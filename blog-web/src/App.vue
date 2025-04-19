@@ -37,10 +37,11 @@ const { proxy } = getCurrentInstance();
 const siteStore = useSiteStore();
 const userStore = useUserStore();
 onMounted(() => {
-  let theme = sessionStorage.getItem("theme");
+  let theme = siteStore.getTheme;
   if (theme == null) {
     theme = "dark";
   }
+  console.log("theme", theme);
   document.documentElement.dataset.theme = theme;
 });
 

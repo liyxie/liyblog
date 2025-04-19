@@ -10,7 +10,9 @@ export const useSiteStore = defineStore('site', {
         visitorAccess: 0,
         searchDialogVisible: false,
         navBarDislogVisible: false,
-        isCommentVisible: false
+        isCommentVisible: false,
+        // 主题,默认深色
+        theme: "bark",
     }),
     persist: {
         enabled: true, //Store中数据持久化生效
@@ -37,6 +39,10 @@ export const useSiteStore = defineStore('site', {
         getIsCommentVisible() {
             return this.isCommentVisible
         },
+        isDark: (state) => state.theme === 'dark',
+        getTheme() {
+            return this.theme
+        }
     },
     actions: {
         setWebInfo(value) {
@@ -60,5 +66,11 @@ export const useSiteStore = defineStore('site', {
         setIsCommentVisible(value) {
             this.isCommentVisible = value
         },
+        toggleTheme() {
+            this.theme = this.theme === 'dark' ? 'light' : 'dark'
+        },
+        setTheme(value) {
+            this.theme = value
+        }
     },
 })
