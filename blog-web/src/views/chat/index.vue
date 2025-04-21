@@ -6,32 +6,18 @@
         <div class="title">{{ title }}</div>
         <div class="messageBox" id="messageBox" ref="messageContainer">
           <!-- 加载更多 -->
-          <div
-            class="more noSelect hand-style"
-            v-show="pageData.pageNo < totalPage"
-          >
+          <div class="more noSelect hand-style" v-show="pageData.pageNo < totalPage">
             <div v-if="isLoding" class="loading">
               <div class="spinner"></div>
             </div>
             <div @click="handleMore" v-else>加载更多</div>
           </div>
           <!-- 消息内容框 -->
-          <div
-            class="messageItem"
-            v-for="(item, index) in messageList"
-            :key="index"
-          >
+          <div class="messageItem" v-for="(item, index) in messageList" :key="index">
             <!-- 左边消息框 别人发送的消息 -->
-            <div
-              :class="item.isWithdraw ? 'withdraw' : 'left'"
-              v-if="user && item.fromUserId != user.id"
-            >
-              <img
-                class="noSelect"
-                v-lazy="item.fromUserAvatar"
-                :key="item.fromUserAvatar"
-                @click="handleToUserMain(item.fromUserId)"
-              />
+            <div :class="item.isWithdraw ? 'withdraw' : 'left'" v-if="user && item.fromUserId != user.id">
+              <img class="noSelect" v-lazy="item.fromUserAvatar" :key="item.fromUserAvatar"
+                @click="handleToUserMain(item.fromUserId)" />
               <div class="info">
                 <div class="nickname noSelect userInfo">
                   {{ item.fromUserNickname }}
@@ -41,21 +27,20 @@
                     </el-tooltip>
                   </span>
                   <span v-if="item.ipSource" class="item">
-                    <el-icon><LocationInformation /></el-icon> IP属地:{{
+                    <el-icon>
+                      <LocationInformation />
+                    </el-icon> IP属地:{{
                       splitIpAddress(item.ipSource)
                     }}
                   </span>
                   <span class="item">
-                    <el-icon><Clock /></el-icon> {{ item.createTimeStr }}</span
-                  >
+                    <el-icon>
+                      <Clock />
+                    </el-icon> {{ item.createTimeStr }}</span>
                 </div>
 
-                <span
-                  v-if="!item.isWithdraw"
-                  v-html="item.content"
-                  class="messageContent"
-                  @contextmenu.prevent="openMenu($event, item, index)"
-                >
+                <span v-if="!item.isWithdraw" v-html="item.content" class="messageContent"
+                  @contextmenu.prevent="openMenu($event, item, index)">
                 </span>
                 <span class="noSelect" v-else style="color: var(--text-color)">
                   " {{ item.fromUserNickname }} " 撤回了一条消息
@@ -66,20 +51,17 @@
             <div :class="item.isWithdraw ? 'withdraw' : 'right'" v-else>
               <div class="info">
                 <div>
-                  <img
-                    class="noSelect"
-                    v-lazy="item.fromUserAvatar"
-                    :key="item.fromUserAvatar"
-                  />
+                  <img class="noSelect" v-lazy="item.fromUserAvatar" :key="item.fromUserAvatar" />
                 </div>
                 <div class="nickname">
                   <div class="userInfo">
-                    <span class="item noSelect"
-                      ><el-icon><Clock /></el-icon>
-                      {{ item.createTimeStr }}</span
-                    >
-                    <span v-if="item.ipSource" class="item noSelect"
-                      ><el-icon><LocationInformation /></el-icon> IP属地:{{
+                    <span class="item noSelect"><el-icon>
+                        <Clock />
+                      </el-icon>
+                      {{ item.createTimeStr }}</span>
+                    <span v-if="item.ipSource" class="item noSelect"><el-icon>
+                        <LocationInformation />
+                      </el-icon> IP属地:{{
                         splitIpAddress(item.ipSource)
                       }}
                     </span>
@@ -91,12 +73,8 @@
                     <span class="noSelect">{{ item.fromUserNickname }}</span>
                   </div>
 
-                  <div
-                    v-if="!item.isWithdraw"
-                    v-html="item.content"
-                    class="nowMessageContent"
-                    @contextmenu.prevent="openMenu($event, item, index)"
-                  ></div>
+                  <div v-if="!item.isWithdraw" v-html="item.content" class="nowMessageContent"
+                    @contextmenu.prevent="openMenu($event, item, index)"></div>
                   <div style="color: var(--text-color)" v-else class="noSelect">
                     " {{ item.fromUserNickname }} " 撤回了一条消息
                   </div>
@@ -113,16 +91,12 @@
               <span class="item hand-style" @click.stop="handleOpen">
                 <i class="iconfont icon-biaoqing"></i>
               </span>
-              <el-upload
-                class="avatar-uploader"
-                :show-file-list="false"
-                name="filedatas"
-                :action="uploadPictureHost"
-                :http-request="uploadSectionFile"
-                multiple
-              >
+              <el-upload class="avatar-uploader" :show-file-list="false" name="filedatas" :action="uploadPictureHost"
+                :http-request="uploadSectionFile" multiple>
                 <span class="item hand-style">
-                  <el-icon><PictureFilled /></el-icon>
+                  <el-icon>
+                    <PictureFilled />
+                  </el-icon>
                 </span>
               </el-upload>
             </div>
@@ -132,27 +106,13 @@
             <Emoji @chooseEmoji="handleChooseEmoji" />
           </div>
           <!-- 输入内容 -->
-          <div
-            id="im-input-box"
-            class="im-input-box"
-            ref="inputRef"
-            @input="updateContent"
-            contenteditable="true"
-            @paste="optimizePasteEvent"
-            @keydown="handkeyEnter"
-            data-placeholder="说点什么呢"
-          ></div>
-          <el-button class="btn" @click="doSend(inputRef.innerHTML, 1)"
-            >发送[Enter]</el-button
-          >
+          <div id="im-input-box" class="im-input-box" ref="inputRef" @input="updateContent" contenteditable="true"
+            @paste="optimizePasteEvent" @keydown="handkeyEnter" data-placeholder="说点什么呢"></div>
+          <el-button class="btn" @click="doSend(inputRef.innerHTML, 1)">发送[Enter]</el-button>
         </div>
 
         <!-- 自定义右键功能 -->
-        <ul
-          v-show="visible"
-          :style="{ left: left + 'px', top: top + 'px' }"
-          class="contextmenu"
-        >
+        <ul v-show="visible" :style="{ left: left + 'px', top: top + 'px' }" class="contextmenu">
           <li @click="doClipboard" class="copyBtn">
             <div class="menuitem hand-style">
               <i class="iconfont icon-fuzhi"></i> 复制
@@ -163,26 +123,26 @@
               <i class="iconfont icon-fanyi"></i>翻译
             </div>
           </li>
-          <li
-            @click="handlePrivate"
-            v-if="message && message.fromUserId != user.id"
-          >
+          <li @click="handlePrivate" v-if="message && message.fromUserId != user.id">
             <div class="menuitem hand-style">
-              <el-icon><ChatDotRound /></el-icon>私信
+              <el-icon>
+                <ChatDotRound />
+              </el-icon>私信
             </div>
           </li>
-          <li
-            @click="doWithdraw"
-            v-if="message && message.fromUserId == user.id"
-          >
+          <li @click="doWithdraw" v-if="message && message.fromUserId == user.id">
             <div class="menuitem hand-style">
               <i class="iconfont icon-chehui"></i>撤回
             </div>
           </li>
           <li class="sousuo">
             <div class="menuitem hand-style">
-              <el-icon><Search /></el-icon>搜一搜
-              <el-icon><ArrowRight /></el-icon>
+              <el-icon>
+                <Search />
+              </el-icon>搜一搜
+              <el-icon>
+                <ArrowRight />
+              </el-icon>
 
               <ul class="sousuomenu">
                 <li @click="handleSearch(0)">
@@ -202,14 +162,8 @@
       <!-- 房间列表 -->
       <div class="online">
         <ul class="online-item">
-          <li
-            ref="roomRef"
-            :class="
-              !index ? 'onlineLi hand-style active' : 'onlineLi hand-style'
-            "
-            v-for="(item, index) in roomList"
-            :key="index"
-          >
+          <li ref="roomRef" :class="!index ? 'onlineLi hand-style active' : 'onlineLi hand-style'
+            " v-for="(item, index) in roomList" :key="index">
             <div class="room-list-item" @click="selectUserIm(item, index)">
               <div class="room-list-item">
                 <img class="img" :src="item.avatar" alt="" />
@@ -222,31 +176,21 @@
               </div>
             </div>
             <div class="close" @click="closeRoom(item.id, index)">
-              <span
-                ><el-icon><Close /></el-icon
-              ></span>
+              <span><el-icon>
+                  <Close />
+                </el-icon></span>
             </div>
           </li>
         </ul>
       </div>
     </div>
-    <el-dialog
-      :lock-scroll="false"
-      title="粘贴图片"
-      v-model="imgDialogVisible"
-      width="30%"
-      center
-    >
+    <el-dialog :lock-scroll="false" title="粘贴图片" v-model="imgDialogVisible" width="30%" center>
       <div style="width: 100%" id="dialogImg">
         <div v-html="textImg"></div>
       </div>
       <span class="dialog-footer">
-        <el-button size="small" @click="imgDialogVisible = false"
-          >取 消</el-button
-        >
-        <el-button size="small" type="primary" @click="uploadSectionFile(null)"
-          >发 送</el-button
-        >
+        <el-button size="small" @click="imgDialogVisible = false">取 消</el-button>
+        <el-button size="small" type="primary" @click="uploadSectionFile(null)">发 送</el-button>
       </span>
     </el-dialog>
     <image-preview :img="images"></image-preview>
@@ -431,7 +375,7 @@ function uploadSectionFile(param) {
       doSend(content, 2);
       imgDialogVisible.value = false;
     })
-    .catch((err) => {});
+    .catch((err) => { });
 }
 //截取地址
 function splitIpAddress(address) {
@@ -440,11 +384,11 @@ function splitIpAddress(address) {
 //选择用户单聊
 function selectUserIm(item, index) {
   if (lastIndex.value != null) {
-      if (lastIndex.value == index) {
+    if (lastIndex.value == index) {
       return;
     }
     roomRef.value[lastIndex.value].className = "onlineLi hand-style";
-  
+
   }
   roomRef.value[0].className = "onlineLi hand-style";
   roomRef.value[index].className += " active";
@@ -500,7 +444,7 @@ function doWithdraw() {
     type: 1,
   };
   // 将组装好的json发送给服务端，由服务端进行转发
-  withdraw(msg).then((re) => {});
+  withdraw(msg).then((re) => { });
 }
 //私信
 function handlePrivate() {
@@ -770,18 +714,28 @@ function init() {
       console.log("websocket发生了错误");
     };
   }
-}
+};
 
-function open() {
+// function open() {
+//   console.log("websocket已打开");
+//   //获取房间列表
+//   getRoomList().then((res) => {
+//     roomList.value.push(...res.data);
+//   });
+
+//   //连接成功后获取历史聊天记录
+//   doGetHistoryList();
+// };
+
+const open = () => {
   console.log("websocket已打开");
   //获取房间列表
   getRoomList().then((res) => {
     roomList.value.push(...res.data);
   });
-
   //连接成功后获取历史聊天记录
   doGetHistoryList();
-}
+};
 
 function messageScrollTop() {
   setTimeout(() => {
@@ -1269,6 +1223,7 @@ init();
     }
   }
 }
+
 .el-icon {
   vertical-align: -2px;
 }

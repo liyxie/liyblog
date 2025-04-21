@@ -65,7 +65,6 @@
 import { ref, computed, reactive } from 'vue'
 import { useSiteStore } from "@/store/moudel/site.js";
 import { VueCal, useLocale } from 'vue-cal';
-import { ElMessage } from 'element-plus';
 // 预加载中文
 import zhCn from '/node_modules/vue-cal/dist/i18n/zh-cn.js'
 useLocale(zhCn)
@@ -111,6 +110,20 @@ const config = computed(() => ({
     dragToCreateThreshold: 20,
   })
 );
+
+// 事件类型
+const eventTypes = ref([
+  {
+    id: 1,
+    name: '日常',
+    color: '#f56c6c',
+  },
+  {
+    id: 2,
+    name: '工作',
+    color: '#1976D2',
+  }
+])
 
 
 </script>
@@ -164,6 +177,7 @@ const config = computed(() => ({
 .vuecal {
   // 主题色
   --vuecal-primary-color: var(--calendar-background-color);
+  --vuecal-height: 100%;
 }
 
 </style>
