@@ -81,9 +81,9 @@ public class LoginServiceImpl implements LoginService {
         }
 
         if (dto.getRememberMe()) {
-            StpUtil.setLoginId(user.getId(),new SaLoginModel().setTimeout(60 * 60 * 24 * 7));
+            StpUtil.login(user.getId(),new SaLoginModel().setTimeout(60 * 60 * 24 * 7));
         }else {
-            StpUtil.setLoginId(user.getId(),"system");
+            StpUtil.login(user.getId(),"system");
         }
         StpUtil.getSession().set(Constants.CURRENT_USER,userMapper.getById(user.getId()));
         return ResponseResult.success(StpUtil.getTokenValue());

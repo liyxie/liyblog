@@ -6,8 +6,8 @@ import com.liy.annotation.OperationLogger;
 import com.liy.common.ResponseResult;
 import com.liy.entity.DictData;
 import com.liy.service.DictDataService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,21 +26,21 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/dictData")
-@Schema(title = "字典数据管理")
+@Tag(name = "字典数据管理")
 @RequiredArgsConstructor
 public class DictDataController {
 
     private final DictDataService dictDataService;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    @Schema(description = "字典数据列表", httpMethod = "GET", response = ResponseResult.class, notes = "字典数据列表")
+    @Operation(summary = "字典数据列表")
     public ResponseResult selectDictDataPage(Integer dictId, Integer isPublish){
         return dictDataService.selectDictDataPage(dictId,isPublish);
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @SaCheckPermission("system:dictData:add")
-    @Schema(description = "添加字典数据", httpMethod = "POST", response = ResponseResult.class, notes = "添加字典数据")
+    @Operation(summary = "添加字典数据")
     @OperationLogger(value = "添加字典数据")
     public ResponseResult addDictData(@RequestBody DictData dictData){
         return dictDataService.addDictData(dictData);
@@ -48,7 +48,7 @@ public class DictDataController {
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @SaCheckPermission("system:dictData:update")
-    @Schema(description = "修改字典数据", httpMethod = "PUT", response = ResponseResult.class, notes = "修改字典数据")
+    @Operation(summary = "修改字典数据")
     @OperationLogger(value = "修改字典数据")
     public ResponseResult update(@RequestBody DictData dictData){
         return dictDataService.updateDictData(dictData);
@@ -56,7 +56,7 @@ public class DictDataController {
 
     @RequestMapping(value = "/deleteBatch",method = RequestMethod.DELETE)
     @SaCheckPermission("system:dictData:delete")
-    @Schema(description = "批量删除字典数据", httpMethod = "DELETE", response = ResponseResult.class, notes = "批量删除字典数据")
+    @Operation(summary = "批量删除字典数据")
     @OperationLogger(value = "批量删除字典数据")
     public ResponseResult deleteDictData(@RequestBody List<Long> ids){
         return dictDataService.deleteDictData(ids);

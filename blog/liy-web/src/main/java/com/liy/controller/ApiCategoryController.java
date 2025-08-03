@@ -2,8 +2,8 @@ package com.liy.controller;
 
 import com.liy.common.ResponseResult;
 import com.liy.service.ApiCategoryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 分类处理器
  * @author blue
  */
-@Schema(title = "分类API-V1")
+@Tag(name = "分类API-V1")
 @RestController
 @RequestMapping("v1/category")
 @RequiredArgsConstructor
@@ -23,7 +23,8 @@ public class ApiCategoryController {
     private final ApiCategoryService categoryService;
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    @Schema(description = "分类列表", httpMethod = "GET", response = ResponseResult.class, notes = "分类列表")
+    @Operation(description = "分类列表", summary = "分类列表")
+    @Schema(description = "分类列表")
     public ResponseResult selectCategoryList(){
         return categoryService.selectCategoryList();
     }

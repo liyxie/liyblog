@@ -6,8 +6,8 @@ import com.liy.annotation.OperationLogger;
 import com.liy.common.ResponseResult;
 import com.liy.entity.FriendLink;
 import com.liy.service.FriendLinkService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,21 +27,21 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/friend")
-@Schema(title = "友情链接后端-接口")
+@Tag(name = "友情链接后端-接口")
 @RequiredArgsConstructor
 public class FriendLinkController {
 
     private final FriendLinkService friendLinkService;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    @Schema(description = "友链列表", httpMethod = "GET", response = ResponseResult.class, notes = "友链列表")
+    @Operation(summary = "友链列表")
     public ResponseResult selectFriendLinkPage(String name, Integer status){
         return friendLinkService.selectFriendLinkPage(name,status);
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @SaCheckPermission("system:friendLink:add")
-    @Schema(description = "添加友链", httpMethod = "POST", response = ResponseResult.class, notes = "添加友链")
+    @Operation(summary = "添加友链")
     @OperationLogger(value = "添加友链")
     public ResponseResult addFriendLink(@RequestBody FriendLink friendLink){
         return friendLinkService.addFriendLink(friendLink);
@@ -49,7 +49,7 @@ public class FriendLinkController {
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @SaCheckPermission("system:friendLink:update")
-    @Schema(description = "修改友链", httpMethod = "PUT", response = ResponseResult.class, notes = "修改友链")
+    @Operation(summary = "修改友链")
     @OperationLogger(value = "修改友链")
     public ResponseResult update(@RequestBody FriendLink friendLink){
         return friendLinkService.updateFriendLink(friendLink);
@@ -57,7 +57,7 @@ public class FriendLinkController {
 
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     @SaCheckPermission("system:friendLink:delete")
-    @Schema(description = "删除友链", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除友链")
+    @Operation(summary = "删除友链")
     @OperationLogger(value = "删除友链")
     public ResponseResult deleteFriendLink(@RequestBody List<Integer> ids){
         return friendLinkService.deleteFriendLink(ids);
@@ -65,7 +65,7 @@ public class FriendLinkController {
 
     @RequestMapping(value = "/top",method = RequestMethod.GET)
     @SaCheckPermission("system:friendLink:top")
-    @Schema(description = "置顶友链", httpMethod = "GET", response = ResponseResult.class, notes = "置顶友链")
+    @Operation(summary = "置顶友链")
     @OperationLogger(value = "置顶友链")
     public ResponseResult top(Integer id){
         return friendLinkService.top(id);

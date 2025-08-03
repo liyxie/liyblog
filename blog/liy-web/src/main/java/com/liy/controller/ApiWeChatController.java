@@ -4,8 +4,8 @@ import com.liy.common.RedisConstants;
 import com.liy.service.ApiUserService;
 import com.liy.service.RedisService;
 import com.liy.utils.RandomUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * @apiNote
  */
 @Slf4j
-@Schema(title = "微信接口相关控制器")
+@Tag(name = "微信接口相关控制器")
 @RestController()
 @RequestMapping("/wechat")
 @RequiredArgsConstructor
@@ -39,7 +39,7 @@ public class ApiWeChatController {
     private final ApiUserService userService;
     private final Pattern pattern = Pattern.compile("(?i)^DL\\d{4}$");
 
-    @ApiOperation("微信公众号服务器配置校验token")
+    @Operation(description = "微信公众号服务器配置校验token", summary = "微信公众号服务器配置校验token")
     @GetMapping(produces = "text/plain;charset=utf-8")
     public String checkSignature(@RequestParam(name = "signature") String signature,
                                  @RequestParam(name = "timestamp") String timestamp,
@@ -52,6 +52,7 @@ public class ApiWeChatController {
     }
 
     @PostMapping(produces = "application/xml; charset=UTF-8")
+    @Operation(description = "处理微信消息", summary = "处理微信消息")
     public String handleMsg(HttpServletRequest request) {
 
         try {
@@ -93,4 +94,3 @@ public class ApiWeChatController {
         return outMessage.toXml();
     }
 }
-

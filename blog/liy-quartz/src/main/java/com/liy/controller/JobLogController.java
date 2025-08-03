@@ -4,6 +4,8 @@ package com.liy.controller;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.liy.common.ResponseResult;
 import com.liy.service.JobLogService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +21,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/jobLog")
-@Schema(tags = "定时任务调度日志管理")
+@Tag(name = "定时任务调度日志管理")
 @RequiredArgsConstructor
 public class JobLogController {
 
     private final JobLogService jobLogService;
 
     @GetMapping(value = "/list")
-    @Schema(description = "定时任务日志列表", httpMethod = "GET", response = ResponseResult.class, notes = "定时任务日志列表")
+    @Operation(summary = "定时任务日志列表")
     public ResponseResult selectJobLogPage(String jobName, String jobGroup, String status, String startTime,
                                 String endTime, Long jobId) {
         return jobLogService.selectJobLogPage(jobName,jobGroup,status,startTime,endTime,jobId);
@@ -34,16 +36,15 @@ public class JobLogController {
 
     @DeleteMapping(value = "/delete")
     @SaCheckPermission("system:jobLog:delete")
-    @Schema(description = "批量删除日志列表", httpMethod = "DELETE", response = ResponseResult.class, notes = "批量删除日志列表")
+    @Operation(summary = "批量删除日志列表")
     public ResponseResult deleteBatch(@RequestBody List<Long> ids) {
         return jobLogService.deleteJobLog(ids);
     }
 
     @GetMapping(value = "/clean")
     @SaCheckPermission("system:jobLog:clean")
-    @Schema(description = "清空日志列表", httpMethod = "GET", response = ResponseResult.class, notes = "清空日志列表")
+    @Operation(summary = "清空日志列表")
     public ResponseResult clean() {
         return jobLogService.cleanJobLog();
     }
 }
-

@@ -4,8 +4,8 @@ package com.liy.controller;
 import com.liy.annotation.BusinessLogger;
 import com.liy.common.ResponseResult;
 import com.liy.service.ApiTagService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/v1/tag")
-@Schema(title = "标签分类接口")
+@Tag(name = "标签分类接口")
 @RequiredArgsConstructor
 public class ApiTagsController {
 
@@ -29,7 +29,7 @@ public class ApiTagsController {
 
     @BusinessLogger(value = "标签模块-用户访问页面",type = "查询",desc = "用户访问页面")
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    @Schema(description = "标签列表", httpMethod = "GET", response = ResponseResult.class, notes = "标签列表")
+    @Operation(description = "标签列表", summary = "标签列表")
     public ResponseResult selectTagList(){
         return tagsService.selectTagList();
     }

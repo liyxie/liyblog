@@ -106,7 +106,7 @@ public class ApiUserServiceImpl implements ApiUserService {
         }
 
         //七天有效时间  登录
-        StpUtil.setLoginId(user.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
+        StpUtil.login(user.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
 
         //组装数据
         UserInfoVO userInfoVO = BeanCopyUtil.copyObject(user, UserInfoVO.class);
@@ -131,7 +131,7 @@ public class ApiUserServiceImpl implements ApiUserService {
             return ResponseResult.error("用户未被授权");
         }
         UserInfoVO user = objectMapper.convertValue(value, UserInfoVO.class);
-        StpUtil.setLoginId(user.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
+        StpUtil.login(user.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
         user.setToken(StpUtil.getTokenValue());
         return ResponseResult.success(user);
     }
@@ -272,7 +272,7 @@ public class ApiUserServiceImpl implements ApiUserService {
             userMapper.insert(user);
         }
 
-        StpUtil.setLoginId(user.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
+        StpUtil.login(user.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
         httpServletResponse.sendRedirect(redirect + "/?token=" + StpUtil.getTokenValue());
     }
 
@@ -347,7 +347,7 @@ public class ApiUserServiceImpl implements ApiUserService {
         String openid = jsonObject.get("openid").toString();
         UserInfoVO userInfoVO = this.wechatLogin(openid);
 
-        StpUtil.setLoginId(userInfoVO.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
+        StpUtil.login(userInfoVO.getId(), new SaLoginModel().setDevice("PC").setTimeout(60 * 60 * 24 * 7));
         userInfoVO.setToken(StpUtil.getTokenValue());
         return ResponseResult.success(userInfoVO);
     }

@@ -5,8 +5,8 @@ import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.liy.annotation.OperationLogger;
 import com.liy.common.ResponseResult;
 import com.liy.service.ExceptionLogService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,13 +23,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/exceptionLog")
 @RequiredArgsConstructor
-@Schema(title = "异常日志管理")
+@Tag(name = "异常日志管理")
 public class ExceptionLogController {
 
     private final ExceptionLogService exceptionLogService;
 
     @GetMapping(value = "/list")
-    @Schema(description = "异常日志列表", httpMethod = "GET", response = ResponseResult.class, notes = "异常日志列表")
+    @Operation(summary = "异常日志列表")
     public ResponseResult selectExceptionLogPage() {
         return exceptionLogService.selectExceptionLogPage();
     }
@@ -37,7 +37,7 @@ public class ExceptionLogController {
     @DeleteMapping(value = "/delete")
     @SaCheckPermission("system:exceptionLog:delete")
     @OperationLogger(value = "删除异常日志")
-    @Schema(description = "删除异常日志", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除异常日志")
+    @Operation(summary = "删除异常日志")
     public ResponseResult deleteExceptionLog(@RequestBody List<Long> ids) {
         return exceptionLogService.deleteExceptionLog(ids);
     }

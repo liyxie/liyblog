@@ -11,7 +11,7 @@ import com.liy.dto.user.EmailLoginDTO;
 import com.liy.dto.user.EmailRegisterDTO;
 import com.liy.dto.WechatAppletDTO;
 import com.liy.service.ApiUserService;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.exception.AuthException;
@@ -50,6 +50,7 @@ public class ApiJustAuthController {
      * @throws IOException
      */
     @RequestMapping("/render/{source}")
+    @Operation(description = "通过JustAuth的AuthRequest拿到第三方的授权链接，并跳转到该链接页面", summary = "获取第三方授权链接")
     public ResponseResult renderAuth(HttpServletResponse response, @PathVariable String source) throws IOException {
         AuthRequest authRequest = getAuthRequest(source);
         String authorizeUrl = authRequest.authorize(AuthStateUtils.createState());
@@ -64,6 +65,7 @@ public class ApiJustAuthController {
      * @return 第三方平台的用户信息
      */
     @RequestMapping("/callback/{source}")
+    @Operation(description = "用户在确认第三方平台授权（登录）后， 第三方平台会重定向到该地址，并携带code、state等参数", summary = "第三方登录回调")
     public void login(AuthCallback callback, @PathVariable String source,  HttpServletResponse httpServletResponse) throws IOException {
         AuthRequest authRequest = getAuthRequest(source);
         AuthResponse response = authRequest.login(callback);
@@ -72,24 +74,24 @@ public class ApiJustAuthController {
 
     @AccessLimit
     @RequestMapping(value = "/emailLogin",method = RequestMethod.POST)
-    @Schema(description = "账号密码登录", httpMethod = "POST", response = ResponseResult.class, notes = "账号密码登录")
+    @Operation(description = "账号密码登录", summary = "账号密码登录")
     public ResponseResult emailLogin(@Valid @RequestBody EmailLoginDTO emailLoginDTO){
         return userService.emailLogin(emailLoginDTO);
     }
 
-    @Schema(description = "判断用户是否微信登录成功", httpMethod = "GET", response = ResponseResult.class, notes = "判断用户是否微信登录成功")
+    @Operation(description = "判断用户是否微信登录成功", summary = "判断用户是否微信登录成功")
     @RequestMapping("/wechat/is_login")
     public ResponseResult wxIsLogin( String loginCode) {
         return userService.wxIsLogin(loginCode);
     }
 
-    @Schema(description = "获取微信登录验证码", httpMethod = "GET", response = ResponseResult.class, notes = "获取微信登录验证码")
+    @Operation(description = "获取微信登录验证码", summary = "获取微信登录验证码")
     @RequestMapping("/wechatLoginCode")
     public ResponseResult getWechatLoginCode() {
         return userService.getWechatLoginCode();
     }
 
-    @Schema(description = "发送邮箱验证码", httpMethod = "GET", response = ResponseResult.class, notes = "发送邮箱验证码")
+    @Operation(description = "发送邮箱验证码", summary = "发送邮箱验证码")
     @RequestMapping("/sendEmailCode")
     public ResponseResult sendEmailCode(String email) {
         return userService.sendEmailCode(email);
@@ -97,20 +99,20 @@ public class ApiJustAuthController {
 
     @AccessLimit
     @RequestMapping(value = "/emailRegister",method = RequestMethod.POST)
-    @Schema(description = "邮箱注册", httpMethod = "POST", response = ResponseResult.class, notes = "邮箱注册")
+    @Operation(description = "邮箱注册", summary = "邮箱注册")
     public ResponseResult emailRegister(@Valid @RequestBody EmailRegisterDTO emailRegisterDTO){
         return userService.emailRegister(emailRegisterDTO);
     }
 
     @AccessLimit
     @RequestMapping(value = "/forgetPassword",method = RequestMethod.PUT)
-    @Schema(description = "忘记密码", httpMethod = "PUT", response = ResponseResult.class, notes = "忘记密码")
+    @Operation(description = "忘记密码", summary = "忘记密码")
     public ResponseResult forgetPassword(@Valid @RequestBody EmailForgetPasswordDTO emailForgetPasswordDTO){
         return userService.forgetPassword(emailForgetPasswordDTO);
     }
 
     @RequestMapping(value = "/applet",method = RequestMethod.POST)
-    @Schema(description = "小程序登录", httpMethod = "GET", response = ResponseResult.class, notes = "小程序登录")
+    @Operation(description = "小程序登录", summary = "小程序登录")
     public ResponseResult appletLogin(@RequestBody WechatAppletDTO wechatAppletDTO){
         return userService.appletLogin(wechatAppletDTO);
     }

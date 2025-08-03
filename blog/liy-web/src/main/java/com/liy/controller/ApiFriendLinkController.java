@@ -5,8 +5,8 @@ import com.liy.annotation.BusinessLogger;
 import com.liy.common.ResponseResult;
 import com.liy.entity.FriendLink;
 import com.liy.service.ApiFriendLinkService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @author blue
  * @since 2021-08-18
  */
+@Tag(name = "友情链接API-V1")
 @RestController
 @RequestMapping("/v1/link")
-@Schema(title = "友情链接API-V1")
 @RequiredArgsConstructor
 public class ApiFriendLinkController {
 
@@ -31,14 +31,14 @@ public class ApiFriendLinkController {
 
     @BusinessLogger(value = "友链模块-用户访问页面",type = "查询",desc = "友链列表")
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    @Schema(description = "友链列表", httpMethod = "GET", response = ResponseResult.class, notes = "友链列表")
+    @Operation(description = "友链列表", summary = "友链列表")
     public ResponseResult selectFriendLinkList(){
         return friendLinkService.selectFriendLinkList();
     }
 
     @BusinessLogger(value = "友链模块-用户申请友链",type = "添加",desc = "用户申请友链")
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    @Schema(description = "申请友链", httpMethod = "POST", response = ResponseResult.class, notes = "申请友链")
+    @Operation(description = "申请友链", summary = "申请友链")
     public ResponseResult addFriendLink(@RequestBody FriendLink friendLink){
         return friendLinkService.addFriendLink(friendLink);
     }

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.liy.common.ResponseResult;
 import com.liy.utils.PageUtil;
 import com.liy.vo.cache.CacheVO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.redis.connection.RedisServerCommands;
@@ -17,13 +19,13 @@ import java.util.*;
 @RestController
 @RequestMapping("/system/cache")
 @RequiredArgsConstructor
-@Schema(title = "后台缓存监控")
+@Tag(name = "后台缓存监控")
 public class CacheController {
 
     private final RedisTemplate<String,String> redisTemplate;
 
     @GetMapping(value = "/getCacheInfo")
-    @Schema(description = "缓存信息", httpMethod = "GET", response = ResponseResult.class, notes = "缓存信息")
+    @Operation(summary = "缓存信息")
     public ResponseResult getCacheInfo() {
         Properties info = (Properties) redisTemplate.execute((RedisCallback<Object>) RedisServerCommands::info);
         Properties commandStats = (Properties) redisTemplate.execute((RedisCallback<Object>) connection -> connection.info("commandstats"));
@@ -45,7 +47,7 @@ public class CacheController {
     }
 
     @GetMapping(value = "/list")
-    @Schema(description = "缓存key列表", httpMethod = "GET", response = ResponseResult.class, notes = "缓存key列表")
+    @Operation(summary = "缓存key列表")
     public ResponseResult selectCacheKeysPage() {
         Page<CacheVO> page = new Page<CacheVO>();
 
@@ -71,7 +73,7 @@ public class CacheController {
     }
 
     @GetMapping(value = "/getValue/{key}")
-    @Schema(description = "根据键获取值", httpMethod = "GET", response = ResponseResult.class, notes = "根据键获取值")
+    @Operation(summary = "根据键获取值")
     public ResponseResult getValue(@PathVariable String key) {
         String type = (String) redisTemplate.execute(
                 (RedisCallback<String>) connection -> String.valueOf(connection.type(key.getBytes()))
@@ -107,7 +109,7 @@ public class CacheController {
 
     @SaCheckPermission("system:cache:delete")
     @DeleteMapping(value = "/delete/{key}")
-    @Schema(description = "根据键删除缓存", httpMethod = "DELETE", response = ResponseResult.class, notes = "根据键删除缓存")
+    @Operation(summary = "根据键删除缓存")
     public ResponseResult deleteCache(@PathVariable String key) {
         return ResponseResult.success(redisTemplate.delete(key));
     }

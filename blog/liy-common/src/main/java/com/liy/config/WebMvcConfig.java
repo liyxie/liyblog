@@ -1,6 +1,7 @@
 package com.liy.config;
 
-import cn.dev33.satoken.interceptor.SaRouteInterceptor;
+import cn.dev33.satoken.interceptor.SaInterceptor;
+import cn.dev33.satoken.stp.StpUtil;
 import com.liy.config.intercept.PageableInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer  {
         registry.addInterceptor(new PageableInterceptor());
 
         // 注册Sa-Token的路由拦截器
-        registry.addInterceptor(new SaRouteInterceptor())
+        registry.addInterceptor(new SaInterceptor(handle -> StpUtil.checkLogin()))
                 .addPathPatterns("/system/**")
 //                .addPathPatterns("/v1/**")
                 .excludePathPatterns("/login","/logout","/verify");

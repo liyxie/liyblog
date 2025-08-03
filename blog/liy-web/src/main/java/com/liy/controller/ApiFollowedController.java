@@ -4,8 +4,8 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.liy.annotation.AccessLimit;
 import com.liy.common.ResponseResult;
 import com.liy.service.ApiFollowedService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/followed")
 @RequiredArgsConstructor
-@Schema(title = "关注API-V1")
+@Tag(name = "关注API-V1")
 public class ApiFollowedController {
 
     private final ApiFollowedService followedService;
@@ -24,7 +24,7 @@ public class ApiFollowedController {
     @AccessLimit
     @SaCheckLogin
     @PostMapping(value = "/insertFollowed")
-    @Schema(description = "关注用户", httpMethod = "POST", response = ResponseResult.class, notes = "关注用户")
+    @Operation(description = "关注用户", summary = "关注用户")
     public ResponseResult addFollowedUser(String userId) {
         return  followedService.addFollowedUser(userId);
     }
@@ -32,7 +32,7 @@ public class ApiFollowedController {
     @AccessLimit
     @SaCheckLogin
     @DeleteMapping(value = "/deleteFollowed")
-    @Schema(description = "取消关注用户", httpMethod = "DELETE", response = ResponseResult.class, notes = "取消关注用户")
+    @Operation(description = "取消关注用户", summary = "取消关注用户")
     public ResponseResult deleteFollowed(String userId) {
         return  followedService.deleteFollowed(userId);
     }

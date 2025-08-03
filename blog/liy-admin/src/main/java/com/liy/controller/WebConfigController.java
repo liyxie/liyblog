@@ -6,8 +6,8 @@ import com.liy.annotation.OperationLogger;
 import com.liy.common.ResponseResult;
 import com.liy.entity.WebConfig;
 import com.liy.service.WebConfigService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,21 +21,21 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/system/webConfig")
-@Schema(title = "网站配置管理")
+@Tag(name = "网站配置管理")
 @RequiredArgsConstructor
 public class WebConfigController {
 
     private final WebConfigService webConfigService;
 
     @GetMapping(value = "/")
-    @Schema(description = "网站配置列表", httpMethod = "GET", response = ResponseResult.class, notes = "网站配置列表")
+    @Operation(summary = "网站配置列表")
     public ResponseResult getWebConfig() {
         return webConfigService.getWebConfig();
     }
 
     @PutMapping(value = "/update")
     @SaCheckPermission("system:webConfig:update")
-    @Schema(description = "修改网站配置", httpMethod = "PUT", response = ResponseResult.class, notes = "网站配置列表")
+    @Operation(summary = "修改网站配置")
     @OperationLogger(value = "修改网站配置")
     public ResponseResult updateWebConfig(@RequestBody WebConfig webConfig) {
         return webConfigService.updateWebConfig(webConfig);

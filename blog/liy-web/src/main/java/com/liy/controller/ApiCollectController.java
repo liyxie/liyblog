@@ -4,8 +4,8 @@ import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.liy.annotation.AccessLimit;
 import com.liy.common.ResponseResult;
 import com.liy.service.ApiCollectService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/collect")
 @RequiredArgsConstructor
-@Schema(title = "文章收藏API-V1")
+@Tag(name = "文章收藏API-V1")
 public class ApiCollectController {
 
     private final ApiCollectService apiCollectService;
 
     @SaCheckLogin
     @GetMapping(value = "/")
-    @Schema(description = "我的收藏列表", httpMethod = "GET", response = ResponseResult.class, notes = "我的收藏列表")
+    @Operation(description = "我的收藏列表", summary = "我的收藏列表")
     public ResponseResult selectCollectList() {
         return apiCollectService.selectCollectList();
     }
@@ -33,7 +33,7 @@ public class ApiCollectController {
     @SaCheckLogin
     @AccessLimit
     @GetMapping(value = "collect")
-    @Schema(description = "收藏文章", httpMethod = "GET", response = ResponseResult.class, notes = "收藏文章")
+    @Operation(description = "收藏文章", summary = "收藏文章")
     public ResponseResult collect(Integer articleId) {
         return apiCollectService.collect(articleId);
     }
@@ -41,7 +41,7 @@ public class ApiCollectController {
     @SaCheckLogin
     @AccessLimit
     @DeleteMapping(value = "/")
-    @Schema(description = "取消收藏", httpMethod = "DELETE", response = ResponseResult.class, notes = "取消收藏")
+    @Operation(description = "取消收藏", summary = "取消收藏")
     public ResponseResult cancel(Integer articleId) {
         return apiCollectService.cancel(articleId);
     }
