@@ -37,6 +37,7 @@
     --docsearch-key-shadow: inset 0 -2px 0 0 #cdcde6,inset 0 0 1px 1px #fff,0 1px 2px 1px rgba(30,35,90,.4);
     --docsearch-key-gradient: rgba(125, 125, 125, .1);
     --calendar-background-color: #60bfffd3;
+    --calendar-event-background-color: #67bff290;
 }
 
 html[data-theme='dark'] {
@@ -73,6 +74,8 @@ html[data-theme='dark'] {
     --docsearch-key-shadow: none;
     --docsearch-key-gradient: rgba(125, 125, 125, .1);
     --calendar-background-color: #5f89a583;
+    --calendar-event-background-color: #51677623;
+    
 }
 html.dark {
     --theme-color: #3a8ee6;

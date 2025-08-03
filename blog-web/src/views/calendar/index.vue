@@ -146,6 +146,7 @@ const eventTypes = ref([
   padding: 20px;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
   overflow-y: auto;
+  background-color: var(--calendar-event-background-color);
 }
 
 .calendar-panel {

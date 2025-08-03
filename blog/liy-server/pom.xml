@@ -13,6 +13,12 @@
     <description>博客入口模块</description>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- 门户系统模块-->
         <dependency>
             <groupId>com.liy</groupId>
