@@ -22,8 +22,8 @@ import me.zhyd.oauth.utils.AuthStateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import java.io.IOException;
 
 @RestController
@@ -72,24 +72,24 @@ public class ApiJustAuthController {
 
     @AccessLimit
     @RequestMapping(value = "/emailLogin",method = RequestMethod.POST)
-    @ApiOperation(value = "账号密码登录", httpMethod = "POST", response = ResponseResult.class, notes = "账号密码登录")
+    @Schema(description = "账号密码登录", httpMethod = "POST", response = ResponseResult.class, notes = "账号密码登录")
     public ResponseResult emailLogin(@Valid @RequestBody EmailLoginDTO emailLoginDTO){
         return userService.emailLogin(emailLoginDTO);
     }
 
-    @ApiOperation(value = "判断用户是否微信登录成功", httpMethod = "GET", response = ResponseResult.class, notes = "判断用户是否微信登录成功")
+    @Schema(description = "判断用户是否微信登录成功", httpMethod = "GET", response = ResponseResult.class, notes = "判断用户是否微信登录成功")
     @RequestMapping("/wechat/is_login")
     public ResponseResult wxIsLogin( String loginCode) {
         return userService.wxIsLogin(loginCode);
     }
 
-    @ApiOperation(value = "获取微信登录验证码", httpMethod = "GET", response = ResponseResult.class, notes = "获取微信登录验证码")
+    @Schema(description = "获取微信登录验证码", httpMethod = "GET", response = ResponseResult.class, notes = "获取微信登录验证码")
     @RequestMapping("/wechatLoginCode")
     public ResponseResult getWechatLoginCode() {
         return userService.getWechatLoginCode();
     }
 
-    @ApiOperation(value = "发送邮箱验证码", httpMethod = "GET", response = ResponseResult.class, notes = "发送邮箱验证码")
+    @Schema(description = "发送邮箱验证码", httpMethod = "GET", response = ResponseResult.class, notes = "发送邮箱验证码")
     @RequestMapping("/sendEmailCode")
     public ResponseResult sendEmailCode(String email) {
         return userService.sendEmailCode(email);
@@ -97,20 +97,20 @@ public class ApiJustAuthController {
 
     @AccessLimit
     @RequestMapping(value = "/emailRegister",method = RequestMethod.POST)
-    @ApiOperation(value = "邮箱注册", httpMethod = "POST", response = ResponseResult.class, notes = "邮箱注册")
+    @Schema(description = "邮箱注册", httpMethod = "POST", response = ResponseResult.class, notes = "邮箱注册")
     public ResponseResult emailRegister(@Valid @RequestBody EmailRegisterDTO emailRegisterDTO){
         return userService.emailRegister(emailRegisterDTO);
     }
 
     @AccessLimit
     @RequestMapping(value = "/forgetPassword",method = RequestMethod.PUT)
-    @ApiOperation(value = "忘记密码", httpMethod = "PUT", response = ResponseResult.class, notes = "忘记密码")
+    @Schema(description = "忘记密码", httpMethod = "PUT", response = ResponseResult.class, notes = "忘记密码")
     public ResponseResult forgetPassword(@Valid @RequestBody EmailForgetPasswordDTO emailForgetPasswordDTO){
         return userService.forgetPassword(emailForgetPasswordDTO);
     }
 
     @RequestMapping(value = "/applet",method = RequestMethod.POST)
-    @ApiOperation(value = "小程序登录", httpMethod = "GET", response = ResponseResult.class, notes = "小程序登录")
+    @Schema(description = "小程序登录", httpMethod = "GET", response = ResponseResult.class, notes = "小程序登录")
     public ResponseResult appletLogin(@RequestBody WechatAppletDTO wechatAppletDTO){
         return userService.appletLogin(wechatAppletDTO);
     }

@@ -22,32 +22,32 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/v1")
 @RequiredArgsConstructor
-@Api(tags = "门户首页管理")
+@Schema(title = "门户首页管理")
 public class ApiHomeController {
 
     private final ApiHomeService homeService;
 
 
     @RequestMapping(value = "/report",method = RequestMethod.GET)
-    @ApiOperation(value = "增加访问量", httpMethod = "GET", response = ResponseResult.class, notes = "增加访问量")
+    @Schema(description = "增加访问量", httpMethod = "GET", response = ResponseResult.class, notes = "增加访问量")
     public ResponseResult report(){
         return homeService.report();
     }
 
     @GetMapping("/webSiteInfo")
-    @ApiOperation(value = "网站相关信息", httpMethod = "GET", response = ResponseResult.class, notes = "网站相关信息")
+    @Schema(description = "网站相关信息", httpMethod = "GET", response = ResponseResult.class, notes = "网站相关信息")
     public ResponseResult getWebSiteInfo(){
         return homeService.getWebSiteInfo();
     }
 
     @GetMapping("/")
-    @ApiOperation(value = "首页共享数据", httpMethod = "GET", response = ResponseResult.class, notes = "首页共享数据")
+    @Schema(description = "首页共享数据", httpMethod = "GET", response = ResponseResult.class, notes = "首页共享数据")
     public ResponseResult getHomeData(){
         return homeService.getHomeData();
     }
 
     @GetMapping("/hot")
-    @ApiOperation(value = "获取各大平台热搜", httpMethod = "GET", response = ResponseResult.class, notes = "获取各大平台热搜")
+    @Schema(description = "获取各大平台热搜", httpMethod = "GET", response = ResponseResult.class, notes = "获取各大平台热搜")
     public ResponseResult hot(String type){
         if(Objects.equals(type, "xianbao")) return homeService.hotXianBao(type);
         if(Objects.equals(type, "doying")) return homeService.hotDoYing(type);

@@ -128,6 +128,7 @@ public class DateUtil {
     public static String getOneDayStartTime(String oneDay) {
         SimpleDateFormat formate = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         Date date = new Date(oneDay);
+
         return formate.format(date);
     }
 

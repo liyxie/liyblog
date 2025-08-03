@@ -177,7 +177,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteBatchArticle(List<Long> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         tagsMapper.deleteByArticleIds(ids);
 
         dataEventPublisherService.publishData(DataEventEnum.ES_DELETE,ids);

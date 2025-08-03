@@ -1,13 +1,12 @@
 package com.liy.dto.comment;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 
 /**
@@ -19,38 +18,38 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(description = "评论")
+@Schema(description = "评论")
 public class CommentDTO {
 
     /**
      * 回复用户id
      */
-    @ApiModelProperty(name = "replyUserId", value = "回复用户id", dataType = "Integer")
+    @Schema(name = "replyUserId", description = "回复用户id", type = "Integer")
     private Integer replyUserId;
 
     /**
      * 评论文章id
      */
-    @ApiModelProperty(name = "articleId", value = "文章id", dataType = "Integer")
+    @Schema(name = "articleId", description = "文章id", type = "Integer")
     private Integer articleId;
 
     /**
      * 评论内容
      */
     @NotBlank(message = "评论内容不能为空")
-    @ApiModelProperty(name = "commentContent", value = "评论内容", required = true, dataType = "String")
+    @Schema(name = "commentContent", description = "评论内容", required = true, type = "String")
     private String commentContent;
 
     /**
      * 父评论id
      */
-    @ApiModelProperty(name = "parentId", value = "评论父id", dataType = "Integer")
+    @Schema(name = "parentId", description = "评论父id", type = "Integer")
     private Integer parentId;
 
     /**
      * 父评论id
      */
-    @ApiModelProperty(name = "userId", value = "用户ID", dataType = "Long")
+    @Schema(name = "userId", description = "用户ID", type = "Long")
     private Long userId;
 
 

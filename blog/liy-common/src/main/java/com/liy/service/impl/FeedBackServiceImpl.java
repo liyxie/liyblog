@@ -44,7 +44,7 @@ public class FeedBackServiceImpl extends ServiceImpl<FeedBackMapper, FeedBack> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteFeedBack(List<Integer> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

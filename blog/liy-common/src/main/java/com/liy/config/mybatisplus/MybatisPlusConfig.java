@@ -2,11 +2,11 @@ package com.liy.config.mybatisplus;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.pagination.optimize.JsqlParserCountOptimize;
+import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import com.baomidou.mybatisplus.extension.plugins.*;
 
 /**
  * @author blue
@@ -21,13 +21,21 @@ public class MybatisPlusConfig {
      * @date: 2021/7/19 14:52
      */
     @Bean
-    public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
-        // 设置最大分页100条
-        paginationInterceptor.setLimit(100);
-        paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
-        paginationInterceptor.setDbType(DbType.MYSQL);
-        return paginationInterceptor;
+    public MybatisPlusInterceptor paginationInterceptor() {
+//        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+//        // 设置最大分页100条
+//        paginationInterceptor.setLimit(100);
+//        paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
+//        paginationInterceptor.setDbType(DbType.MYSQL);
+
+        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+        PaginationInnerInterceptor innerInterceptor = new PaginationInnerInterceptor();
+        innerInterceptor.setMaxLimit(100L);
+        innerInterceptor.setDbType(DbType.MYSQL);
+        innerInterceptor.setOptimizeJoin(true);
+        interceptor.addInnerInterceptor(innerInterceptor);
+
+        return interceptor;
     }
 
     /**
@@ -39,8 +47,13 @@ public class MybatisPlusConfig {
         return new MyMetaObjectHandler();
     }
 
+//    @Bean
+//    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+//        return new OptimisticLockerInterceptor();
+//    }
+
     @Bean
-    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
-        return new OptimisticLockerInterceptor();
+    public OptimisticLockerInnerInterceptor optimisticLockerInnerInterceptor(){
+        return new OptimisticLockerInnerInterceptor();
     }
 }

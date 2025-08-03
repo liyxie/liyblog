@@ -84,7 +84,7 @@ public class FriendLinkServiceImpl extends ServiceImpl<FriendLinkMapper, FriendL
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteFriendLink(List<Integer> ids) {
-        int rows = baseMapper.deleteBatchIds(ids);
+        int rows = baseMapper.deleteByIds(ids);
         return rows > 0 ? ResponseResult.success(): ResponseResult.error("删除友链失败");
     }
 

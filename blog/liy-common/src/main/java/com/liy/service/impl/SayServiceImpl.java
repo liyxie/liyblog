@@ -54,7 +54,7 @@ public class SayServiceImpl extends ServiceImpl<SayMapper, Say> implements SaySe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteSay(List<String> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

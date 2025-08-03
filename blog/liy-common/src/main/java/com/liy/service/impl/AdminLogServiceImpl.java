@@ -43,7 +43,7 @@ public class AdminLogServiceImpl extends ServiceImpl<AdminLogMapper, AdminLog> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteAdminLog(List<Long> ids) {
-        int rows = baseMapper.deleteBatchIds(ids);
+        int rows = baseMapper.deleteByIds(ids);
         return rows > 0 ? ResponseResult.success(): ResponseResult.error("批量删除操作日志失败");
     }
 }

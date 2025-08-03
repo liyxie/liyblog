@@ -89,13 +89,24 @@
         <!--druid连接池-->
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.22</version>
+            <artifactId>druid-spring-boot-3-starter</artifactId>
+            <version>1.2.23</version>
         </dependency>
         <!--mybatis-plus依赖，已经包括了mybatis的依赖了-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+            <version>3.5.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+        <!--分页插件-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-jsqlparser</artifactId>
             <version>3.5.10.1</version>
         </dependency>
         <!--mybatis-plus的模板引擎依赖，使用mybatyis-plus必须要加这个依赖-->
@@ -107,7 +118,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.3.2</version>
+            <version>3.5.12</version>
         </dependency>
         <!-- 引入lombok -->
         <dependency>
@@ -123,8 +134,13 @@
         <!-- swagger-->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
-            <version>3.0.3</version>
+            <artifactId>knife4j-openapi3-jakarta-spring-boot-starter</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>2.2.15</version>
         </dependency>
 
         <!--    去除Spring Boot Configuration Annotation Processor not configured 爆红-->

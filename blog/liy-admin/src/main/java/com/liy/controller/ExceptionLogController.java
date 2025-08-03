@@ -23,13 +23,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/exceptionLog")
 @RequiredArgsConstructor
-@Api(tags = "异常日志管理")
+@Schema(title = "异常日志管理")
 public class ExceptionLogController {
 
     private final ExceptionLogService exceptionLogService;
 
     @GetMapping(value = "/list")
-    @ApiOperation(value = "异常日志列表", httpMethod = "GET", response = ResponseResult.class, notes = "异常日志列表")
+    @Schema(description = "异常日志列表", httpMethod = "GET", response = ResponseResult.class, notes = "异常日志列表")
     public ResponseResult selectExceptionLogPage() {
         return exceptionLogService.selectExceptionLogPage();
     }
@@ -37,7 +37,7 @@ public class ExceptionLogController {
     @DeleteMapping(value = "/delete")
     @SaCheckPermission("system:exceptionLog:delete")
     @OperationLogger(value = "删除异常日志")
-    @ApiOperation(value = "删除异常日志", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除异常日志")
+    @Schema(description = "删除异常日志", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除异常日志")
     public ResponseResult deleteExceptionLog(@RequestBody List<Long> ids) {
         return exceptionLogService.deleteExceptionLog(ids);
     }

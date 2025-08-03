@@ -34,7 +34,7 @@ public class ExceptionLogServiceImpl extends ServiceImpl<ExceptionLogMapper, Exc
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteExceptionLog(List<Long> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 }

@@ -97,8 +97,8 @@ public class ApiArticleServiceImpl implements ApiArticleService {
             throw new BusinessException("抱歉，文章不存在");
         }
         //获取收藏量
-        int collectCount = collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getArticleId, id));
-        apiArticleInfoVO.setCollectCount(collectCount);
+        Long collectCount = collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getArticleId, id));
+        apiArticleInfoVO.setCollectCount(Math.toIntExact(collectCount));
         //获取标签
         List<Tags> list = tagsMapper.selectTagByArticleId(apiArticleInfoVO.getId());
         apiArticleInfoVO.setTagList(list);
@@ -131,20 +131,20 @@ public class ApiArticleServiceImpl implements ApiArticleService {
             }
             //校验文章用户是否已经评论过
             if(apiArticleInfoVO.getReadType() == ReadTypeEnum.COMMENT.index){
-                Integer count = commentMapper.selectCount(new LambdaQueryWrapper<Comment>().eq(Comment::getUserId, userId));
+                Long count = commentMapper.selectCount(new LambdaQueryWrapper<Comment>().eq(Comment::getUserId, userId));
                 if(count != null && count > 0) {
                     apiArticleInfoVO.setActiveReadType(true);
                 }
             }
 
             //校验用户是否收藏文章
-            int collect = collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getUserId, userId).eq(Collect::getArticleId, id));
-            apiArticleInfoVO.setIsCollect(collect);
+            Long collect = collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getUserId, userId).eq(Collect::getArticleId, id));
+            apiArticleInfoVO.setIsCollect(Math.toIntExact(collect));
 
             //校验用户是否关注该文章作者
-            int followed = followedMapper.selectCount(new LambdaQueryWrapper<Followed>().eq(Followed::getUserId, userId)
+            Long followed = followedMapper.selectCount(new LambdaQueryWrapper<Followed>().eq(Followed::getUserId, userId)
                     .eq(Followed::getFollowedUserId, apiArticleInfoVO.getUserId()));
-            apiArticleInfoVO.setIsFollowed(followed);
+            apiArticleInfoVO.setIsFollowed(Math.toIntExact(followed));
         }
 
         //校验文章是否已经进行过扫码验证
@@ -367,7 +367,7 @@ public class ApiArticleServiceImpl implements ApiArticleService {
      */
     private void setCommentAndLike(ApiArticleListVO item) {
         List<Tags> list = tagsMapper.selectTagByArticleId(item.getId());
-        Integer commentCount = commentMapper.selectCount(new LambdaQueryWrapper<Comment>()
+        Long commentCount = commentMapper.selectCount(new LambdaQueryWrapper<Comment>()
                 .eq(Comment::getArticleId, item.getId()));
         //获取点赞数量
         Map<String, Object> map = redisService.getCacheMap(ARTICLE_LIKE_COUNT);
@@ -376,6 +376,6 @@ public class ApiArticleServiceImpl implements ApiArticleService {
             item.setLikeCount(obj == null ? 0 : obj);
         }
         item.setTagList(list);
-        item.setCommentCount(commentCount);
+        item.setCommentCount(Math.toIntExact(commentCount));
     }
 }

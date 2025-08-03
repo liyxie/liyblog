@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/feedback")
 @RequiredArgsConstructor
-@Api(tags = "反馈API-V1")
+@Schema(title = "反馈API-V1")
 public class ApiFeedBackController {
 
     private final ApiFeedBackService feedBackService;
 
     @SaCheckLogin
     @PostMapping(value = "/")
-    @ApiOperation(value = "添加反馈", httpMethod = "POST", response = ResponseResult.class, notes = "添加反馈")
+    @Schema(description = "添加反馈", httpMethod = "POST", response = ResponseResult.class, notes = "添加反馈")
     public ResponseResult addFeedback(@RequestBody FeedBack feedBack) {
         return  feedBackService.addFeedback(feedBack);
     }

@@ -55,7 +55,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteResourceByIds(List<Long> ids) {
-        resourceMapper.deleteBatchIds(ids);
+        resourceMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 }

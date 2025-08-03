@@ -70,7 +70,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteRole(List<Integer> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         ids.forEach(id -> baseMapper.delByRoleId(id, null));
         return ResponseResult.success();
     }

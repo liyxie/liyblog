@@ -11,7 +11,7 @@ import com.liy.vo.user.SystemUserVO;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.zhyd.oauth.model.AuthResponse;
 
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public interface ApiUserService {

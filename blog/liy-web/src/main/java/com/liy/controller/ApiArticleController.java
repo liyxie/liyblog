@@ -7,8 +7,9 @@ import com.liy.annotation.BusinessLogger;
 import com.liy.common.ResponseResult;
 import com.liy.dto.article.ArticlePostDTO;
 import com.liy.service.ApiArticleService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @RestController
 @RequestMapping("/v1/article")
-@Api(tags = "文章API-V1")
+@Tag(name = "文章API-V1")
 @RequiredArgsConstructor
 public class ApiArticleController {
 
@@ -29,7 +30,7 @@ public class ApiArticleController {
 
     @BusinessLogger(value = "首页-用户访问首页",type = "查询",desc = "查询所有文章")
     @GetMapping(value = "/")
-    @ApiOperation(value = "文章列表", httpMethod = "GET", response = ResponseResult.class, notes = "文章列表")
+    @Operation(description = "文章列表", httpMethod = "GET", response = ResponseResult.class, notes = "文章列表")
     public ResponseResult selectArticleList(Integer categoryId,Integer tagId,String orderByDescColumn) {
         return  articleService.selectArticleList(categoryId,tagId,orderByDescColumn);
     }
@@ -37,20 +38,20 @@ public class ApiArticleController {
     @BusinessLogger(value = "门户-用户查看文章详情",type = "查询",desc = "查看文章详情")
     @ArticleMoniter
     @GetMapping(value = "/info/{id}")
-    @ApiOperation(value = "文章详情", httpMethod = "GET", response = ResponseResult.class, notes = "文章详情")
+    @Schema(description = "文章详情", httpMethod = "GET", response = ResponseResult.class, notes = "文章详情")
     public ResponseResult selectArticleInfo(@PathVariable Integer id) {
         return articleService.selectArticleInfo(id);
     }
 
     @GetMapping(value = "/search")
-    @ApiOperation(value = "用户搜索文章", httpMethod = "GET", response = ResponseResult.class, notes = "用户搜索文章")
+    @Schema(description = "用户搜索文章", httpMethod = "GET", response = ResponseResult.class, notes = "用户搜索文章")
     public ResponseResult searchArticle(String keyword) {
         return articleService.searchArticle(keyword);
     }
 
     @BusinessLogger(value = "首页-归档",type = "查询",desc = "归档")
     @GetMapping(value = "/archive")
-    @ApiOperation(value = "归档", httpMethod = "GET", response = ResponseResult.class, notes = "归档")
+    @Schema(description = "归档", httpMethod = "GET", response = ResponseResult.class, notes = "归档")
     public ResponseResult archive() {
         return  articleService.archive();
     }
@@ -59,14 +60,14 @@ public class ApiArticleController {
     @AccessLimit
     @BusinessLogger(value = "门户-文章点赞",type = "查询",desc = "文章点赞")
     @GetMapping(value = "/like")
-    @ApiOperation(value = "文章点赞", httpMethod = "GET", response = ResponseResult.class, notes = "文章点赞")
+    @Schema(description = "文章点赞", httpMethod = "GET", response = ResponseResult.class, notes = "文章点赞")
     public ResponseResult articleLike(Integer articleId) {
         return articleService.articleLike(articleId);
     }
 
     @BusinessLogger(value = "文章详情-校验公众号验证码",type = "查询",desc = "校验公众号验证码")
     @GetMapping(value = "/checkCode")
-    @ApiOperation(value = "校验公众号验证码", httpMethod = "GET", response = ResponseResult.class, notes = "校验公众号验证码")
+    @Schema(description = "校验公众号验证码", httpMethod = "GET", response = ResponseResult.class, notes = "校验公众号验证码")
     public ResponseResult checkCode(String code) {
         return articleService.checkCode(code);
     }
@@ -74,7 +75,7 @@ public class ApiArticleController {
     @SaCheckLogin
     @PostMapping(value = "/")
     @BusinessLogger(value = "添加文章",type = "添加",desc = "添加文章")
-    @ApiOperation(value = "添加文章", httpMethod = "POST", response = ResponseResult.class, notes = "添加文章")
+    @Schema(description = "添加文章", httpMethod = "POST", response = ResponseResult.class, notes = "添加文章")
     public ResponseResult insertArticle(@RequestBody ArticlePostDTO dto) {
         return articleService.insertArticle(dto);
     }
@@ -82,7 +83,7 @@ public class ApiArticleController {
     @SaCheckLogin
     @PutMapping(value = "/")
     @BusinessLogger(value = "修改我的文章",type = "修改",desc = "修改我的文章")
-    @ApiOperation(value = "修改我的文章", httpMethod = "PUT", response = ResponseResult.class, notes = "修改我的文章")
+    @Schema(description = "修改我的文章", httpMethod = "PUT", response = ResponseResult.class, notes = "修改我的文章")
     public ResponseResult updateMyArticle(@RequestBody ArticlePostDTO dto) {
         return articleService.updateMyArticle(dto);
     }
@@ -90,7 +91,7 @@ public class ApiArticleController {
     @SaCheckLogin
     @GetMapping(value = "/selectArticleByUserId")
     @BusinessLogger(value = "根据用户id获取文章",type = "查询",desc = "根据用户id获取文章")
-    @ApiOperation(value = "根据用户id获取文章", httpMethod = "GET", response = ResponseResult.class, notes = "根据用户id获取文章")
+    @Schema(description = "根据用户id获取文章", httpMethod = "GET", response = ResponseResult.class, notes = "根据用户id获取文章")
     public ResponseResult selectArticleByUserId(String userId,Integer type) {
         return articleService.selectArticleByUserId(userId,type);
     }
@@ -98,7 +99,7 @@ public class ApiArticleController {
     @SaCheckLogin
     @DeleteMapping(value = "/")
     @BusinessLogger(value = "删除我的文章",type = "删除",desc = "删除我的文章")
-    @ApiOperation(value = "删除我的文章", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除我的文章")
+    @Schema(description = "删除我的文章", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除我的文章")
     public ResponseResult deleteMyArticle(Long id) {
         return articleService.deleteMyArticle(id);
     }
@@ -106,13 +107,13 @@ public class ApiArticleController {
     @SaCheckLogin
     @GetMapping(value = "/selectMyArticleInfo")
     @BusinessLogger(value = "我的文章详情",type = "查询",desc = "我的文章详情")
-    @ApiOperation(value = "我的文章详情", httpMethod = "GET", response = ResponseResult.class, notes = "我的文章详情")
+    @Schema(description = "我的文章详情", httpMethod = "GET", response = ResponseResult.class, notes = "我的文章详情")
     public ResponseResult selectMyArticleInfo(Long id) {
         return articleService.selectMyArticleInfo(id);
     }
 
     @PostMapping(value = "/readMarkdownFile")
-    @ApiOperation(value = "md文件添加文章", httpMethod = "POST", response = ResponseResult.class, notes = "md文件添加文章")
+    @Schema(description = "md文件添加文章", httpMethod = "POST", response = ResponseResult.class, notes = "md文件添加文章")
     public ResponseResult readMdFile(MultipartFile file) {
         return articleService.readMarkdownFile(file);
     }

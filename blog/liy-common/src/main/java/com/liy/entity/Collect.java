@@ -1,8 +1,7 @@
 package com.liy.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.io.Serializable;
@@ -14,30 +13,30 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @TableName("b_collect")
-@ApiModel(value="Collect", description="")
+@Schema(title="Collect", description="")
 public class Collect implements Serializable {
     private static final long serialVersionUID=1L;
 
 
-    @ApiModelProperty(value = "主键id")
+    @Schema(description = "主键id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
 
-    @ApiModelProperty(value = "评论用户Id")
+    @Schema(description = "评论用户Id")
     private String userId;
 
     /**
      * 评论文章id
      */
-    @ApiModelProperty(value = "文章id")
+    @Schema(description = "文章id")
     private Integer articleId;
 
 
     /**
      * 创建时间
      */
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 }

@@ -17,20 +17,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/system/say")
-@Api(tags = "说说管理")
+@Schema(title = "说说管理")
 @RequiredArgsConstructor
 public class SayController {
 
     private final SayService sayService;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    @ApiOperation(value = "说说列表", httpMethod = "GET", response = ResponseResult.class, notes = "说说列表")
+    @Schema(description = "说说列表", httpMethod = "GET", response = ResponseResult.class, notes = "说说列表")
     public ResponseResult selectSayPage(String keywords){
         return sayService.selectSayPage(keywords);
     }
 
     @RequestMapping(value = "/info",method = RequestMethod.GET)
-    @ApiOperation(value = "说说详情", httpMethod = "GET", response = ResponseResult.class, notes = "说说详情")
+    @Schema(description = "说说详情", httpMethod = "GET", response = ResponseResult.class, notes = "说说详情")
     public ResponseResult info(String id){
         return sayService.selectSayById(id);
     }
@@ -38,7 +38,7 @@ public class SayController {
     @OperationLogger(value = "修改说说")
     @SaCheckPermission("system:say:update")
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
-    @ApiOperation(value = "修改说说", httpMethod = "PUT", response = ResponseResult.class, notes = "修改说说")
+    @Schema(description = "修改说说", httpMethod = "PUT", response = ResponseResult.class, notes = "修改说说")
     public ResponseResult updateSay(@RequestBody Say say){
         return sayService.updateSay(say);
     }
@@ -46,7 +46,7 @@ public class SayController {
     @OperationLogger(value = "发表说说")
     @SaCheckPermission("system:say:add")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    @ApiOperation(value = "发表说说", httpMethod = "POST", response = ResponseResult.class, notes = "发表说说")
+    @Schema(description = "发表说说", httpMethod = "POST", response = ResponseResult.class, notes = "发表说说")
     public ResponseResult addSay(@RequestBody Say say){
         return sayService.addSay(say);
     }
@@ -54,7 +54,7 @@ public class SayController {
     @OperationLogger(value = "删除说说")
     @SaCheckPermission("system:say:delete")
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
-    @ApiOperation(value = "删除说说", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除说说")
+    @Schema(description = "删除说说", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除说说")
     public ResponseResult deleteSay(@RequestBody List<String> ids){
         return sayService.deleteSay(ids);
     }

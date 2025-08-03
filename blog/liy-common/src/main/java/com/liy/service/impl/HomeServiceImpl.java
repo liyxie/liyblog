@@ -63,7 +63,7 @@ public class HomeServiceImpl {
         Map<String,Integer> map = new ConcurrentHashMap<>();
         map.put("article", articleMapper.selectList(null).size());
         map.put("message",messageMapper.selectList(null).size());
-        map.put("user",userMapper.selectCount(null));
+        map.put("user", Math.toIntExact(userMapper.selectCount(null)));
         map.put("viewsCount",getWebsiteVisitVolume());
         return map;
     }

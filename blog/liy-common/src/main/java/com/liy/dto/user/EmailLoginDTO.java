@@ -1,10 +1,9 @@
 package com.liy.dto.user;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * @author blue
@@ -12,20 +11,20 @@ import javax.validation.constraints.NotBlank;
  * @apiNote
  */
 @Data
-@ApiModel(description = "邮箱登录信息")
+@Schema(description = "邮箱登录信息")
 public class EmailLoginDTO {
     /**
      *  邮箱
      */
     @NotBlank(message = "邮箱不能为空")
-    @ApiModelProperty(name = "email", value = "email", required = true, dataType = "String")
+    @Schema(name = "email", description = "email", required = true, type = "String")
     private String email;
 
     /**
      * 密码
      */
     @NotBlank(message = "密码不能为空")
-    @ApiModelProperty(name = "password", value = "password", required = true, dataType = "String")
+    @Schema(name = "password", description = "password", required = true, type = "String")
     private String password;
 
 }

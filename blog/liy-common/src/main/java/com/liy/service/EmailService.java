@@ -2,7 +2,7 @@ package com.liy.service;
 
 import com.liy.entity.FriendLink;
 
-import javax.mail.MessagingException;
+import jakarta.mail.MessagingException;
 
 public interface EmailService {
 

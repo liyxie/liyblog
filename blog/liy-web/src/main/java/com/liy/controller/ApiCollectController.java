@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v1/collect")
 @RequiredArgsConstructor
-@Api(tags = "文章收藏API-V1")
+@Schema(title = "文章收藏API-V1")
 public class ApiCollectController {
 
     private final ApiCollectService apiCollectService;
 
     @SaCheckLogin
     @GetMapping(value = "/")
-    @ApiOperation(value = "我的收藏列表", httpMethod = "GET", response = ResponseResult.class, notes = "我的收藏列表")
+    @Schema(description = "我的收藏列表", httpMethod = "GET", response = ResponseResult.class, notes = "我的收藏列表")
     public ResponseResult selectCollectList() {
         return apiCollectService.selectCollectList();
     }
@@ -33,7 +33,7 @@ public class ApiCollectController {
     @SaCheckLogin
     @AccessLimit
     @GetMapping(value = "collect")
-    @ApiOperation(value = "收藏文章", httpMethod = "GET", response = ResponseResult.class, notes = "收藏文章")
+    @Schema(description = "收藏文章", httpMethod = "GET", response = ResponseResult.class, notes = "收藏文章")
     public ResponseResult collect(Integer articleId) {
         return apiCollectService.collect(articleId);
     }
@@ -41,7 +41,7 @@ public class ApiCollectController {
     @SaCheckLogin
     @AccessLimit
     @DeleteMapping(value = "/")
-    @ApiOperation(value = "取消收藏", httpMethod = "DELETE", response = ResponseResult.class, notes = "取消收藏")
+    @Schema(description = "取消收藏", httpMethod = "DELETE", response = ResponseResult.class, notes = "取消收藏")
     public ResponseResult cancel(Integer articleId) {
         return apiCollectService.cancel(articleId);
     }

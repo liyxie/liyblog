@@ -2,7 +2,7 @@ package com.liy.vo.tag;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,29 +15,29 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SystemTagListVo {
-    @ApiModelProperty(value = "主键id")
+    @Schema(description = "主键id")
     private Long id;
 
-    @ApiModelProperty(value = "标签名称")
+    @Schema(description = "标签名称")
     private String name;
 
-    @ApiModelProperty(value = "封面图")
+    @Schema(description = "封面图")
     private String avatar;
 
-    @ApiModelProperty(value = "排序")
+    @Schema(description = "排序")
     private int sort;
 
-    @ApiModelProperty(value = "点击量")
+    @Schema(description = "点击量")
     private int clickVolume;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
 
-    @ApiModelProperty(value = "最后更新时间")
+    @Schema(description = "最后更新时间")
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date updateTime;
 
-    @ApiModelProperty(value = "文章量")
+    @Schema(description = "文章量")
     private int articleCount;
 }

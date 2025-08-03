@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2021/7/30 14:37
  */
 @RestController
-@Api(tags = "登录-接口")
+@Schema(title = "登录-接口")
 @RequiredArgsConstructor
 public class LoginController {
 
@@ -29,18 +29,18 @@ public class LoginController {
 
     @AccessLimit
     @GetMapping("verify")
-    @ApiOperation(value = "生成验证码")
+    @Schema(description = "生成验证码")
     public ResponseResult verify() {
         return loginService.getCaptcha();
     }
 
-    @ApiOperation(value = "登录")
+    @Schema(description = "登录")
     @PostMapping("login")
     public ResponseResult login(@Validated @RequestBody LoginDTO vo) {
         return loginService.login(vo);
     }
 
-    @ApiOperation(value = "登出")
+    @Schema(description = "登出")
     @GetMapping("logout")
     public ResponseResult logout() {
         StpUtil.logout();

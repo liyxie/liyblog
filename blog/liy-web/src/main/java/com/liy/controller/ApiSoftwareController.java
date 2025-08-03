@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/v1/software")
-@Api(tags = "开源软件接口")
+@Schema(title = "开源软件接口")
 @RequiredArgsConstructor
 public class ApiSoftwareController {
 
@@ -21,7 +21,7 @@ public class ApiSoftwareController {
 
     @BusinessLogger(value = "开源软件-用户访问开源软件",type = "查询",desc = "用户访问页面")
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    @ApiOperation(value = "开源软件", httpMethod = "GET", response = ResponseResult.class, notes = "开源软件")
+    @Schema(description = "开源软件", httpMethod = "GET", response = ResponseResult.class, notes = "开源软件")
     public ResponseResult selectSoftwareList(){
         return softwareService.selectSoftwareList();
     }

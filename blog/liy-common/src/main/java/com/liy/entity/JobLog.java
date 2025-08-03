@@ -3,8 +3,7 @@ package com.liy.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,38 +20,38 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="JobLog对象", description="定时任务调度日志表")
+@Schema(title="JobLog对象", description="定时任务调度日志表")
 @TableName("b_job_log")
 public class JobLog implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "任务日志ID")
+    @Schema(description = "任务日志ID")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "任务ID")
+    @Schema(description = "任务ID")
     private Long jobId;
 
-    @ApiModelProperty(value = "任务名称")
+    @Schema(description = "任务名称")
     private String jobName;
 
-    @ApiModelProperty(value = "任务组名")
+    @Schema(description = "任务组名")
     private String jobGroup;
 
-    @ApiModelProperty(value = "调用目标字符串")
+    @Schema(description = "调用目标字符串")
     private String invokeTarget;
 
-    @ApiModelProperty(value = "日志信息")
+    @Schema(description = "日志信息")
     private String jobMessage;
 
-    @ApiModelProperty(value = "执行状态（0正常 1失败）")
+    @Schema(description = "执行状态（0正常 1失败）")
     private String status;
 
-    @ApiModelProperty(value = "异常信息")
+    @Schema(description = "异常信息")
     private String exceptionInfo;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
       @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = DateUtil.FORMAT_STRING, timezone = "GMT+8")
     private Date createTime;

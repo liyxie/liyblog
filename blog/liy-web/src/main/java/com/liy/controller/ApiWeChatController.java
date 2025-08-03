@@ -14,7 +14,7 @@ import me.chanjar.weixin.mp.bean.message.WxMpXmlMessage;
 import me.chanjar.weixin.mp.bean.message.WxMpXmlOutTextMessage;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.text.MessageFormat;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
  * @apiNote
  */
 @Slf4j
-@Api(tags = "微信接口相关控制器")
+@Schema(title = "微信接口相关控制器")
 @RestController()
 @RequestMapping("/wechat")
 @RequiredArgsConstructor

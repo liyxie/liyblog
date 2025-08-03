@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@Api(tags = "说说接口-API")
+@Schema(title = "说说接口-API")
 @RequestMapping("v1/say")
 @RequiredArgsConstructor
 public class ApiSayController {
@@ -21,7 +21,7 @@ public class ApiSayController {
     private final ApiSayService apiSayService;
 
     @RequestMapping(value = "getSayList",method = RequestMethod.GET)
-    @ApiOperation(value = "说说列表", httpMethod = "GET", response = ResponseResult.class, notes = "说说列表")
+    @Schema(description = "说说列表", httpMethod = "GET", response = ResponseResult.class, notes = "说说列表")
     public ResponseResult selectSayList(){
         return apiSayService.selectSayList();
     }
@@ -29,7 +29,7 @@ public class ApiSayController {
 
     @SaCheckLogin
     @RequestMapping(value = "insertSay",method = RequestMethod.POST)
-    @ApiOperation(value = "添加说说说", httpMethod = "POST", response = ResponseResult.class, notes = "添加说说说")
+    @Schema(description = "添加说说说", httpMethod = "POST", response = ResponseResult.class, notes = "添加说说说")
     public ResponseResult insertSay(@RequestBody Say say){
         return apiSayService.insertSay(say);
     }

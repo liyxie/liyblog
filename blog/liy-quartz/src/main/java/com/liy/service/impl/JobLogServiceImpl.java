@@ -58,7 +58,7 @@ public class JobLogServiceImpl extends ServiceImpl<JobLogMapper, JobLog> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteJobLog(List<Long> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

@@ -2,7 +2,7 @@ package com.liy.vo.message;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,25 +19,25 @@ import java.util.Date;
 @NoArgsConstructor
 public class SystemCommentVO {
 
-    @ApiModelProperty(value = "主键ID")
+    @Schema(description = "主键ID")
     private Integer id;
 
-    @ApiModelProperty(value = "用户头像")
+    @Schema(description = "用户头像")
     private String avatar;
 
-    @ApiModelProperty(value = "用户昵称")
+    @Schema(description = "用户昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "回复人昵称")
+    @Schema(description = "回复人昵称")
     private String replyNickname;
 
-    @ApiModelProperty(value = "文章标题")
+    @Schema(description = "文章标题")
     private String articleTitle;
 
-    @ApiModelProperty(value = "评论内容")
+    @Schema(description = "评论内容")
     private String content;
 
-    @ApiModelProperty(value = "评论时间")
+    @Schema(description = "评论时间")
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
 

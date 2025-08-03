@@ -1,8 +1,7 @@
 package com.liy.common;
 
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Arrays;
@@ -17,28 +16,28 @@ import static com.liy.common.ResultCode.*;
  * @description :
  * @author :  blue
  */
-@ApiModel(value = "统一返回结果类")
+@Schema(description = "统一返回结果类")
 @Data
 public class ResponseResult {
     /**
      * 消息内容
      */
-    @ApiModelProperty(value = "响应消息", required = false)
+    @Schema(description = "响应消息", required = false)
     private String message;
 
     /**
      * 响应码：参考`ResultCode`
      */
-    @ApiModelProperty(value = "响应码", required = true)
+    @Schema(description = "响应码", required = true)
     private Integer code;
 
     /**
      * 响应中的数据
      */
-    @ApiModelProperty(value = "响应数据", required = false)
+    @Schema(description = "响应数据", required = false)
     private Object data;
 
-    @ApiModelProperty(value = "响应数据", required = false)
+    @Schema(description = "响应数据", required = false)
     private Map<String,Object> extra = new HashMap<>();
 
     public ResponseResult putExtra(String key, Object value) {

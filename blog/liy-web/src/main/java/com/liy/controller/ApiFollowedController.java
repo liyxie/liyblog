@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/followed")
 @RequiredArgsConstructor
-@Api(tags = "关注API-V1")
+@Schema(title = "关注API-V1")
 public class ApiFollowedController {
 
     private final ApiFollowedService followedService;
@@ -24,7 +24,7 @@ public class ApiFollowedController {
     @AccessLimit
     @SaCheckLogin
     @PostMapping(value = "/insertFollowed")
-    @ApiOperation(value = "关注用户", httpMethod = "POST", response = ResponseResult.class, notes = "关注用户")
+    @Schema(description = "关注用户", httpMethod = "POST", response = ResponseResult.class, notes = "关注用户")
     public ResponseResult addFollowedUser(String userId) {
         return  followedService.addFollowedUser(userId);
     }
@@ -32,7 +32,7 @@ public class ApiFollowedController {
     @AccessLimit
     @SaCheckLogin
     @DeleteMapping(value = "/deleteFollowed")
-    @ApiOperation(value = "取消关注用户", httpMethod = "DELETE", response = ResponseResult.class, notes = "取消关注用户")
+    @Schema(description = "取消关注用户", httpMethod = "DELETE", response = ResponseResult.class, notes = "取消关注用户")
     public ResponseResult deleteFollowed(String userId) {
         return  followedService.deleteFollowed(userId);
     }

@@ -3,9 +3,9 @@ package com.liy.config.filter;
 
 import org.springframework.stereotype.Component;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
@@ -18,7 +18,7 @@ import java.io.IOException;
 public class MyCorsFilter implements Filter {
 
     @Override
-    public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
+    public void init(jakarta.servlet.FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
     }
 

@@ -50,7 +50,7 @@ public class SoftwareServiceImpl extends ServiceImpl<SoftwareMapper, Software> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult removeSoftwareByIds(List<Integer> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

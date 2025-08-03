@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequestMapping("/v1/user")
 @RestController
-@Api(tags = "登录接口")
+@Schema(title = "登录接口")
 @RequiredArgsConstructor
 public class ApiUserController {
 
@@ -36,13 +36,13 @@ public class ApiUserController {
     }
 
     @RequestMapping(value = "selectUserInfoByToken",method = RequestMethod.GET)
-    @ApiOperation(value = "根据token获取用户信息", httpMethod = "GET", response = ResponseResult.class, notes = "根据token获取用户信息")
+    @Schema(description = "根据token获取用户信息", httpMethod = "GET", response = ResponseResult.class, notes = "根据token获取用户信息")
     public ResponseResult selectUserInfoByToken(String token){
         return userService.selectUserInfoByToken(token);
     }
 
     @RequestMapping(value = "getUserCount",method = RequestMethod.GET)
-    @ApiOperation(value = "根据用户id统计用户文章、关注、粉丝等信息", httpMethod = "GET", response = ResponseResult.class, notes = "根据用户id统计用户文章、关注、粉丝等信息")
+    @Schema(description = "根据用户id统计用户文章、关注、粉丝等信息", httpMethod = "GET", response = ResponseResult.class, notes = "根据用户id统计用户文章、关注、粉丝等信息")
     public ResponseResult getUserCount(String id){
         return userService.getUserCount(id);
     }

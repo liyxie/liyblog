@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/v1/tag")
-@Api(tags = "标签分类接口")
+@Schema(title = "标签分类接口")
 @RequiredArgsConstructor
 public class ApiTagsController {
 
@@ -29,7 +29,7 @@ public class ApiTagsController {
 
     @BusinessLogger(value = "标签模块-用户访问页面",type = "查询",desc = "用户访问页面")
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    @ApiOperation(value = "标签列表", httpMethod = "GET", response = ResponseResult.class, notes = "标签列表")
+    @Schema(description = "标签列表", httpMethod = "GET", response = ResponseResult.class, notes = "标签列表")
     public ResponseResult selectTagList(){
         return tagsService.selectTagList();
     }

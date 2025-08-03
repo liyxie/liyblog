@@ -24,27 +24,27 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/job")
-@Api(tags = "定时任务管理")
+@Schema(title = "定时任务管理")
 @RequiredArgsConstructor
 public class JobController {
 
     private final JobService jobService;
 
     @GetMapping(value = "/list")
-    @ApiOperation(value = "定时任务列表", httpMethod = "GET", response = ResponseResult.class, notes = "定时任务列表")
+    @Schema(description = "定时任务列表", httpMethod = "GET", response = ResponseResult.class, notes = "定时任务列表")
     public ResponseResult selectJobPage(String jobName, String jobGroup, String status) {
         return jobService.selectJobPage(jobName,jobGroup,status);
     }
 
     @GetMapping(value = "/info")
-    @ApiOperation(value = "定时任务详情", httpMethod = "GET", response = ResponseResult.class, notes = "定时任务详情")
+    @Schema(description = "定时任务详情", httpMethod = "GET", response = ResponseResult.class, notes = "定时任务详情")
     public ResponseResult selectJobById(Long jobId) {
         return jobService.selectJobById(jobId);
     }
 
     @PostMapping(value = "/add")
     @SaCheckPermission("system:job:add")
-    @ApiOperation(value = "添加定时任务", httpMethod = "POST", response = ResponseResult.class, notes = "添加定时任务")
+    @Schema(description = "添加定时任务", httpMethod = "POST", response = ResponseResult.class, notes = "添加定时任务")
     @OperationLogger(value = "添加定时任务")
     public ResponseResult addJob(@RequestBody Job job) throws SchedulerException, TaskException {
         return jobService.addJob(job);
@@ -52,7 +52,7 @@ public class JobController {
 
     @PutMapping(value = "/update")
     @SaCheckPermission("system:job:update")
-    @ApiOperation(value = "修改定时任务", httpMethod = "PUT", response = ResponseResult.class, notes = "修改定时任务")
+    @Schema(description = "修改定时任务", httpMethod = "PUT", response = ResponseResult.class, notes = "修改定时任务")
     @OperationLogger(value = "修改定时任务")
     public ResponseResult updateJob(@RequestBody Job job) throws SchedulerException, TaskException {
         return jobService.updateJob(job);
@@ -60,7 +60,7 @@ public class JobController {
 
     @DeleteMapping(value = "/delete")
     @SaCheckPermission("system:job:delete")
-    @ApiOperation(value = "批量删除定时任务", httpMethod = "DELETE", response = ResponseResult.class, notes = "批量删除定时任务")
+    @Schema(description = "批量删除定时任务", httpMethod = "DELETE", response = ResponseResult.class, notes = "批量删除定时任务")
     @OperationLogger(value = "批量删除定时任务")
     public ResponseResult deleteJob(@RequestBody List<Long> ids) {
         return jobService.deleteJob(ids);
@@ -68,7 +68,7 @@ public class JobController {
 
     @PostMapping(value = "/run")
     @SaCheckPermission("system:job:run")
-    @ApiOperation(value = "立即执行", httpMethod = "POST", response = ResponseResult.class, notes = "立即执行")
+    @Schema(description = "立即执行", httpMethod = "POST", response = ResponseResult.class, notes = "立即执行")
     @OperationLogger(value = "立即执行")
     public ResponseResult runJob(@RequestBody Job job) {
         return jobService.runJob(job);
@@ -76,7 +76,7 @@ public class JobController {
 
     @PostMapping(value = "/change")
     @SaCheckPermission("system:job:change")
-    @ApiOperation(value = "修改状态", httpMethod = "POST", response = ResponseResult.class, notes = "修改状态")
+    @Schema(description = "修改状态", httpMethod = "POST", response = ResponseResult.class, notes = "修改状态")
     @OperationLogger(value = "修改状态")
     public ResponseResult changeStatus(@RequestBody Job job) throws SchedulerException {
         return jobService.changeStatus(job);

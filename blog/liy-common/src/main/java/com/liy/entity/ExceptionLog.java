@@ -3,8 +3,7 @@ package com.liy.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.io.Serializable;
@@ -20,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="BExceptionLog对象", description="")
+@Schema(title="BExceptionLog对象", description="")
 @TableName("b_exception_log")
 @Builder
 @NoArgsConstructor
@@ -29,35 +28,35 @@ public class ExceptionLog implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "主键")
+    @Schema(description = "主键")
       @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "用户名")
+    @Schema(description = "用户名")
     private String username;
 
-    @ApiModelProperty(value = "ip")
+    @Schema(description = "ip")
     private String ip;
 
-    @ApiModelProperty(value = "ip来源")
+    @Schema(description = "ip来源")
     private String ipSource;
 
-    @ApiModelProperty(value = "请求方法")
+    @Schema(description = "请求方法")
     private String method;
 
-    @ApiModelProperty(value = "描述")
+    @Schema(description = "描述")
     private String operation;
 
-    @ApiModelProperty(value = "参数")
+    @Schema(description = "参数")
     private String params;
 
-    @ApiModelProperty(value = "异常对象json格式")
+    @Schema(description = "异常对象json格式")
     private String exceptionJson;
 
-    @ApiModelProperty(value = "异常简单信息,等同于e.getMessage")
+    @Schema(description = "异常简单信息,等同于e.getMessage")
     private String exceptionMessage;
 
-    @ApiModelProperty(value = "发生时间")
+    @Schema(description = "发生时间")
       @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;

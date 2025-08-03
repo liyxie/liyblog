@@ -3,8 +3,7 @@ package com.liy.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.io.Serializable;
@@ -16,39 +15,39 @@ import java.util.Date;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @TableName("b_say")
-@ApiModel(value="Say", description="")
+@Schema(title="Say", description="")
 public class Say implements Serializable {
     private static final long serialVersionUID=1L;
 
 
-    @ApiModelProperty(value = "主键id")
+    @Schema(description = "主键id")
     @TableId(value = "id", type = IdType.ASSIGN_UUID)
     private String id;
 
 
-    @ApiModelProperty(value = "用户Id")
+    @Schema(description = "用户Id")
     private String userId;
 
 
-    @ApiModelProperty(value = "图片地址 逗号分隔  最多九张")
+    @Schema(description = "图片地址 逗号分隔  最多九张")
     private String imgUrl;
 
-    @ApiModelProperty(value = "内容")
+    @Schema(description = "内容")
     private String content;
 
-    @ApiModelProperty(value = "发表地址。可输入或者地图插件选择")
+    @Schema(description = "发表地址。可输入或者地图插件选择")
     private String address;
 
-    @ApiModelProperty(value = "是否开放查看  0未开放 1开放")
+    @Schema(description = "是否开放查看  0未开放 1开放")
     private Integer isPublic;
 
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
 
-    @ApiModelProperty(value = "修改时间")
+    @Schema(description = "修改时间")
     @TableField(fill = FieldFill.UPDATE)
     private Date updateTime;
 }

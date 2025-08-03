@@ -1,35 +1,34 @@
 package com.liy.vo.system;
 
 
-
 import com.liy.entity.SystemFileConfig;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
 import java.io.Serializable;
 
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "SystemFileConfigVO对象", description = "系统文件存储配置")
+@Schema(title = "SystemFileConfigVO对象", description = "系统文件存储配置")
 public class SystemFileConfigVO implements Serializable {
 
-  @ApiModelProperty(value = "id")
+  @Schema(description = "id")
   private Integer id;
-  @ApiModelProperty(value = "存储类型名称")
+  @Schema(description = "存储类型名称")
   private String typeName;
-  @ApiModelProperty(value = "存储链接")
+  @Schema(description = "存储链接")
   private String url;
-  @ApiModelProperty(value = "存储区域")
+  @Schema(description = "存储区域")
   private String area;
-  @ApiModelProperty(value = "存储空间/桶")
+  @Schema(description = "存储空间/桶")
   private String bucket;
-  @ApiModelProperty(value = "公钥/腾讯secretId")
+  @Schema(description = "公钥/腾讯secretId")
   private String accessKey;
-  @ApiModelProperty(value = "私钥")
+  @Schema(description = "私钥")
   private String secretKey;
-  @ApiModelProperty(value = "存储主路径")
+  @Schema(description = "存储主路径")
   private String path;
 
   public static SystemFileConfigVO poToVo(SystemFileConfig systemFileConfig) {

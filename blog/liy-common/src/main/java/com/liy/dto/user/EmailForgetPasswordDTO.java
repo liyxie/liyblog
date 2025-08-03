@@ -1,19 +1,19 @@
 package com.liy.dto.user;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 @Data
 public class EmailForgetPasswordDTO {
 
     @NotBlank(message = "邮箱不能为空")
-    @ApiModelProperty(name = "email", value = "email", required = true, dataType = "String")
+    @Schema(name = "email", description = "email", required = true, type = "String")
     private String email;
 
     @NotBlank(message = "密码不能为空")
-    @ApiModelProperty(name = "password", value = "password", required = true, dataType = "String")
+    @Schema(name = "password", description = "password", required = true, type = "String")
     private String password;
 
     @NotBlank(message = "验证码不能为空")

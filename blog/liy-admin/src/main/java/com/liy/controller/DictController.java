@@ -26,21 +26,21 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/dict")
-@Api(tags = "字典类型管理")
+@Schema(title = "字典类型管理")
 @RequiredArgsConstructor
 public class DictController {
 
     private final DictService dictService;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    @ApiOperation(value = "字典类型列表", httpMethod = "GET", response = ResponseResult.class, notes = "字典类型列表")
+    @Schema(description = "字典类型列表", httpMethod = "GET", response = ResponseResult.class, notes = "字典类型列表")
     public ResponseResult selectDictPage(String name, Integer status){
         return dictService.selectDictPage(name,status);
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @SaCheckPermission("system:dict:add")
-    @ApiOperation(value = "添加字典", httpMethod = "POST", response = ResponseResult.class, notes = "添加字典")
+    @Schema(description = "添加字典", httpMethod = "POST", response = ResponseResult.class, notes = "添加字典")
     @OperationLogger(value = "添加字典")
     public ResponseResult insert(@RequestBody Dict dict){
         return dictService.addDict(dict);
@@ -48,7 +48,7 @@ public class DictController {
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @SaCheckPermission("system:dict:update")
-    @ApiOperation(value = "修改字典", httpMethod = "PUT", response = ResponseResult.class, notes = "修改字典")
+    @Schema(description = "修改字典", httpMethod = "PUT", response = ResponseResult.class, notes = "修改字典")
     @OperationLogger(value = "修改字典")
     public ResponseResult update(@RequestBody Dict dict){
         return dictService.updateDict(dict);
@@ -56,7 +56,7 @@ public class DictController {
 
     @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
     @SaCheckPermission("system:dict:delete")
-    @ApiOperation(value = "批量删除字典", httpMethod = "DELETE", response = ResponseResult.class, notes = "批量删除字典")
+    @Schema(description = "批量删除字典", httpMethod = "DELETE", response = ResponseResult.class, notes = "批量删除字典")
     @OperationLogger(value = "批量删除字典")
     public ResponseResult deleteBatch(@RequestBody List<Long> list){
         return dictService.deleteDict(list);

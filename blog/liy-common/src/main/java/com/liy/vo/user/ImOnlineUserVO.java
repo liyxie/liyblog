@@ -1,6 +1,6 @@
 package com.liy.vo.user;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -8,10 +8,10 @@ import lombok.Data;
  */
 @Data
 public class ImOnlineUserVO {
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private String id;
-    @ApiModelProperty(value = "用户昵称")
+    @Schema(description = "用户昵称")
     private String nickname;
-    @ApiModelProperty(value = "用户头像")
+    @Schema(description = "用户头像")
     private String avatar;
 }

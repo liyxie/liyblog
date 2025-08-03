@@ -100,7 +100,7 @@ public class DictDataServiceImpl extends ServiceImpl<DictDataMapper, DictData> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteDictData(List<Long> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

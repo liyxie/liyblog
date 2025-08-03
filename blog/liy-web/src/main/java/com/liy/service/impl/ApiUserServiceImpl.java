@@ -48,8 +48,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.mail.MessagingException;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.mail.MessagingException;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -297,7 +297,7 @@ public class ApiUserServiceImpl implements ApiUserService {
         if (!b) {
             throw new BusinessException(ResultCode.ERROR_EXCEPTION_MOBILE_CODE);
         }
-        Integer count = userMapper.selectCount(new LambdaQueryWrapper<User>().eq(User::getUsername, emailRegisterDTO.getEmail()));
+        Long count = userMapper.selectCount(new LambdaQueryWrapper<User>().eq(User::getUsername, emailRegisterDTO.getEmail()));
         if (count > 0) {
             throw new BusinessException("该邮箱账号已经注册");
         }
@@ -330,9 +330,9 @@ public class ApiUserServiceImpl implements ApiUserService {
     @Override
     public ResponseResult getUserCount(String id) {
         id = StringUtils.isBlank(id) ? StpUtil.getLoginIdAsString() : id;
-        Integer articleCount = articleMapper.selectCount(new LambdaQueryWrapper<Article>().eq(Article::getUserId, id));
-        Integer collectCount = collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getUserId, id));
-        Integer followedCount = followedMapper.selectCount(new LambdaQueryWrapper<Followed>().eq(Followed::getUserId, id));
+        Long articleCount = articleMapper.selectCount(new LambdaQueryWrapper<Article>().eq(Article::getUserId, id));
+        Long collectCount = collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getUserId, id));
+        Long followedCount = followedMapper.selectCount(new LambdaQueryWrapper<Followed>().eq(Followed::getUserId, id));
         return ResponseResult.success().putExtra("articleCount", articleCount).putExtra("collectCount", collectCount)
                 .putExtra("followedCount", followedCount);
     }

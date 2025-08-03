@@ -5,8 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.liy.entity.SystemConfig;
 import com.liy.vo.system.SystemFileConfigVO;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import java.io.Serializable;
@@ -22,50 +21,50 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "SystemConfig对象", description = "系统配置表")
+@Schema(title = "SystemConfig对象", description = "系统配置表")
 @TableName("b_system_config")
 public class UpdateSystemConfigDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "主键")
+    @Schema(description = "主键")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "是否开启邮件通知(0:否， 1:是)")
+    @Schema(description = "是否开启邮件通知(0:否， 1:是)")
     private String startEmailNotification;
 
-    @ApiModelProperty(value = "是否开启仪表盘通知(0:否， 1:是)")
+    @Schema(description = "是否开启仪表盘通知(0:否， 1:是)")
     private String openDashboardNotification;
 
-    @ApiModelProperty(value = "仪表盘通知【用于首次登录弹框】")
+    @Schema(description = "仪表盘通知【用于首次登录弹框】")
     private String dashboardNotification;
 
-    @ApiModelProperty(value = "仪表盘通知【用于首次登录弹框】MD")
+    @Schema(description = "仪表盘通知【用于首次登录弹框】MD")
     private String dashboardNotificationMd;
 
-    @ApiModelProperty(value = "搜索模式【0:SQL搜索 、1：全文检索】")
+    @Schema(description = "搜索模式【0:SQL搜索 、1：全文检索】")
     private int searchModel;
 
-    @ApiModelProperty(value = "是否开启注册用户邮件激活(0:否， 1:是)")
+    @Schema(description = "是否开启注册用户邮件激活(0:否， 1:是)")
     private String openEmailActivate;
 
 
-    @ApiModelProperty(value = "邮箱地址")
+    @Schema(description = "邮箱地址")
     private String emailHost;
-    @ApiModelProperty(value = "邮箱发件人")
+    @Schema(description = "邮箱发件人")
     private String emailUsername;
-    @ApiModelProperty(value = "邮箱授权码")
+    @Schema(description = "邮箱授权码")
     private String emailPassword;
-    @ApiModelProperty(value = "邮箱端口")
+    @Schema(description = "邮箱端口")
     private int emailPort;
-    @ApiModelProperty(value = "启用邮箱发送")
+    @Schema(description = "启用邮箱发送")
     private int openEmail;
 
-    @ApiModelProperty(value = "文件存储方式id")
+    @Schema(description = "文件存储方式id")
     private int fileUploadWay;
 
-    @ApiModelProperty(value = "文件存储信息")
+    @Schema(description = "文件存储信息")
     private List<SystemFileConfigVO> systemFileConfigVOList;
 
     public static SystemConfig DtoToPo(UpdateSystemConfigDTO updateSystemConfigDTO) {

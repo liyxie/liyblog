@@ -27,7 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.util.Date;
 import java.util.List;
 
@@ -135,7 +135,7 @@ public class JobServiceImpl extends ServiceImpl<JobMapper, Job> implements JobSe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteJob(List<Long> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

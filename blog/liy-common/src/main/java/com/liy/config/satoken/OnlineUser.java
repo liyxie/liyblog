@@ -1,8 +1,7 @@
 package com.liy.config.satoken;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -16,42 +15,42 @@ import java.util.Date;
 @Data
 @Builder
 public class OnlineUser {
-    @ApiModelProperty("登录账号的")
+    @Schema(description = "登录账号的")
     private String loginId;
-    @ApiModelProperty("用户id")
+    @Schema(description = "用户id")
     private String userId;
 
-    @ApiModelProperty("昵称")
-
+    @Schema(description = "昵称")
     private String nickname;
-    @ApiModelProperty("头像")
-
+    
+    @Schema(description = "头像")
     private String avatar;
-    @ApiModelProperty("ip地址")
-
+    
+    @Schema(description = "ip地址")
     private String ip;
-    @ApiModelProperty("系统")
-
+    
+    @Schema(description = "系统")
     private String os;
-    @ApiModelProperty("登录地址")
-
+    
+    @Schema(description = "登录地址")
     private String city;
-    @ApiModelProperty("浏览器")
-
+    
+    @Schema(description = "浏览器")
     private String browser;
-    @ApiModelProperty("token")
+    
+    @Schema(description = "token")
     private String tokenValue;
     /**
      * 登录时间
      */
-    @ApiModelProperty("登录时间")
-    @JsonFormat(pattern = DateUtil.FORMAT_STRING, timezone = "GMT+8")
+    @Schema(description = "登录时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date loginTime;
     /**
      * 最近一次操作时间
      */
-    @ApiModelProperty("最近一次操作时间")
-    @JsonFormat(pattern = DateUtil.FORMAT_STRING, timezone = "GMT+8")
+    @Schema(description = "最近一次操作时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date lastActivityTime;
 }
 

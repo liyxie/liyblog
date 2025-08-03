@@ -89,14 +89,14 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     public ResponseResult deleteCategory(List<Long> list) {
         List<Long> ids = new ArrayList<>();
         for (Long id : list) {
-            Integer count = articleMapper.selectCount(new LambdaQueryWrapper<Article>().eq(Article::getCategoryId, id));
+            Long count = articleMapper.selectCount(new LambdaQueryWrapper<Article>().eq(Article::getCategoryId, id));
             if (count > 0) {
                 throw new BusinessException( id + " 分类下有文章，不能删除");
             }
             ids.add(id);
         }
 
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

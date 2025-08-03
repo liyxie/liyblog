@@ -3,8 +3,7 @@ package com.liy.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,36 +21,36 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName("b_feed_back")
-@ApiModel(value="FeedBack对象", description="")
+@Schema(title="FeedBack对象", description="")
 public class FeedBack implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "ID")
+    @Schema(description = "ID")
       @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @ApiModelProperty(value = "用户id")
+    @Schema(description = "用户id")
     private String userId;
 
-    @ApiModelProperty(value = "标题")
+    @Schema(description = "标题")
     private String title;
 
-    @ApiModelProperty(value = "详细内容")
+    @Schema(description = "详细内容")
     private String content;
 
-    @ApiModelProperty(value = "添加时间")
+    @Schema(description = "添加时间")
       @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
 
-    @ApiModelProperty(value = "图片地址")
+    @Schema(description = "图片地址")
     private String imgUrl;
 
-    @ApiModelProperty(value = "反馈类型 1:需求 2：缺陷")
+    @Schema(description = "反馈类型 1:需求 2：缺陷")
     private Integer type;
 
-    @ApiModelProperty(value = "状态 0:未解决 1：解决")
+    @Schema(description = "状态 0:未解决 1：解决")
     private Integer status;
 
 }

@@ -52,7 +52,7 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteMessage(List<Integer> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

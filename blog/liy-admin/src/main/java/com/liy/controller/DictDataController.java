@@ -26,21 +26,21 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/system/dictData")
-@Api(tags = "字典数据管理")
+@Schema(title = "字典数据管理")
 @RequiredArgsConstructor
 public class DictDataController {
 
     private final DictDataService dictDataService;
 
     @RequestMapping(value = "/list",method = RequestMethod.GET)
-    @ApiOperation(value = "字典数据列表", httpMethod = "GET", response = ResponseResult.class, notes = "字典数据列表")
+    @Schema(description = "字典数据列表", httpMethod = "GET", response = ResponseResult.class, notes = "字典数据列表")
     public ResponseResult selectDictDataPage(Integer dictId, Integer isPublish){
         return dictDataService.selectDictDataPage(dictId,isPublish);
     }
 
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     @SaCheckPermission("system:dictData:add")
-    @ApiOperation(value = "添加字典数据", httpMethod = "POST", response = ResponseResult.class, notes = "添加字典数据")
+    @Schema(description = "添加字典数据", httpMethod = "POST", response = ResponseResult.class, notes = "添加字典数据")
     @OperationLogger(value = "添加字典数据")
     public ResponseResult addDictData(@RequestBody DictData dictData){
         return dictDataService.addDictData(dictData);
@@ -48,7 +48,7 @@ public class DictDataController {
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @SaCheckPermission("system:dictData:update")
-    @ApiOperation(value = "修改字典数据", httpMethod = "PUT", response = ResponseResult.class, notes = "修改字典数据")
+    @Schema(description = "修改字典数据", httpMethod = "PUT", response = ResponseResult.class, notes = "修改字典数据")
     @OperationLogger(value = "修改字典数据")
     public ResponseResult update(@RequestBody DictData dictData){
         return dictDataService.updateDictData(dictData);
@@ -56,7 +56,7 @@ public class DictDataController {
 
     @RequestMapping(value = "/deleteBatch",method = RequestMethod.DELETE)
     @SaCheckPermission("system:dictData:delete")
-    @ApiOperation(value = "批量删除字典数据", httpMethod = "DELETE", response = ResponseResult.class, notes = "批量删除字典数据")
+    @Schema(description = "批量删除字典数据", httpMethod = "DELETE", response = ResponseResult.class, notes = "批量删除字典数据")
     @OperationLogger(value = "批量删除字典数据")
     public ResponseResult deleteDictData(@RequestBody List<Long> ids){
         return dictDataService.deleteDictData(ids);

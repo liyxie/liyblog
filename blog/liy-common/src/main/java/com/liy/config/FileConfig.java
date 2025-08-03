@@ -22,7 +22,7 @@ import org.dromara.x.file.storage.core.FileStorageServiceBuilder;
 import org.dromara.x.file.storage.core.platform.FileStorage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;

@@ -1,34 +1,34 @@
 package com.liy.dto.user;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 @Data
 public class SystemUserDTO {
 
-    @ApiModelProperty(name = "id", value = "用户id", required = true, dataType = "Long")
+    @Schema(name = "id", description = "用户id", required = true, type = "Long")
     private Long id;
 
-    @ApiModelProperty(name = "avatar", value = "头像", required = true, dataType = "String")
+    @Schema(name = "avatar", description = "头像", required = true, type = "String")
     private String avatar;
 
     @NotBlank(message = "用户名不能为空")
-    @ApiModelProperty(name = "username", value = "用户名", required = true, dataType = "String")
+    @Schema(name = "username", description = "用户名", required = true, type = "String")
     private String username;
 
     @NotBlank(message = "密码不能为空")
-    @ApiModelProperty(name = "password", value = "密码", required = true, dataType = "String")
+    @Schema(name = "password", description = "密码", required = true, type = "String")
     private String password;
 
     @NotBlank(message = "昵称不能为空")
-    @ApiModelProperty(name = "nickname", value = "昵称", required = true, dataType = "String")
+    @Schema(name = "nickname", description = "昵称", required = true, type = "String")
     private String nickname;
 
-    @ApiModelProperty(name = "status", value = "状态", required = true, dataType = "int")
+    @Schema(name = "status", description = "状态", required = true, type = "int")
     private int status;
 
-    @ApiModelProperty(name = "roleId", value = "角色", required = true, dataType = "int")
+    @Schema(name = "roleId", description = "角色", required = true, type = "int")
     private int roleId;
 }

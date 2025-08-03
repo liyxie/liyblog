@@ -43,7 +43,7 @@ public class LogServiceImpl extends ServiceImpl<UserLogMapper, UserLog> implemen
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteUserLog(List<Long> ids) {
-        int rows = baseMapper.deleteBatchIds(ids);
+        int rows = baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 }

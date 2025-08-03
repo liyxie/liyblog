@@ -3,7 +3,7 @@ package com.liy.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.liy.vo.system.SystemFileConfigVO;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.ToString;
 
@@ -17,23 +17,23 @@ import lombok.ToString;
 @TableName("b_system_file_config")
 public class SystemFileConfig {
 
-  @ApiModelProperty(value = "id")
+  @Schema(description = "id")
   private Integer id;
-  @ApiModelProperty(value = "类型名")
+  @Schema(description = "类型名")
   private String typeName;
-  @ApiModelProperty(value = "链接")
+  @Schema(description = "链接")
   private String url;
-  @ApiModelProperty(value = "地域")
+  @Schema(description = "地域")
   private String area;
-  @ApiModelProperty(value = "桶/空间")
+  @Schema(description = "桶/空间")
   private String bucket;
-  @ApiModelProperty(value = "公钥")
+  @Schema(description = "公钥")
   private String accessKey;
-  @ApiModelProperty(value = "私钥")
+  @Schema(description = "私钥")
   private String secretKey;
-  @ApiModelProperty(value = "存储路径")
+  @Schema(description = "存储路径")
   private String path;
-  @ApiModelProperty(value = "策略")
+  @Schema(description = "策略")
   private String strategy;
 
   public static SystemFileConfig voToPo(SystemFileConfigVO systemFileConfigVO) {

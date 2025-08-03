@@ -273,22 +273,22 @@ public class ApiImMessageServiceImpl implements ApiImMessageService {
      */
     @Override
     public ResponseResult getNewSystemNotice() {
-        int systemCount = imMessageMapper.selectCount(new LambdaQueryWrapper<ImMessage>()
+        Long systemCount = imMessageMapper.selectCount(new LambdaQueryWrapper<ImMessage>()
                 .eq(ImMessage::getCode, MessageConstant.SYSTEM_MESSAGE_CODE).eq(ImMessage::getToUserId, StpUtil.getLoginIdAsString())
                 .eq(ImMessage::getIsRead, 0).eq(ImMessage::getNoticeType, MessageConstant.MESSAGE_SYSTEM_NOTICE));
 
-        int commentCount = imMessageMapper.selectCount(new LambdaQueryWrapper<ImMessage>()
+        Long commentCount = imMessageMapper.selectCount(new LambdaQueryWrapper<ImMessage>()
                 .eq(ImMessage::getCode, MessageConstant.SYSTEM_MESSAGE_CODE).eq(ImMessage::getToUserId, StpUtil.getLoginIdAsString())
                 .eq(ImMessage::getIsRead, 0).eq(ImMessage::getNoticeType, MessageConstant.MESSAGE_COMMENT_NOTICE));
 
-        int privateCount = imMessageMapper.selectCount(new LambdaQueryWrapper<ImMessage>()
+        Long privateCount = imMessageMapper.selectCount(new LambdaQueryWrapper<ImMessage>()
                 .eq(ImMessage::getCode, MessageConstant.PRIVATE_CHAT_CODE).eq(ImMessage::getToUserId, StpUtil.getLoginIdAsString())
                 .eq(ImMessage::getIsRead, 0));
 
         Map<String, Integer> map = new HashMap<>();
-        map.put("system", systemCount);
-        map.put("comment", commentCount);
-        map.put("private", privateCount);
+        map.put("system", Math.toIntExact(systemCount));
+        map.put("comment", Math.toIntExact(commentCount));
+        map.put("private", Math.toIntExact(privateCount));
         return ResponseResult.success(map);
     }
 

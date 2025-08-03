@@ -46,7 +46,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
      */
     @Override
     public ResponseResult deleteComment(List<Integer> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

@@ -90,7 +90,7 @@ public class TagsServiceImpl extends ServiceImpl<TagsMapper, Tags> implements Ta
         for (Long id : ids) {
             validateTagIdIsExistArticle(id);
         }
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

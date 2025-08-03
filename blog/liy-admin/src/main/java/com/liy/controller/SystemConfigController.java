@@ -25,21 +25,21 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/system/config")
-@Api(tags = "系统配置管理")
+@Schema(title = "系统配置管理")
 @RequiredArgsConstructor
 public class SystemConfigController {
 
     private final SystemConfigService systemConfigService;
 
     @RequestMapping(value = "/getConfig",method = RequestMethod.GET)
-    @ApiOperation(value = "查询系统配置", httpMethod = "GET", response = ResponseResult.class, notes = "查询系统配置")
+    @Schema(description = "查询系统配置", httpMethod = "GET", response = ResponseResult.class, notes = "查询系统配置")
     public ResponseResult getSystemConfig(){
         return systemConfigService.getSystemConfig();
     }
 
     @RequestMapping(value = "/update",method = RequestMethod.PUT)
     @SaCheckPermission("system:config:update")
-    @ApiOperation(value = "修改系统配置", httpMethod = "PUT", response = ResponseResult.class, notes = "修改系统配置")
+    @Schema(description = "修改系统配置", httpMethod = "PUT", response = ResponseResult.class, notes = "修改系统配置")
     @OperationLogger(value = "修改系统配置")
     public ResponseResult updateSystemConfig(@RequestBody UpdateSystemConfigDTO systemConfig){
         return systemConfigService.updateSystemConfig(systemConfig);

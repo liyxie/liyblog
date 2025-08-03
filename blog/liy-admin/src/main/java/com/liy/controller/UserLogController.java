@@ -23,13 +23,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/system/userLog")
 @RequiredArgsConstructor
-@Api(tags = "用户日志管理")
+@Schema(title = "用户日志管理")
 public class UserLogController {
 
     private final UserLogService userLogService;
 
     @GetMapping(value = "/list")
-    @ApiOperation(value = "用户日志列表", httpMethod = "GET", response = ResponseResult.class, notes = "用户日志列表")
+    @Schema(description = "用户日志列表", httpMethod = "GET", response = ResponseResult.class, notes = "用户日志列表")
     public ResponseResult selectUserLogPage() {
         return userLogService.selectUserLogPage();
     }
@@ -37,7 +37,7 @@ public class UserLogController {
     @DeleteMapping(value = "/delete")
     @SaCheckPermission("system:userLog:delete")
     @OperationLogger(value = "删除用户日志")
-    @ApiOperation(value = "删除用户日志", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除用户日志")
+    @Schema(description = "删除用户日志", httpMethod = "DELETE", response = ResponseResult.class, notes = "删除用户日志")
     public ResponseResult deleteBatch(@RequestBody List<Long> ids) {
         return userLogService.deleteUserLog(ids);
     }

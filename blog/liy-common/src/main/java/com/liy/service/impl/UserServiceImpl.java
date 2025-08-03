@@ -81,7 +81,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult addUser(SystemUserDTO dto) {
-        Integer count = baseMapper.selectCount(new LambdaQueryWrapper<User>().eq(User::getUsername,dto.getUsername()));
+        Long count = baseMapper.selectCount(new LambdaQueryWrapper<User>().eq(User::getUsername,dto.getUsername()));
         if (count > 0 ){
             throw new BusinessException("用户名已存在!");
         }
@@ -111,7 +111,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteUSer(List<String> ids) {
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

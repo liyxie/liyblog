@@ -89,11 +89,11 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult deleteDict(List<Long> ids) {
-        int count  = dictDataService.count(new LambdaQueryWrapper<DictData>().in(DictData::getDictId,ids));
+        Long count  = dictDataService.count(new LambdaQueryWrapper<DictData>().in(DictData::getDictId,ids));
         if (count > 0) {
             throw new BusinessException("所选字典类型中存在字典数据！");
         }
-        baseMapper.deleteBatchIds(ids);
+        baseMapper.deleteByIds(ids);
         return ResponseResult.success();
     }
 

@@ -1,6 +1,6 @@
 package com.liy.vo.article;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ApiArticleSearchVO {
 
-    @ApiModelProperty(value = "id")
+    @Schema(description = "id")
     private Long id;
 
 
-    @ApiModelProperty(value = "文章标题")
+    @Schema(description = "文章标题")
     private String title;
 
 
-    @ApiModelProperty(value = "文章内容")
+    @Schema(description = "文章内容")
     private String summary;
 }

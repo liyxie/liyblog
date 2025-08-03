@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/v1/message")
-@Api(tags = "评论留言接口")
+@Schema(title = "评论留言接口")
 @RequiredArgsConstructor
 public class ApiMessageController {
 
@@ -31,7 +31,7 @@ public class ApiMessageController {
 
     @BusinessLogger(value = "留言模块-留言列表",type = "查询",desc = "留言列表")
     @RequestMapping(value = "/",method = RequestMethod.GET)
-    @ApiOperation(value = "留言列表", httpMethod = "GET", response = ResponseResult.class, notes = "留言列表")
+    @Schema(description = "留言列表", httpMethod = "GET", response = ResponseResult.class, notes = "留言列表")
     public ResponseResult selectMessageList(){
         return messageService.selectMessageList();
     }
@@ -39,7 +39,7 @@ public class ApiMessageController {
 
     @BusinessLogger(value = "留言模块-用户留言",type = "添加",desc = "用户留言")
     @RequestMapping(value = "/",method = RequestMethod.POST)
-    @ApiOperation(value = "添加留言", httpMethod = "POST", response = ResponseResult.class, notes = "添加留言")
+    @Schema(description = "添加留言", httpMethod = "POST", response = ResponseResult.class, notes = "添加留言")
     public ResponseResult addMessage(@RequestBody Message message){
         return messageService.addMessage(message);
     }

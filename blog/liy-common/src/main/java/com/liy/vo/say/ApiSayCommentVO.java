@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,41 +19,41 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApiSayCommentVO {
-    @ApiModelProperty(value = "主键id")
+    @Schema(description = "主键id")
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
 
-    @ApiModelProperty(value = "用户Id")
+    @Schema(description = "用户Id")
     private String userId;
 
-    @ApiModelProperty(value = "用户昵称")
+    @Schema(description = "用户昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "回复用户Id")
+    @Schema(description = "回复用户Id")
     private String replyUserId;
 
-    @ApiModelProperty(value = "回复用户昵称")
+    @Schema(description = "回复用户昵称")
     private String replyUserNickname;
 
-    @ApiModelProperty(value = "说说id")
+    @Schema(description = "说说id")
     private String sayId;
 
-    @ApiModelProperty(value = "内容")
+    @Schema(description = "内容")
     private String content;
 
-    @ApiModelProperty(value = "ip")
+    @Schema(description = "ip")
     private String ip;
 
-    @ApiModelProperty(value = "ip来源")
+    @Schema(description = "ip来源")
     private String ipAddress;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     private String createTimeStr;
 
 

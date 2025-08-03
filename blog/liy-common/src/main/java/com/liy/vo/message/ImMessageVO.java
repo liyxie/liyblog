@@ -2,7 +2,7 @@ package com.liy.vo.message;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,68 +11,68 @@ import java.util.Map;
 @Data
 public class ImMessageVO {
 
-    @ApiModelProperty(value = "主键id")
+    @Schema(description = "主键id")
     private String id;
 
-    @ApiModelProperty(value = "消息类型")
+    @Schema(description = "消息类型")
     private Integer code;
 
-    @ApiModelProperty(value = "接收用户Id")
+    @Schema(description = "接收用户Id")
     private String toUserId;
 
-    @ApiModelProperty(value = "发送用户id")
+    @Schema(description = "发送用户id")
     private String fromUserId;
 
-    @ApiModelProperty(value = "发送用户头像")
+    @Schema(description = "发送用户头像")
     private String fromUserAvatar;
 
-    @ApiModelProperty(value = "发送用户昵称")
+    @Schema(description = "发送用户昵称")
     private String fromUserNickname;
 
 
-    @ApiModelProperty(value = "内容")
+    @Schema(description = "内容")
     private String content;
 
-    @ApiModelProperty(value = "ip")
+    @Schema(description = "ip")
     private String ip;
 
-    @ApiModelProperty(value = "ip地址")
+    @Schema(description = "ip地址")
     private String ipSource;
 
-    @ApiModelProperty(value = "是否撤回")
+    @Schema(description = "是否撤回")
     private int isWithdraw;
 
-    @ApiModelProperty(value = "文章id")
+    @Schema(description = "文章id")
     private Integer articleId;
 
-    @ApiModelProperty(value = "文章标题")
+    @Schema(description = "文章标题")
     private String articleTitle;
 
-    @ApiModelProperty(value = "消息类型 1普通消息 2图片")
+    @Schema(description = "消息类型 1普通消息 2图片")
     private int type;
 
-    @ApiModelProperty(value = "是否已读 0:未读 1：已读")
+    @Schema(description = "是否已读 0:未读 1：已读")
     private int isRead;
 
-    @ApiModelProperty(value = "选中下标")
+    @Schema(description = "选中下标")
     private Integer index;
 
-    @ApiModelProperty(value = "评论标记 1回复评论 2发表评论")
+    @Schema(description = "评论标记 1回复评论 2发表评论")
     private Integer commentMark;
 
-    @ApiModelProperty(value = "通知类型 0系统通知 1：评论 2：关注 3点赞 4收藏 5私信")
+    @Schema(description = "通知类型 0系统通知 1：评论 2：关注 3点赞 4收藏 5私信")
     private Integer noticeType;
 
-    @ApiModelProperty(value = "@用户id 多个逗号分隔")
+    @Schema(description = "@用户id 多个逗号分隔")
     private String atUserId;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtil.YYYY_MM_DD_HH_MM,timezone="GMT+8")
     private Date createTime;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     private String createTimeStr;
 
-    @ApiModelProperty(value = "扩展信息")
+    @Schema(description = "扩展信息")
     private Map<String, Object> ext;
 }

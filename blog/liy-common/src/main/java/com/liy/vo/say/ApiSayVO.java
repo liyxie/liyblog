@@ -1,9 +1,9 @@
 package com.liy.vo.say;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.liy.vo.user.UserInfoVO;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModelProperty;
+import com.liy.vo.user.UserInfoVO;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import java.util.Date;
@@ -11,46 +11,46 @@ import java.util.List;
 
 @Data
 public class ApiSayVO {
-    @ApiModelProperty(value = "主键id")
+    @Schema(description = "主键id")
     private String id;
 
 
-    @ApiModelProperty(value = "用户Id")
+    @Schema(description = "用户Id")
     private String userId;
 
-    @ApiModelProperty(value = "用户昵称")
+    @Schema(description = "用户昵称")
     private String nickname;
 
-    @ApiModelProperty(value = "用户头像")
+    @Schema(description = "用户头像")
     private String avatar;
 
 
-    @ApiModelProperty(value = "图片地址 逗号分隔  最多九张")
+    @Schema(description = "图片地址 逗号分隔  最多九张")
     private String imgUrl;
 
-    @ApiModelProperty(value = "内容")
+    @Schema(description = "内容")
     private String content;
 
-    @ApiModelProperty(value = "发表地址。可输入或者地图插件选择")
+    @Schema(description = "发表地址。可输入或者地图插件选择")
     private String address;
 
-    @ApiModelProperty(value = "是否开放查看  0未开放 1开放")
+    @Schema(description = "是否开放查看  0未开放 1开放")
     private Integer isPublic;
 
-    @ApiModelProperty(value = "点赞用户")
+    @Schema(description = "点赞用户")
     private List<UserInfoVO> userLikeList;
 
-    @ApiModelProperty(value = "是否点赞")
+    @Schema(description = "是否点赞")
     private Boolean isLike;
 
-    @ApiModelProperty(value = "评论集合")
+    @Schema(description = "评论集合")
     private List<ApiSayCommentVO> sayCommentVOList;
 
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     private String createTimeStr;
 }

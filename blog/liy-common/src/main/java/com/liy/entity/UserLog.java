@@ -3,8 +3,7 @@ package com.liy.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.io.Serializable;
@@ -20,7 +19,7 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value="UserLog对象", description="日志表")
+@Schema(title="UserLog对象", description="日志表")
 @TableName("b_user_log")
 @Builder
 @NoArgsConstructor
@@ -29,39 +28,39 @@ public class UserLog implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @ApiModelProperty(value = "主键ID")
+    @Schema(description = "主键ID")
       @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty(value = "ip地址")
+    @Schema(description = "ip地址")
     private String ip;
 
-    @ApiModelProperty(value = "操作地址")
+    @Schema(description = "操作地址")
     private String address;
 
-    @ApiModelProperty(value = "操作类型")
+    @Schema(description = "操作类型")
     private String type;
 
-    @ApiModelProperty(value = "操作日志")
+    @Schema(description = "操作日志")
     private String description;
 
-    @ApiModelProperty(value = "操作模块")
+    @Schema(description = "操作模块")
     private String model;
 
-    @ApiModelProperty(value = "操作系统")
+    @Schema(description = "操作系统")
     private String accessOs;
-    @ApiModelProperty(value = "客户端类型")
+    @Schema(description = "客户端类型")
     private String clientType;
 
-    @ApiModelProperty(value = "浏览器")
+    @Schema(description = "浏览器")
     private String browser;
 
-    @ApiModelProperty(value = "操作时间")
+    @Schema(description = "操作时间")
       @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
 
-    @ApiModelProperty(value = "操作结果")
+    @Schema(description = "操作结果")
     private String result;
 
 

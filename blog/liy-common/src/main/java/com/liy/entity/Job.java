@@ -3,8 +3,7 @@ package com.liy.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.liy.utils.DateUtil;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,54 +20,54 @@ import java.util.Date;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-@ApiModel(value = "Job对象", description = "定时任务调度表")
+@Schema(title = "Job对象", description = "定时任务调度表")
 @TableName("b_job")
 public class Job implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "任务ID")
+    @Schema(description = "任务ID")
     @TableId(value = "job_id", type = IdType.AUTO)
     private Long jobId;
 
-    @ApiModelProperty(value = "任务名称")
+    @Schema(description = "任务名称")
     private String jobName;
 
-    @ApiModelProperty(value = "任务组名")
+    @Schema(description = "任务组名")
     private String jobGroup;
 
-    @ApiModelProperty(value = "调用目标字符串")
+    @Schema(description = "调用目标字符串")
     private String invokeTarget;
 
-    @ApiModelProperty(value = "cron执行表达式")
+    @Schema(description = "cron执行表达式")
     private String cronExpression;
 
-    @ApiModelProperty(value = "计划执行错误策略（1立即执行 2执行一次 3放弃执行）")
+    @Schema(description = "计划执行错误策略（1立即执行 2执行一次 3放弃执行）")
     private String misfirePolicy;
 
-    @ApiModelProperty(value = "是否并发执行（0允许 1禁止）")
+    @Schema(description = "是否并发执行（0允许 1禁止）")
     private String concurrent;
 
-    @ApiModelProperty(value = "状态（0正常 1暂停）")
+    @Schema(description = "状态（0正常 1暂停）")
     private String status;
 
-    @ApiModelProperty(value = "创建者")
+    @Schema(description = "创建者")
     private String createBy;
 
-    @ApiModelProperty(value = "创建时间")
+    @Schema(description = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date createTime;
 
-    @ApiModelProperty(value = "更新者")
+    @Schema(description = "更新者")
     private String updateBy;
 
-    @ApiModelProperty(value = "更新时间")
+    @Schema(description = "更新时间")
     @TableField(fill = FieldFill.UPDATE)
     @JsonFormat(pattern = DateUtil.FORMAT_STRING,timezone="GMT+8")
     private Date updateTime;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息")
     private String remark;
 
     @TableField(exist = false)
