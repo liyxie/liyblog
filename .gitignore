@@ -29,3 +29,6 @@ workspace.xml
 /dist/
 /nbdist/
 /.nb-gradle/
+
+# ai
+CLAUDE.md
