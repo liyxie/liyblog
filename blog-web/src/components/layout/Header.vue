@@ -102,13 +102,13 @@
             </router-link>
           </span>
         </li>
-        <li :class="path === '/message' ? 'active' : ''">
+        <!-- <li :class="path === '/message' ? 'active' : ''">
           <span>
             <router-link :to="'/message'" class="hand-style">
               <svg-icon name="message"></svg-icon> 留言板
             </router-link>
           </span>
-        </li>
+        </li> -->
         <li :class="path === '/link' ? 'active' : ''">
           <span>
             <!-- <router-link :to="'/link'" class="hand-style">
@@ -177,7 +177,7 @@
             </template>
           </el-dropdown>
         </li>
-        <li :class="path === '/calendar' ? 'active' : ''">
+        <li :class="path === '/calendar' ? 'active' : ''" v-if="userInfoTemp">
           <span>
             <router-link to="/calendar" class="hand-style">
               <svg-icon name="calendar"></svg-icon> 事件日历

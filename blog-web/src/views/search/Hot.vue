@@ -1,7 +1,7 @@
 <template>
   <div class="hotSearchMain container">
     <div class="box">
-      <div class="nav">
+      <!-- <div class="nav">
         <div class="siteBox">
           <svg-icon :name="svgList[selectSite]"></svg-icon>
           <el-icon
@@ -20,7 +20,7 @@
         <div class="searchCommit hand-style" @click="handleCommit">
           <i class="iconfont icon-search"></i>
         </div>
-      </div>
+      </div> -->
       <div class="hot">
         <div class="xianbao">
           <div class="title">
@@ -240,6 +240,7 @@ function go(url) {
   window.location.href = url;
   // window.open(url);
 }
+// 搜索
 function handleCommit() {
   if (!text.value) {
     proxy.$modal.msgWarning("请输入搜索内容");

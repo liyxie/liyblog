@@ -93,8 +93,7 @@ const router = useRouter()
 const { proxy } = getCurrentInstance();
 const userStore = useUserStore();
 const siteStore = useSiteStore();
-// const theme = ref(sessionStorage.getItem("theme"));
-const theme = siteStore.getTheme;
+const theme = ref(siteStore.getTheme);
 const show = ref(false);
 const right = ref("-80px");
 const percentage = ref(0);
@@ -111,8 +110,6 @@ onMounted(() => {
 
 // 切换主题色
 function chageTheme() {
-  console.log(theme);
-  console.log(siteStore.isDark);
   if (!siteStore.isDark) {
     //浅色模式
     document.getElementById("dark").style.transform = "translateX(0)";
@@ -123,6 +120,7 @@ function chageTheme() {
   }
   siteStore.toggleTheme();
   document.documentElement.dataset.theme = siteStore.getTheme;
+  theme.value = siteStore.getTheme;
 }
 
 function handleMouseEnter() {

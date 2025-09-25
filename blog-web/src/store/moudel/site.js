@@ -12,7 +12,7 @@ export const useSiteStore = defineStore('site', {
         navBarDislogVisible: false,
         isCommentVisible: false,
         // 主题,默认深色
-        theme: "bark",
+        theme: "dark",
     }),
     persist: {
         enabled: true, //Store中数据持久化生效
