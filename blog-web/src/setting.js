@@ -12,12 +12,12 @@ export default {
     /**
     * 翻转图片-正面
     */
-    overturnImg: "https://www.img.liy1900.xyz/www/blog/component/0663.jpg",
+    overturnImg: "https://www.img.liy1900.top/www/blog/component/0663.jpg",
 
     /**
      * 底部图片
      */
-    bottomImg: "https://www.img.liy1900.xyz/www/blog/component/0663.jpg",
+    bottomImg: "https://www.img.liy1900.top/www/blog/component/0663.jpg",
 
     /**
     * 广告图片1
@@ -37,24 +37,24 @@ export default {
     /**
     * 留言墙背景图片
     */
-    messageBkImg: "https://www.img.liy1900.xyz/www/blog/component/1587.png",
+    messageBkImg: "https://www.img.liy1900.top/www/blog/component/1587.png",
 
 
     /**
     * 游客头像
     */
-    touristAvatar: "https://www.img.liy1900.xyz/www/blog/component/wallhaven-3l2kmd_3840x2160.png",
+    touristAvatar: "https://www.img.liy1900.top/www/blog/component/wallhaven-3l2kmd_3840x2160.png",
 
 
     /**
     * 头像挂件
     */
-    avatarGaoda: "https://www.img.liy1900.xyz/www/blog/component/gaoda.png",
+    avatarGaoda: "https://www.img.liy1900.top/www/blog/component/gaoda.png",
 
 
     /**
     * 博主信息组件背景(即轮播图右侧)
     */
-    avatarBg: "https://www.img.liy1900.xyz/www/blog/component/wallhaven-p8j3we_1920x1080.png",
+    avatarBg: "https://www.img.liy1900.top/www/blog/component/wallhaven-p8j3we_1920x1080.png",
 
 }

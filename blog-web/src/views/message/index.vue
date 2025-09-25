@@ -4,7 +4,7 @@
     <div
       class="message-banner"
       style="
-        background: url('https://www.img.liy1900.xyz/www/blog/component/0663.jpg') center
+        background: url('https://www.img.liy1900.top/www/blog/component/0663.jpg') center
           center / cover no-repeat;
       "
     >

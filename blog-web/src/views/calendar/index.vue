@@ -121,7 +121,7 @@
     <div class="calendar-panel" style="position: relative;">
       <!-- 加载覆盖层 -->
       <div v-if="calendarLoading" class="loading-overlay">
-        <el-loading-icon size="large" />
+        <!-- <el-loading-icon size="large" /> -->
         <span style="margin-left: 8px;">加载中...</span>
       </div>
       

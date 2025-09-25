@@ -20,7 +20,7 @@ public class Knife4jConfig {
                         .description("liy博客接口文档")
                         .contact(new Contact()
                                 .name("liy")
-                                .url("https://www.liy1900.xyz")
+                                .url("https://www.liy1900.top")
                                 .email("liy200110@163.com"))
                         .license(new License().name("Apache 2.0")
                                 .url("http://www.apache.org/licenses/LICENSE-2.0.html")));

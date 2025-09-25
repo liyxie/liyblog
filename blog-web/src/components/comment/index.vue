@@ -481,7 +481,7 @@ function splitIpAddress(address) {
             width: 100%;
             border-radius: 4px;
             border-style: none;
-            background: url("https://www.img.liy1900.xyz/www/blog/component/plun.gif") 100% 100%
+            background: url("https://www.img.liy1900.top/www/blog/component/plun.gif") 100% 100%
               no-repeat;
             transition: all 0.25s ease-in-out 0s;
 

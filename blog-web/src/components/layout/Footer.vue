@@ -226,7 +226,7 @@ function runTime() {
       .thumb {
         display: block;
         padding-top: 60%;
-        background-image: url(https://www.img.liy1900.xyz/www/blog/component/0663.jpg);
+        background-image: url(https://www.img.liy1900.top/www/blog/component/0663.jpg);
       }
       .girl-info {
         margin-bottom: 55px;

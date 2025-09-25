@@ -293,7 +293,7 @@ let headerClass = ref("header");
 const noticeList = ref(["系统通知", "评论", "私信"]);
 const adminUrl = ref(import.meta.env.VITE_APP_ADMIN_API);
 // 青龙面板url
-const qingLongUrl = ref("https://ql.liy1900.xyz")
+const qingLongUrl = ref("https://ql.liy1900.top")
 const userInfo = ref(userStore.getUserInfo);
 
 //控制登录框显示的方法
