@@ -205,7 +205,7 @@
                       {{ item.categoryName }}
                     </el-tag>
                   </el-tooltip>
-                  <el-tooltip class="box-item" effect="dark" content="文章标签" placement="top" v-for="tag in item.tagList"
+                  <el-tooltip  class="box-item" effect="light" content="文章标签" placement="top" v-for="tag in item.tagList"
                     :key="tag.id">
                     <el-tag :type="tagStyle[Math.round(Math.random() * 4)]" class="hand-style"
                       @click="handleClike(tag.id, '/tags')">
@@ -216,7 +216,7 @@
                 </div>
 
                 <div class="articleOhter">
-                  <span class="item">
+                  <!-- <span class="item">
                     <el-icon>
                       <View />
                     </el-icon>
@@ -227,7 +227,7 @@
                       <ChatLineRound />
                     </el-icon>
                     <span class="name">评论</span>{{ item.commentCount }}
-                  </span>
+                  </span> -->
                   <!-- <span class="item">
                                         <span v-if="item.isCollect">
                                             <i style="font-size: 1rem;" class="el-icon-star-on"></i>
@@ -238,10 +238,10 @@
                                             <span class="name">收藏</span>{{ item.collectCount }}
                                         </span>
                                     </span> -->
-                  <span class="item">
+                  <!-- <span class="item">
                     <i style="font-size: 0.8rem" class="iconfont icon-dianzan1"></i>
                     <span class="name">赞</span>{{ item.likeCount }}
-                  </span>
+                  </span> -->
                   <span class="item">
                     <el-icon>
                       <Clock />
@@ -406,6 +406,7 @@ const defaultSetting = ref(proxy.$setting);
 const router = useRouter();
 const siteStore = useSiteStore();
 const webInfo = storeToRefs(siteStore).getWebInfo;
+const theme = storeToRefs(siteStore).getTheme;
 const centerDialogVisible = ref(false);
 const drawer = ref(false);
 const videoSrc = ref("http://api.yujn.cn/api/zzxjj.php");

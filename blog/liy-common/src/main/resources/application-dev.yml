@@ -1,0 +1,180 @@
+server:
+  port: 8800
+  servlet:
+    # 应用的访问路径
+    context-path: /liy
+
+
+
+spring:
+  #==============================Sa-Token配置==============================
+  sa-token:
+    # token名称 (同时也是cookie名称)
+    token-name: Authorization
+    # token有效期，单位s 默认30天, -1代表永不过期
+    timeout: 7200
+    # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+    activity-timeout: -1
+    # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+    allow-concurrent-login: true
+    # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+    is-share: false
+    # token风格
+    token-style: random-64
+    # 是否输出操作日志
+    is-log: false
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  application:
+    name: liyblog
+  datasource:
+    url: jdbc:mysql://42.193.249.54:3350/blog?characterEncoding=UTF-8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai&tinyInt1isBit=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username:
+    password:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 10
+      max-active: 150
+      min-idle: 10
+      max-wait: 5000
+      pool-prepared-statements: false
+      validation-query: SELECT 1
+      validation-query-timeout: 500
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 30000
+      filters: stat,wall,log4j
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      stat-view-servlet:
+        enabled: true
+        url-pattern: /druid/*
+        login-username: admin
+        login-password: liy1472580..
+        allow: 127.0.0.1
+        reset-enable: false
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+        exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
+
+  #  elasticsearch:
+  #    rest:
+  #      uris: 124.71.32.189:9200
+  #      uris: ${spring.elasticsearch.rest.uris}
+  data:
+    redis:
+      host: 42.193.249.54
+      port: 6379
+      timeout: 5000
+      database: 0
+      jedis:
+        pool:
+          enabled: true
+          max-active: 20
+          max-wait: -1ms
+      password: liy1472580
+
+#==============================IP限流次数和时间配置==============================
+IpLimit:
+  #请求次数
+  count: 10
+  #请求时间
+  time: 10
+
+#==============================线程池配置==============================
+task:
+  executor:
+    core_pool_size: 10
+    max_pool_size: 200
+    queue_capacity: 1200
+    keep_alive_seconds: 60
+
+#==============================公众号配置==============================
+wechat:
+  app-id:
+  # 公众号AppSecret
+  secret:
+  # 公众号Token
+  token:
+  # 公众号AES Key
+  aesKey:
+
+#==============================Easy-Es配置==============================
+easy-es:
+  enable: false # 默认为true,若为false时,则认为不启用本框架
+  address: 127.0.0.1:9200
+  connect-timeout: 5000
+  connection-request-timeout: 5000
+  request-timeout: 5000
+  global-config:
+    reindex-time-out-hours: 5000
+
+#==============================mybatis-plus配置=========================
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.liy.entity
+  global-config:
+    # 数据库相关配置
+    db-config:
+      #主键类型  AUTO:"数据库ID自增", INPUT:"用户输入ID",ID_WORKER:"全局唯一ID (数字类型唯一ID)", UUID:"全局唯一ID UUID";
+      id-type: AUTO
+      #字段策略 IGNORED:"忽略判断",NOT_NULL:"非 NULL 判断"),NOT_EMPTY:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      db-type: mysql
+    #刷新mapper 调试神器
+    refresh: true
+  # 原生配置
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#==============================knife4j配置=======================================
+knife4j:
+  # 开启增强配置
+  enable: true
+  basic:
+    enable: true
+    # Basic认证用户名
+    username: admin
+    # Basic认证密码
+    password: queql
+
+#============================第三方登录配置信息===================================
+qq:
+  app-id: 101995894
+  app-secret: 238689485c7d930b7da82545505471aa
+  redirect-url:
+weibo:
+  app-id: 2285022919
+  app-secret: a380fef0743e38cad12125902b204fab
+  redirect-url:
+
+gitee:
+  app-id: 97b4f368a377942523a9b97e20090d6cf3e80d840ab4173026502be3730a92f2
+  app-secret:
+  redirect-url: https://www.liy1900.top/liy/oauth/callback/gitee
+
+github:
+  app-id: Ov23livSLCmqwS0XEQzf
+  app-secret: 821572128f05a58066a1ada49ecb40b9fa82329e
+  redirect-url:
+
+# 第三方登录重定向地址
+# 本地
+httpRedirect: http://localhost:8000
+
+
+file:
+  #服务器上传文件地址
+  upload-folder: /root/blog/fileUpload/
+  # 本地上传文件地址
+#  upload-folder: H://my-project/
