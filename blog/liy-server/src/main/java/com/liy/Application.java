@@ -8,7 +8,6 @@ import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import org.dromara.easyes.starter.register.EsMapperScan;
 import org.dromara.x.file.storage.spring.EnableFileStorage;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -29,7 +28,7 @@ import java.util.concurrent.TimeUnit;
  */
 @SpringBootApplication
 @MapperScan(basePackages = {"com.liy.mapper"})
-@EsMapperScan("com.liy.mapper")
+//@EsMapperScan("com.liy.mapper")
 @ServletComponentScan
 @EnableAsync
 @EnableFileStorage

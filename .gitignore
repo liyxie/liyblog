@@ -34,3 +34,4 @@ workspace.xml
 
 # ai
 CLAUDE.md
+.claude/settings.local.json

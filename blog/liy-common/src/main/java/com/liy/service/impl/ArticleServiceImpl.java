@@ -128,7 +128,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         tagsMapper.saveArticleTags(blogArticle.getId(),tagList);
 
         //发布消息去同步es 不进行判断是否是发布状态了，因为后面修改成下架的话就还得去删除es里面的数据，多此一举了，在查询时添加条件发布状态为已发布
-        dataEventPublisherService.publishData(DataEventEnum.ES_ADD,blogArticle);
+//        dataEventPublisherService.publishData(DataEventEnum.ES_ADD,blogArticle);
         return ResponseResult.success();
     }
 
@@ -164,7 +164,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         tagsMapper.saveArticleTags(blogArticle.getId(),tagList);
 
         //发布消息去同步es
-        dataEventPublisherService.publishData(DataEventEnum.ES_UPDATE,blogArticle);
+//        dataEventPublisherService.publishData(DataEventEnum.ES_UPDATE,blogArticle);
         return ResponseResult.success();
     }
 
@@ -180,7 +180,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         baseMapper.deleteByIds(ids);
         tagsMapper.deleteByArticleIds(ids);
 
-        dataEventPublisherService.publishData(DataEventEnum.ES_DELETE,ids);
+//        dataEventPublisherService.publishData(DataEventEnum.ES_DELETE,ids);
         return ResponseResult.success();
     }
 

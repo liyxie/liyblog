@@ -2,9 +2,7 @@ package com.liy.enums;
 
 public enum SearchModelEnum {
 
-    MYSQL(0, "mysql搜索", "mysqlSearch"),
-
-    ELASTICSEARCH(1, "elasticsearch搜索", "elasticsearch");
+    MYSQL(0, "mysql搜索", "mysqlSearch");
 
     //创建构造函数
     SearchModelEnum(int code, String desc, String strategy) {

@@ -104,16 +104,6 @@ wechat:
   # 公众号AES Key
   aesKey:
 
-#==============================Easy-Es配置==============================
-easy-es:
-  enable: false # 默认为true,若为false时,则认为不启用本框架
-  address: 127.0.0.1:9200
-  connect-timeout: 5000
-  connection-request-timeout: 5000
-  request-timeout: 5000
-  global-config:
-    reindex-time-out-hours: 5000
-
 #==============================mybatis-plus配置=========================
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
