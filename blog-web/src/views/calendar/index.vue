@@ -218,8 +218,8 @@ const calendarConfig = computed(() => ({
   resizable: true,
   // 拖动创建阈值
   dragToCreateThreshold: 20,
-  // 时间格式
-  '24Hour': true,
+  // 时间格式 (使用 twelveHour: false 表示 24 小时制)
+  twelveHour: false,
   // 不分割天数
   splitDays: []
 }))
@@ -595,11 +595,12 @@ const generateRandomColor = () => {
   margin: 43px auto 0 auto;
   display: flex;
   gap: 20px;
-  height: 700px;
-  
+  min-height: calc(100vh - 150px);
+  height: auto;
+
   @media (max-width: 768px) {
     flex-direction: column;
-    height: auto;
+    min-height: calc(100vh - 100px);
     gap: 15px;
     width: 95%;
   }
@@ -625,11 +626,12 @@ const generateRandomColor = () => {
 
 .calendar-panel {
   flex: 2;
-  min-height: 500px;
-  
+  min-height: 600px;
+  height: 100%;
+
   @media (max-width: 768px) {
     order: 1;
-    min-height: 400px;
+    min-height: 500px;
   }
 }
 
@@ -726,19 +728,19 @@ const generateRandomColor = () => {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  
+
   // 头部样式
   .vuecal__header {
     background-color: var(--el-bg-color-page);
     border-bottom: 1px solid var(--el-border-color-light);
   }
-  
+
   // 工具栏样式
   .vuecal__title-bar {
     background-color: var(--el-bg-color);
     border-bottom: 1px solid var(--el-border-color-light);
   }
-  
+
   // 事件样式
   .vuecal__event {
     border-radius: 6px;
@@ -746,53 +748,152 @@ const generateRandomColor = () => {
     padding: 2px 6px;
     cursor: pointer;
     transition: all 0.2s ease;
-    
+
     &:hover {
       transform: translateY(-1px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     }
   }
-  
+
   // 单元格样式
   .vuecal__cell {
-    border-color: var(--el-border-color-lighter);
-    
+    border: 1px solid var(--el-border-color-lighter);
+    background-color: var(--el-bg-color);
+
     &.vuecal__cell--today {
       background-color: var(--el-color-primary-light-9);
     }
-    
+
     &.vuecal__cell--current {
       background-color: var(--el-color-primary-light-8);
     }
   }
-  
+
   // 时间网格样式
   .vuecal__time-cell {
-    border-color: var(--el-border-color-lighter);
+    border: 1px solid var(--el-border-color-lighter);
     color: var(--el-text-color-regular);
+    background-color: var(--el-bg-color);
   }
-  
+
   // 周末样式
   .vuecal__cell--weekend {
     background-color: var(--el-fill-color-extra-light);
+  }
+
+  // 时间列
+  .vuecal__time-column {
+    border-right: 1px solid var(--el-border-color-light);
+  }
+
+  // 工作日头部
+  .vuecal__weekdays-headings {
+    border-bottom: 1px solid var(--el-border-color-light);
+  }
+
+  .vuecal__heading {
+    border-right: 1px solid var(--el-border-color-lighter);
+    color: var(--el-text-color-primary);
   }
 }
 
 // 暗黑模式适配
 :deep(.vuecal.vuecal--dark) {
+  background-color: var(--el-bg-color);
+
+  // 头部和工具栏
   .vuecal__header,
   .vuecal__title-bar {
     background-color: var(--el-bg-color-page);
     color: var(--el-text-color-primary);
+    border-color: var(--el-border-color);
   }
-  
+
+  // 所有单元格
   .vuecal__cell {
     background-color: var(--el-bg-color);
     color: var(--el-text-color-primary);
+    border-color: var(--el-border-color) !important;
   }
-  
+
+  // 周末单元格
   .vuecal__cell--weekend {
-    background-color: var(--el-fill-color-dark);
+    background-color: var(--el-fill-color-darker);
+  }
+
+  // 今天的单元格
+  .vuecal__cell--today {
+    background-color: var(--el-color-primary-dark-2);
+  }
+
+  // 当前选中的单元格
+  .vuecal__cell--current {
+    background-color: var(--el-color-primary-light-3);
+  }
+
+  // 时间单元格
+  .vuecal__time-cell {
+    background-color: var(--el-bg-color-page);
+    color: var(--el-text-color-regular);
+    border-color: var(--el-border-color) !important;
+  }
+
+  // 时间列
+  .vuecal__time-column {
+    background-color: var(--el-bg-color-page);
+    border-color: var(--el-border-color);
+  }
+
+  // 全天事件行
+  .vuecal__all-day {
+    background-color: var(--el-bg-color-page);
+    border-color: var(--el-border-color);
+  }
+
+  // 工作日头部
+  .vuecal__weekdays-headings {
+    background-color: var(--el-bg-color-page);
+    border-color: var(--el-border-color);
+  }
+
+  .vuecal__heading {
+    color: var(--el-text-color-primary);
+    background-color: var(--el-bg-color-page);
+    border-color: var(--el-border-color);
+  }
+
+  // 周数
+  .vuecal__cell--week-number {
+    background-color: var(--el-bg-color-page);
+    color: var(--el-text-color-secondary);
+    border-color: var(--el-border-color);
+  }
+
+  // 日期数字
+  .vuecal__cell-date {
+    color: var(--el-text-color-primary);
+  }
+
+  // 其他月份的日期
+  .vuecal__cell--out-of-scope {
+    background-color: var(--el-fill-color-blank);
+    color: var(--el-text-color-disabled);
+  }
+
+  // 时间线
+  .vuecal__now-line {
+    color: var(--el-color-danger);
+    border-color: var(--el-color-danger);
+  }
+
+  // 选中状态
+  .vuecal__cell--selected {
+    background-color: var(--el-color-primary-light-5);
+  }
+
+  // 事件在深色模式下的样式
+  .vuecal__event {
+    color: #fff;
   }
 }
 

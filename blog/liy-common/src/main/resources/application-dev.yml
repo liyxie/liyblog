@@ -149,9 +149,9 @@ weibo:
   redirect-url:
 
 gitee:
-  app-id: 97b4f368a377942523a9b97e20090d6cf3e80d840ab4173026502be3730a92f2
-  app-secret:
-  redirect-url: https://www.liy1900.top/liy/oauth/callback/gitee
+  app-id: c09854187b583d75de10aeb9de1dff6a86af7049261d9060afa4fc6a05439411
+  app-secret: df53838326ea5891e9c6f2b785692e6fcade2f6459b0b89fbea90093d5465f32
+  redirect-url: http://localhost:8000/liy/oauth/callback/gitee
 
 github:
   app-id: Ov23livSLCmqwS0XEQzf
