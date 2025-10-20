@@ -21,7 +21,6 @@ export default defineConfig(({ command, mode }) => {
       // 运行是否自动打开浏览器
       open: false,
       proxy: {
-        /** 代理前缀为 /dev-api 的请求  */
         [env.VITE_APP_BASE_API]: {
           changeOrigin: true,
           // 接口地址

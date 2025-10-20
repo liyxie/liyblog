@@ -42,20 +42,20 @@
         (SELECT GROUP_CONCAT(t.NAME SEPARATOR ',') FROM b_tags t JOIN b_article_tag atg ON t.id = atg.tag_id WHERE atg.article_id = a.id) AS tagNames
         FROM
         b_article a
-        WHERE
-        1 = 1
-        <if test="title != null and title != ''">
-            AND a.title LIKE CONCAT('%',#{title},'%')
-        </if>
-        <if test="categoryId != null and categoryId != ''">
-            AND a.category_id=#{categoryId}
-        </if>
-        <if test="isPublish != null and isPublish != ''">
-            AND a.is_publish=#{isPublish}
-        </if>
-        <if test="tagId != null and tagId != ''">
-            AND EXISTS (SELECT 1 FROM b_article_tag atg JOIN b_tags t ON atg.tag_id = t.id WHERE atg.article_id = a.id AND t.id=#{tagId})
-        </if>
+        <where>
+            <if test="title != null and title != ''">
+                AND a.title LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="categoryId != null and categoryId != ''">
+                AND a.category_id=#{categoryId}
+            </if>
+            <if test="isPublish != null and isPublish != ''">
+                AND a.is_publish=#{isPublish}
+            </if>
+            <if test="tagId != null and tagId != ''">
+                AND EXISTS (SELECT 1 FROM b_article_tag atg JOIN b_tags t ON atg.tag_id = t.id WHERE atg.article_id = a.id AND t.id=#{tagId})
+            </if>
+        </where>
         GROUP BY a.id
         ORDER BY a.is_stick DESC, a.create_time DESC
 
