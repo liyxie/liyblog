@@ -115,10 +115,6 @@ function handleClick(id, index) {
     return;
   }
   fullscreenLoading.value = true;
-  tagRef.value[index].className = "tag-option hand-style active";
-  if (lastIndex.value != null) {
-    tagRef.value[lastIndex.value].className = "tag-option hand-style ";
-  }
   lastIndex.value = index;
   pageData.value.pageNo = 1;
   pageData.value.tagId = id;
@@ -237,33 +233,63 @@ onMounted(() => {
       }
 
       .tag-list {
-        .tag-option {
+        .tag-item {
           display: inline-block;
-          border: 1px solid var(--border-line);
-          border-radius: 5px;
-          margin-right: 10px;
-          padding: 5px;
-          margin-bottom: 10px;
-
-          &:hover {
-            background-color: rgb(171, 214, 214);
+          padding: 6px 12px;
+          margin: 5px 8px 5px 0;
+          border-radius: 20px;
+          font-size: 14px;
+          color: white;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          border: 2px solid transparent;
+          position: relative;
+          overflow: hidden;
+          
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
           }
-
+          
+          &:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.5);
+            
+            &::before {
+              left: 100%;
+            }
+          }
+          
+          &.active {
+            transform: translateY(-2px) scale(1.08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.8);
+            font-weight: bold;
+            
+            &::before {
+              left: 100%;
+            }
+          }
+          
           .num {
             display: inline-block;
+            margin-left: 6px;
+            background-color: rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            background-color: #66b1ff;
+            width: 18px;
+            height: 18px;
             text-align: center;
-            line-height: 20px;
-            color: white;
-            font-size: 12px;
+            line-height: 18px;
+            font-size: 11px;
+            font-weight: bold;
           }
-        }
-
-        .active {
-          background-color: rgb(171, 214, 214);
         }
       }
     }
