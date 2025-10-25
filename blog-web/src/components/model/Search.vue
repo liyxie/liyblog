@@ -34,6 +34,7 @@
 <script setup name="SearchModel">
 import { searchArticle, listTagAll } from "@/api";
 import { useSiteStore } from "@/store/moudel/site.js";
+import { randomColor } from '@/utils/color.js';
 
 let timers = null;
 
@@ -95,15 +96,6 @@ function getTagList() {
   listTagAll().then((res) => {
     tagList.value = res.data;
   });
-}
-
-// 标签随机颜色
-function randomColor() {
-  const h = Math.floor(Math.random() * 360);
-  const s = 60 + Math.floor(Math.random() * 20);  // 饱和度 60-80%
-  const l = 75 + Math.floor(Math.random() * 15);  // 亮度 75-90%
-  const a = 0.6;  // 透明度 0.6
-  return `hsla(${h}, ${s}%, ${l}%, ${a})`;
 }
 
 // 文章页搜索强制刷新跳转

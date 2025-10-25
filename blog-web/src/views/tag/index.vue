@@ -7,20 +7,20 @@
             <svg-icon name="tag"></svg-icon> 标签 ({{ tagList.length }})
           </div>
           <div class="tag-list">
-            <a
-              ref="tagRef"
-              :style="{ fontSize: tag.font }"
+            <span
+              :style="{ backgroundColor: randomColor() }"
               :class="
                 handleChoose(tag, index)
-                  ? 'tag-option hand-style active'
-                  : 'tag-option hand-style'
+                  ? 'tag-item hand-style active'
+                  : 'tag-item hand-style'
               "
+              ref="tagRef"
               @click="handleClick(tag.id, index)"
               v-for="(tag, index) in tagList"
               :key="index"
             >
               {{ tag.name }} <span class="num">{{ tag.articleNum }}</span>
-            </a>
+            </span>
           </div>
         </div>
 
@@ -40,22 +40,12 @@
               <div class="article-meta">
                 <el-avatar
                   class="userAvatar"
-                  :src="siteStore.getWebInfo.authorAvatar"
+                  :size="27"
+                  :src="article.userAvatar"
                 ></el-avatar>
-                <el-tooltip
-                  class="item"
-                  effect="dark"
-                  content="文章分类"
-                  placement="top"
-                >
-                  <el-tag
-                    class="hand-style"
-                    @click="handleNatigation(article.categoryId, '/category')"
-                  >
-                    <i class="el-icon-folder-opened"></i>
+                <span :style="{ backgroundColor: randomColor() }" class="tag-item hand-style" @click="handleNatigation(article.categoryId, '/category')">
                     {{ article.categoryName }}
-                  </el-tag>
-                </el-tooltip>
+                </span>
                 <el-icon><Clock /></el-icon> {{ article.formatCreateTime }}
               </div>
             </div>
@@ -85,6 +75,7 @@ import "wow.js/css/libs/animate.css";
 import AuthorInfo from "@/components/authorInfo/index.vue";
 import { listArticle, listTagAll } from "@/api";
 import { useSiteStore } from "@/store/moudel/site.js";
+import { randomColor } from '@/utils/color.js';
 
 const siteStore = useSiteStore();
 const route = useRoute();
@@ -327,7 +318,7 @@ onMounted(() => {
           align-items: center;
 
           .userAvatar {
-            margin-right: 10px;
+            margin-right: 5px;
           }
 
           i {

@@ -9,20 +9,20 @@
             }})
           </div>
           <div class="tag-list">
-            <a
+            <span
               ref="tagRef"
-              :style="{ fontSize: category.font }"
+              :style="{ backgroundColor: randomColor() }"
               :class="
                 handleChoose(category, index)
-                  ? 'tag-option hand-style active'
-                  : 'tag-option hand-style'
+                  ? 'tag-item hand-style active'
+                  : 'tag-item hand-style'
               "
               @click="handleClick(category.id, index)"
               v-for="(category, index) in categoryList"
               :key="index"
             >
               {{ category.name }} <span class="num">{{ category.articleNum }}</span>
-            </a>
+            </span>
           </div>
         </div>
 
@@ -40,14 +40,14 @@
                 <h4>{{ article.title }}</h4>
               </router-link>
               <div class="article-meta">
-                <el-avatar
+                <!-- <el-avatar
                   class="userAvatar"
-                  :src="siteStore.getWebInfo.authorAvatar"
-                ></el-avatar>
-                <el-tooltip
+                  :size="27"
+                  :src="article.userAvatar"
+                ></el-avatar> -->
+                <!-- <el-tooltip
                   class="item"
                   effect="dark"
-                  content="文章标签"
                   placement="top"
                   v-for="tag in article.tagList"
                   :key="tag.id"
@@ -60,7 +60,9 @@
                   >
                     <i class="el-icon-folder-opened"></i> {{ tag.name }}
                   </el-tag>
-                </el-tooltip>
+                </el-tooltip> -->
+                <span @click="handleNatigation(tag.id, '/tags')" :style="{ backgroundColor: `${randomColor()}` }"
+            class="tag-item hand-style" v-for="(tag, index) in article.tagList" :key="index">{{ tag.name }}</span>
                 <el-icon><Clock /></el-icon> {{ article.formatCreateTime }}
               </div>
             </div>
@@ -89,9 +91,9 @@ import "wow.js/css/libs/animate.css";
 
 import AuthorInfo from "@/components/authorInfo/index.vue";
 import { listArticle, listCategory } from "@/api";
-import { useSiteStore } from "@/store/moudel/site.js";
+import { randomColor } from '@/utils/color.js';
 import { ref, onMounted } from 'vue';
-
+import { useSiteStore } from "@/store/moudel/site.js";
 const siteStore = useSiteStore()
 const route = useRoute();
 const router = useRouter();

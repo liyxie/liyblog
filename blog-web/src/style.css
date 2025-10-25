@@ -302,8 +302,6 @@ html {
 
 .tag-item:hover {
     color: #b5f9d5;
-    border-radius: 10;
-    background-color: #000000 !important;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgb(1, 255, 18);
 }
