@@ -62,35 +62,20 @@ spring:
         url-pattern: /*
         exclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
 
-  #  elasticsearch:
-  #    rest:
-  #      uris: 124.71.32.189:9200
-  #      uris: ${spring.elasticsearch.rest.uris}
   data:
     redis:
-      host: 42.193.249.54
+      host:
       port: 6379
-      password: liy1472580
+      password:
       database: 0
       timeout: 10000
       connect-timeout: 10000
       read-timeout: 10000
-      
-      # Lettuce连接池配置
-      lettuce:
+      jedis:
         pool:
           enabled: true
           max-active: 20
-          max-idle: 10
-          min-idle: 5
-          max-wait: 3000ms
-          time-between-eviction-runs: 60000ms
-          min-evictable-idle-time: 300000ms
-          
-        # Lettuce客户端配置
-        shutdown-timeout: 100ms
-        # 重连配置
-        shutdown-quiet-period: 2000ms
+          max-wait: -1ms
 
 #==============================IP限流次数和时间配置==============================
 IpLimit:
