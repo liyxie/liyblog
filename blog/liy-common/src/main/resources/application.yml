@@ -2,12 +2,6 @@ spring:
   profiles:
     active: dev
     
-# # 禁用Elasticsearch健康检查
-# management:
-#   health:
-#     elasticsearch:
-#       enabled: false
-    
 # 日志配置
 logging:
   level:
