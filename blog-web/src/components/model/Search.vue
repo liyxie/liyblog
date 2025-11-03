@@ -9,7 +9,7 @@
         <div class="tag-title">标签搜索</div>
         <div>
           <span @click="handleToTag(tag.id)" :style="{ backgroundColor: `${randomColor()}` }"
-            class="tag-item hand-style" v-for="(tag, index) in tagList" :key="index">{{ tag.name }}</span>
+            class="tag-item" v-for="(tag, index) in tagList" :key="index">{{ tag.name }}</span>
         </div>
       </div>
       <!-- 搜索文章 -->
@@ -118,8 +118,9 @@ getTagList();
 ::v-deep(.el-dialog) {
   border-radius: 5px !important;
 
+  // 搜索框宽度
   @media screen and (min-width: 1119px) {
-    width: 30% !important;
+    width: 45% !important;
   }
 }
 

@@ -286,16 +286,17 @@ html {
     background-position: left bottom;
 }
 
+
+/* 标签、分类 块样式（普通大小） */
 .tag-item {
     display: inline-block;
-    padding: 6px 12px;
-    margin: 5px 8px 5px 0;
-    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 5px 5px 2px 0;
+    border-radius: 5px;
     font-size: 14px;
     color: white !important;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 2px solid transparent;
     position: relative;
     overflow: hidden;
     
@@ -311,9 +312,10 @@ html {
     }
     
     &:hover {
-        transform: translateY(-2px) scale(1.05);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        border-color: rgba(255, 255, 255, 0.5);
+        color: #b5f9d5;
+        border-radius: 10;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgb(1, 255, 18);
         
         &::before {
             left: 100%;
@@ -334,8 +336,8 @@ html {
     .num {
         display: inline-block;
         margin-left: 6px;
-        background-color: rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
+        /* background-color: rgba(255, 255, 255, 0.3); */
+        /* border-radius: 50%; */
         width: 18px;
         height: 18px;
         text-align: center;
@@ -348,26 +350,28 @@ html {
 /* 深色主题下的标签样式微调 */
 html[data-theme='dark'] .tag-item {
     &:hover {
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 10px rgba(35, 244, 101, 0.4);
+        background-color: #000000 !important;
     }
     
     &.active {
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-        border-color: rgba(255, 255, 255, 0.6);
+        background-color: #000000 !important;
     }
     
     .num {
-        background-color: rgba(255, 255, 255, 0.2);
+        /* background-color: rgba(255, 255, 255, 0.2); */
+        color: white !important;
     }
 }
 
 /* 浅色主题下的标签样式微调 */
 html[data-theme='light'] .tag-item,
 html:not([data-theme]) .tag-item {
+    color: rgb(15, 15, 15) !important;
     &:hover {
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        border-color: rgba(0, 0, 0, 0.2);
+        color: rgb(145, 145, 145) !important;
+        box-shadow: 0 8px 10px rgba(0, 0, 0, 0.15);
     }
     
     &.active {
@@ -376,7 +380,6 @@ html:not([data-theme]) .tag-item {
     }
     
     .num {
-        background-color: rgba(0, 0, 0, 0.1);
         color: #333;
     }
 }
