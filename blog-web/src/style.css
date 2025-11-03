@@ -53,7 +53,7 @@ html[data-theme='dark'] {
     --box-title_color: #BDBDBD;
     --text-color3: #303030;
     --comment-box: #303030;
-    --im-user-box-backgroudColor: #FF80AB;
+    --im-user-box-backgroudColor: #d08514;
     --im-box-backgroudColor: #9CCC65;
     --im-backgroudColor: #323644;
     --hover-color: #414349;
@@ -214,9 +214,15 @@ html {
     border-radius: 5px;
 }
 
+/* 选择文本样式 */
 ::selection {
-    color: #fff;
-    background-color: #d17598;
+    color: #ffffff90;
+    background-color: #3d796157;
+}
+
+html[data-theme='light'] ::selection{
+    color: #000;
+    background-color: #4dddf483;
 }
 
 .el-card__body {
