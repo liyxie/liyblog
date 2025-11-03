@@ -37,3 +37,4 @@ CLAUDE.md
 .roo/
 .claude/settings.local.json
 .init/
+.claude/

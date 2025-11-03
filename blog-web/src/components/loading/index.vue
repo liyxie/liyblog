@@ -52,32 +52,19 @@ defineExpose({
   line-height: 30px;
 }
 .loader {
-  width: 40px;
-  aspect-ratio: 0.577;
-  clip-path: polygon(0 0, 100% 100%, 0 100%, 100% 0);
-  position: relative;
-  animation: l19 2s infinite linear;
-  overflow: hidden;
-  position: relative;
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(82, 184, 82, 0.2);
+  border-top-color: #52b852;
+  border-radius: 50%;
+  position: absolute;
   left: 50%;
   top: 45%;
-  margin: 0 0 0 -25px;
+  margin: -24px 0 0 -24px;
+  animation: spin 0.8s linear infinite;
 }
-.loader:before {
-  content: "";
-  position: absolute;
-  inset: -150% -150%;
-  background: repeating-conic-gradient(
-    from 30deg,
-    #62d35e 0 60deg,
-    #0fabf4 0 120deg,
-    #5204e2 0 180deg
-  );
-  animation: inherit;
-  animation-direction: reverse;
-}
-@keyframes l19 {
-  100% {
+@keyframes spin {
+  to {
     transform: rotate(360deg);
   }
 }
