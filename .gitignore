@@ -38,3 +38,6 @@ CLAUDE.md
 .claude/settings.local.json
 .init/
 .claude/
+AGENTS.md
+GEMINI.md
+GEMINI.zh-CN.md
