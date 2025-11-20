@@ -1,0 +1,345 @@
+.calendar-container {
+  width: 97%;
+  margin: 43px auto 0 auto;
+  display: flex;
+  gap: 20px;
+  min-height: calc(100vh - 150px);
+  height: auto;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    min-height: calc(100vh - 100px);
+    gap: 15px;
+    width: 95%;
+  }
+}
+
+.empty{
+  --el-empty-fill-color-1: var(--comment-box);
+  --el-empty-fill-color-2: var(--comment-box);
+  --el-empty-fill-color-3: var(--article-table-back-color)
+  --el-empty-fill-color-4: var(--comment-box);
+  --el-empty-fill-color-5: var(--comment-box);
+  --el-empty-fill-color-6: var(--comment-box);
+  --el-empty-fill-color-7: var(--comment-box);
+  --el-empty-fill-color-8: var(--comment-box);
+  --el-empty-fill-color-9: var(--comment-box);
+}
+
+.event-panel {
+  flex: 1;
+  max-width: 30%;
+  min-width: 300px;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  background-color: var(--calendar-event-background-color, #ffffff);
+  
+  @media (max-width: 768px) {
+    max-width: 100%;
+    min-width: auto;
+    order: 2;
+  }
+}
+
+.calendar-panel {
+  flex: 2;
+  min-height: 600px;
+  height: 100%;
+
+  @media (max-width: 768px) {
+    order: 1;
+    min-height: 500px;
+  }
+}
+
+.event-details {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--el-text-color-primary, #303133);
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .el-form-item {
+    margin-bottom: 18px;
+  }
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    
+    .el-button {
+      flex: 1;
+      min-width: 80px;
+    }
+  }
+}
+
+.no-event-selected {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  
+  .el-empty {
+    padding: 40px 0;
+  }
+}
+
+// 快捷键帮助样式
+.keyboard-shortcuts {
+  margin-top: 30px;
+  padding: 20px;
+  background: var(--el-fill-color-extra-light, #f5f7fa);
+  border-radius: 8px;
+  width: 100%;
+  max-width: 300px;
+  
+  h4 {
+    margin: 0 0 15px 0;
+    color: var(--el-text-color-primary, #303133);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .shortcut-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .shortcut-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    
+    kbd {
+      background: var(--el-color-info-light-8, #f4f4f5);
+      border: 1px solid var(--el-border-color, #dcdfe6);
+      border-radius: 3px;
+      padding: 2px 6px;
+      font-size: 11px;
+      font-family: monospace;
+      color: var(--el-text-color-regular, #606266);
+    }
+    
+    span:last-child {
+      color: var(--el-text-color-secondary, #909399);
+    }
+  }
+}
+
+// Vue Cal 样式自定义
+:deep(.vuecal) {
+  --vuecal-primary-color: #bb261b;
+  --vuecal-height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
+  // 头部样式
+  .vuecal__header {
+    background-color: var(--el-bg-color-page, #f2f3f5);
+    border-bottom: 1px solid var(--el-border-color-light, #e4e7ed);
+  }
+
+  // 工具栏样式
+  .vuecal__title-bar {
+    background-color: var(--el-bg-color, #cd1616);
+    border-bottom: 1px solid var(--el-border-color-light, #e4e7ed);
+  }
+
+  // 事件样式
+  .vuecal__event {
+    border-radius: 6px;
+    font-size: 12px;
+    padding: 2px 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    }
+  }
+
+  // 单元格样式
+  .vuecal__cell {
+    border: 1px solid var(--el-border-color-lighter, #ebeef5);
+    background-color: var(--el-bg-color, #ffffff);
+
+    &.vuecal__cell--today {
+      background-color: var(--el-color-primary-light-9, #ecf5ff);
+    }
+
+    &.vuecal__cell--current {
+      background-color: var(--el-color-primary-light-8, #d9ecff);
+    }
+  }
+
+  // 时间网格样式
+  .vuecal__time-cell {
+    border: 1px solid var(--el-border-color-lighter, #ebeef5);
+    color: var(--el-text-color-regular, #606266);
+    background-color: var(--el-bg-color, #ffffff);
+  }
+
+  // 周末样式
+  .vuecal__cell--weekend {
+    background-color: var(--el-fill-color-extra-light, #f5f7fa);
+  }
+
+  // 时间列
+  .vuecal__time-column {
+    border-right: 1px solid var(--el-border-color-light, #e4e7ed);
+  }
+
+  // 工作日头部
+  .vuecal__weekdays-headings {
+    border-bottom: 1px solid var(--el-border-color-light, #e4e7ed);
+  }
+
+  .vuecal__heading {
+    border-right: 1px solid var(--el-border-color-lighter, #ebeef5);
+    color: var(--el-text-color-primary, #303133);
+  }
+}
+
+// 暗黑模式适配
+:deep(.vuecal.vuecal--dark) {
+  --vuecal-primary-color: #bb261b;
+  background-color: var(--el-bg-color, #ffffff);
+
+  // 头部和工具栏
+  .vuecal__header,
+  .vuecal__title-bar {
+    background-color: var(--el-bg-color-page, #f2f3f5);
+    color: var(--el-text-color-primary, #303133);
+    border-color: var(--el-border-color, #dcdfe6);
+  }
+
+  // 所有单元格
+  .vuecal__cell {
+    background-color: var(--el-bg-color, #ffffff);
+    color: var(--el-text-color-primary, #303133);
+    border-color: var(--el-border-color, #dcdfe6) !important;
+  }
+
+  // 周末单元格
+  .vuecal__cell--weekend {
+    background-color: var(--el-fill-color-darker, #6b778c);
+  }
+
+  // 今天的单元格
+  .vuecal__cell--today {
+    background-color: var(--el-color-primary-dark-2, #66b1ff);
+  }
+
+  // 当前选中的单元格
+  .vuecal__cell--current {
+    background-color: var(--el-color-primary-light-3, #a0cfff);
+  }
+
+  // 时间单元格
+  .vuecal__time-cell {
+    background-color: var(--el-bg-color-page, #f2f3f5);
+    color: var(--el-text-color-regular, #606266);
+    border-color: var(--el-border-color, #dcdfe6) !important;
+  }
+
+  // 时间列
+  .vuecal__time-column {
+    background-color: var(--el-bg-color-page, #f2f3f5);
+    border-color: var(--el-border-color, #dcdfe6);
+  }
+
+  // 全天事件行
+  .vuecal__all-day {
+    background-color: var(--el-bg-color-page, #f2f3f5);
+    border-color: var(--el-border-color, #dcdfe6);
+  }
+
+  // 工作日头部
+  .vuecal__weekdays-headings {
+    background-color: var(--el-bg-color-page, #f2f3f5);
+    border-color: var(--el-border-color, #dcdfe6);
+  }
+
+  .vuecal__heading {
+    color: var(--el-text-color-primary, #303133);
+    background-color: var(--el-bg-color-page, #f2f3f5);
+    border-color: var(--el-border-color, #dcdfe6);
+  }
+
+  // 周数
+  .vuecal__cell--week-number {
+    background-color: var(--el-bg-color-page, #f2f3f5);
+    color: var(--el-text-color-secondary, #909399);
+    border-color: var(--el-border-color, #dcdfe6);
+  }
+
+  // 日期数字
+  .vuecal__cell-date {
+    color: var(--el-text-color-primary, #303133);
+  }
+
+  // 其他月份的日期
+  .vuecal__cell--out-of-scope {
+    background-color: var(--el-fill-color-blank, #ffffff);
+    color: var(--el-text-color-disabled, #c0c4cc);
+  }
+
+  // 时间线
+  .vuecal__now-line {
+    color: var(--el-color-danger, #f56c6c);
+    border-color: var(--el-color-danger, #f56c6c);
+  }
+
+  // 选中状态
+  .vuecal__cell--selected {
+    background-color: var(--el-color-primary-light-5, #79bbff);
+  }
+
+  // 事件在深色模式下的样式
+  .vuecal__event {
+    color: #fff;
+  }
+}
+
+// 加载状态样式
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  border-radius: 15px;
+}
+
+// 响应式优化
+@media (max-width: 768px) {
+  :deep(.vuecal) {
+    font-size: 12px;
+    
+    .vuecal__event {
+      font-size: 11px;
+      padding: 1px 4px;
+    }
+  }
+}
