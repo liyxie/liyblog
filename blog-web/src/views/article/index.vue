@@ -2,7 +2,7 @@
   <div class="article-container container" v-sy-loading="fullscreenLoading">
     <!-- 左侧点赞和打赏 -->
     <div class="left-sidbarnav" :style="{ left: left }">
-      <el-tooltip class="item" effect="dark" content="点赞" placement="left">
+      <!-- <el-tooltip class="item" effect="dark" content="点赞" placement="left">
         <div class="left-item hand-style" title="点赞" @click="doLike(article.id)">
           <el-badge :value="article.likeCount == null ? 0 : article.likeCount" class="item">
             <span>
@@ -38,15 +38,15 @@
             </span>
           </el-badge>
         </div>
-      </el-tooltip>
+      </el-tooltip> -->
 
-      <el-tooltip class="item" effect="dark" content="开启沉浸式阅读" placement="left">
+      <!-- <el-tooltip class="item" effect="dark" content="开启沉浸式阅读" placement="left">
         <div class="left-item hand-style" title="开启沉浸式阅读" @click="handleImmerse">
           <span>
             <i class="iconfont icon-full-screen"></i>
           </span>
         </div>
-      </el-tooltip>
+      </el-tooltip> -->
 
       <el-tooltip class="item" effect="dark" content="打赏" placement="left" v-if="siteStore.getWebInfo.openAdmiration">
         <div class="left-item rewardMain hand-style" title="打赏">
@@ -83,30 +83,30 @@
               <span class="link" href="#">{{ article.nickname }}</span>
             </div>
             <div class="item">
-              <span class="text textItem" v-if="article.address">
+              <!-- <span class="text textItem" v-if="article.address">
                 <el-icon color="#409eff">
                   <Location />
                 </el-icon>
-                发布于 {{ article.address }}</span>
+                发布于 {{ article.address }}</span> -->
               <span class="text textItem">
                 <el-icon color="#f56c6c">
                   <Clock />
                 </el-icon>
                 {{ formatDate(article.createTime) }}</span>
-              <span class="text textItem">
+              <!-- <span class="text textItem">
                 <el-icon color="#67c23a">
                   <ChatDotRound />
                 </el-icon>
-                {{ article.commentCount }}评论</span>
-              <span class="text textItem">
+                {{ article.commentCount }}评论</span> -->
+              <!-- <span class="text textItem">
                 <i style="font-size: 0.7rem; color: rgb(38, 211, 153)" class="iconfont icon-dianzan1"></i>
                 {{ article.likeCount == null ? 0 : article.likeCount }}点赞
-              </span>
-              <span class="text">
+              </span> -->
+              <!-- <span class="text">
                 <el-icon color="#bedd10">
                   <View />
                 </el-icon>
-                {{ article.quantity }}阅读</span>
+                {{ article.quantity }}阅读</span> -->
             </div>
           </div>
         </div>
@@ -116,18 +116,10 @@
       </div>
       <div class="divider">
         <div class="first"></div>
-        <el-icon>
+        <!-- <el-icon>
           <Bicycle />
         </el-icon>
-        <div class="second"></div>
-      </div>
-      <div class="tips">
-        <i class="el-icon-message-solid"></i>
-        <span style="color: orange">温馨提示：</span>
-        <div style="margin-left: 30px; margin-top: 5px">
-          <span v-if="article.isOriginal == 0">该文章为转载文章。</span>
-          本着开源共享、共同学习的精神，若内容或图片失效，请留言反馈。若有内容不小心影响到您的利益，请联系博主删除
-        </div>
+        <div class="second"></div> -->
       </div>
       <!-- 文章内容 -->
       <div style="height: 100%" class="box-article">
@@ -143,24 +135,24 @@
             <div class="neirong">
               以下内容已隐藏，请{{ readDescList[article.readType] }}后查看
             </div>
-            <el-button v-if="article.readType == 1" @click="checkLikeAndCoomment('请到文章内容下方完成评论')" class="btn"
+            <!-- <el-button v-if="article.readType == 1" @click="checkLikeAndCoomment('请到文章内容下方完成评论')" class="btn"
               type="primary" size="small">立即评论</el-button>
             <el-button v-if="article.readType == 2" @click="checkLikeAndCoomment('请到文章内容左侧完成点赞')" class="btn"
               type="primary" size="small">立即点赞</el-button>
             <el-button v-if="article.readType == 3" @click="dialogVisible = true" class="btn" type="primary"
-              size="small">立即验证</el-button>
+              size="small">立即验证</el-button> -->
           </div>
         </div>
       </div>
 
-      <div class="read-duration">
+      <!-- <div class="read-duration">
         <div class="duration">
           阅读时长，您已阅读：{{ hour }}时{{ minute }}分{{ second }}秒。
         </div>
-      </div>
+      </div> -->
 
       <!-- 移动端点赞 -->
-      <div class="dianzanBox">
+      <!-- <div class="dianzanBox">
         <div class="dianzan-item">
           <div>
             <span @click="doLike(article.id)">
@@ -173,7 +165,7 @@
             {{ article.likeCount }}人已点赞
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- 文章标签和分享 -->
       <div class="tag-share">
@@ -184,7 +176,7 @@
           </a>
         </div>
         <!-- 分享 -->
-        <div class="social-share" id="social-share" @mouseleave="hiddenShareItmes" @mouseenter="showShareItmes">
+        <!-- <div class="social-share" id="social-share" @mouseleave="hiddenShareItmes" @mouseenter="showShareItmes">
           <div class="share-item" id="share-item">
             <a href="javascript:;" @click="qqShare" class="social-share-icon icon-qzone">
               <i class="iconfont icon-qqkongjian"></i>
@@ -207,10 +199,10 @@
             ">
             <i class="iconfont icon-fenxiang share hand-style"></i>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- 版权 -->
-      <div class="copyright">
+      <!-- <div class="copyright">
         <div class="copyrightItem">
           <svg-icon name="yuanchuang"></svg-icon>
           <span class="text name">创作类型:</span>
@@ -244,25 +236,24 @@
           </span>
         </div>
         <svg-icon class="yuan" name="yuan"></svg-icon>
-      </div>
+      </div> -->
 
       <!-- 评论 -->
-      <div class="comment-mian" id="comment" v-if="siteStore.getWebInfo.openComment">
+      <!-- <div class="comment-mian" id="comment" v-if="siteStore.getWebInfo.openComment">
         <div class="title">
-          <!-- <i class="iconfont icon-pinglun"></i> -->
           <svg-icon name="message"></svg-icon>
           评论
           <span style="color: var(--text-color); font-size: 0.8rem">发表评论,来抢沙发</span>
         </div>
         <Comment :articleUserId="article.userId" />
-      </div>
+      </div> -->
     </el-card>
     <!-- 右边侧边栏 -->
     <div class="sidebar" v-if="rightShow">
       <div style="position: sticky; top: 70px">
-        <div style="margin-top: 80px">
+        <!-- <div style="margin-top: 80px">
           <SiteInfo />
-        </div>
+        </div> -->
         <div class="directory" @mouseenter="handleDireMousEnter" @mouseleave="handleDireMousLeave" v-if="titles.length">
           <el-card class="directory-item">
             <template #header>
