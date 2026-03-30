@@ -20,7 +20,7 @@
 
       <el-drawer title="随机视频" v-model="drawer" :with-header="false" :before-close="closeVideo">
         <div class="video-container">
-          <video id="myVideo" style="width: 100%" controls autoplay :src="videoSrc" muted></video>
+          <video ref="videoRef" id="myVideo" style="width: 100%" controls autoplay :src="videoSrc" muted></video>
         </div>
         <div style="margin-left: 20px; margin-top: 10px">
           <el-button type="primary" icon="DArrowRight" @click="nextVideo"></el-button>
@@ -362,7 +362,7 @@
   import SiteInfo from "@/components/authorInfo/index.vue";
   import { randomColor } from "@/utils/color.js";
   import { useSiteStore } from "@/store/moudel/site.js";
-  import { ref } from "vue";
+  import { nextTick, ref, watch } from "vue";
   import { storeToRefs } from "pinia"; //引入pinia转换
   import MenuList from "@/components/comment/MenuList.vue";
 
@@ -375,6 +375,7 @@
   const centerDialogVisible = ref(false);
   const drawer = ref(false);
   const videoSrc = ref("http://api.yujn.cn/api/zzxjj.php");
+  const videoRef = ref(null);
   const pageData = ref({
     pageNo: 1,
     pageSize: 10,
@@ -413,6 +414,15 @@ const swiperOpen = ref(true);
 
 onBeforeUnmount(() => {
   clearInterval(timer);
+});
+
+watch(drawer, (visible) => {
+  if (!visible) {
+    return;
+  }
+  nextTick(() => {
+    videoRef.value?.play?.().catch(() => {});
+  });
 });
 
 //点击左侧菜单
