@@ -199,49 +199,25 @@
                 </div>
 
                 <div class="tag">
-                  <el-tooltip class="box-item" effect="dark" content="文章分类" placement="top">
-                    <el-tag class="hand-style" @click="handleClike(item.categoryId, '/category')">
-                      <i class="el-icon-folder-opened"></i>
-                      {{ item.categoryName }}
-                    </el-tag>
-                  </el-tooltip>
-                  <el-tooltip  class="box-item" effect="light" content="文章标签" placement="top" v-for="tag in item.tagList"
-                    :key="tag.id">
-                    <el-tag :type="tagStyle[Math.round(Math.random() * 4)]" class="hand-style"
-                      @click="handleClike(tag.id, '/tags')">
-                      <i class="el-icon-collection-tag"></i>
-                      {{ tag.name }}
-                    </el-tag>
-                  </el-tooltip>
+                  <span
+                    class="tag-item hand-style"
+                    :style="{ backgroundColor: `${randomColor()}` }"
+                    @click="handleClike(item.categoryId, '/category')"
+                  >
+                    {{ item.categoryName }}
+                  </span>
+                  <span
+                    v-for="(tag, tagIndex) in item.tagList"
+                    :key="tag.id || tagIndex"
+                    class="tag-item hand-style"
+                    :style="{ backgroundColor: `${randomColor()}` }"
+                    @click="handleClike(tag.id, '/tags')"
+                  >
+                    {{ tag.name }}
+                  </span>
                 </div>
 
                 <div class="articleOhter">
-                  <!-- <span class="item">
-                    <el-icon>
-                      <View />
-                    </el-icon>
-                    <span class="name">阅读</span>{{ item.quantity }}
-                  </span>
-                  <span class="item">
-                    <el-icon>
-                      <ChatLineRound />
-                    </el-icon>
-                    <span class="name">评论</span>{{ item.commentCount }}
-                  </span> -->
-                  <!-- <span class="item">
-                                        <span v-if="item.isCollect">
-                                            <i style="font-size: 1rem;" class="el-icon-star-on"></i>
-                                            <span class="name">收藏</span>{{ item.collectCount }}
-                                        </span>
-                                        <span v-else>
-                                            <i style="font-size: 1rem;" class="el-icon-star-off"></i>
-                                            <span class="name">收藏</span>{{ item.collectCount }}
-                                        </span>
-                                    </span> -->
-                  <!-- <span class="item">
-                    <i style="font-size: 0.8rem" class="iconfont icon-dianzan1"></i>
-                    <span class="name">赞</span>{{ item.likeCount }}
-                  </span> -->
                   <span class="item">
                     <el-icon>
                       <Clock />
@@ -250,7 +226,6 @@
                 </div>
               </div>
             </el-card>
-            <!-- 分页按钮 -->
             <div>
               <sy-pagination :pageNo="pageData.pageNo" :pages="pages" @changePage="handlePage" />
             </div>
@@ -319,17 +294,6 @@
                   </span>
                 </div>
               </li>
-              <!-- <li v-show="isShow(6)">
-                <div class="guanzhu-item qqgroup">
-                  <svg-icon name="qqgroup" />
-                  <a class="hand-style" href="javascript:;">
-                    {{ webInfo.qqGroup }}
-                  </a>
-                  <span title="点击复制" @click="copy(webInfo.qqGroup)" class="copyBtn name hand-style">
-                    QQ群
-                  </span>
-                </div>
-              </li> -->
               <li v-show="isShow(3)">
                 <div class="guanzhu-item github">
                   <svg-icon name="github" />
@@ -390,30 +354,31 @@
 </template>
 
 <script setup name="Home">
-import WOW from "wow.js";
-import "wow.js/css/libs/animate.css";
-import Clipboard from "clipboard";
-import { listArticle, featchHomeData, listCategory, listTool } from "@/api";
-import { listSay } from "@/api/say";
-import SiteInfo from "@/components/authorInfo/index.vue";
-import { useSiteStore } from "@/store/moudel/site.js";
-import { ref } from "vue";
-import { storeToRefs } from "pinia"; //引入pinia转换
-import MenuList from "@/components/comment/MenuList.vue";
+  import WOW from "wow.js";
+  import "wow.js/css/libs/animate.css";
+  import Clipboard from "clipboard";
+  import { listArticle, featchHomeData, listCategory, listTool } from "@/api";
+  import { listSay } from "@/api/say";
+  import SiteInfo from "@/components/authorInfo/index.vue";
+  import { randomColor } from "@/utils/color.js";
+  import { useSiteStore } from "@/store/moudel/site.js";
+  import { ref } from "vue";
+  import { storeToRefs } from "pinia"; //引入pinia转换
+  import MenuList from "@/components/comment/MenuList.vue";
 
-const { proxy } = getCurrentInstance();
-const defaultSetting = ref(proxy.$setting);
-const router = useRouter();
-const siteStore = useSiteStore();
-const webInfo = storeToRefs(siteStore).getWebInfo;
-const theme = storeToRefs(siteStore).getTheme;
-const centerDialogVisible = ref(false);
-const drawer = ref(false);
-const videoSrc = ref("http://api.yujn.cn/api/zzxjj.php");
-const pageData = ref({
-  pageNo: 1,
-  pageSize: 10,
-});
+  const { proxy } = getCurrentInstance();
+  const defaultSetting = ref(proxy.$setting);
+  const router = useRouter();
+  const siteStore = useSiteStore();
+  const webInfo = storeToRefs(siteStore).getWebInfo;
+  const theme = storeToRefs(siteStore).getTheme;
+  const centerDialogVisible = ref(false);
+  const drawer = ref(false);
+  const videoSrc = ref("http://api.yujn.cn/api/zzxjj.php");
+  const pageData = ref({
+    pageNo: 1,
+    pageSize: 10,
+  });
 const bannerList = ref([]);
 const categoryLocalList = ref([
   {
@@ -562,18 +527,6 @@ function getToolList() {
     toolList.value.push(...res.data);
   })
   console.log(toolList)
-}
-
-//随机颜色
-function randomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  do {
-    for (var i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-  } while (color === "#FFFFFF" || color === "#000000");
-  return color;
 }
 //切换视频
 function nextVideo() {
@@ -1534,11 +1487,19 @@ onMounted(() => {
             }
 
             .tag {
-              display: inline-block;
+              display: flex;
+              flex-wrap: wrap;
+              gap: 8px;
               margin-left: 20px;
 
-              .el-tag {
-                margin-right: 8px;
+              .tag-item {
+                display: inline-flex;
+                align-items: center;
+                padding: 2px 10px;
+                border-radius: 999px;
+                color: #fff;
+                font-size: 12px;
+                line-height: 20px;
               }
             }
 
