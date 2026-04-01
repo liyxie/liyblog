@@ -14,6 +14,7 @@ import com.liy.im.MessageConstant;
 import com.liy.mapper.ArticleMapper;
 import com.liy.mapper.CommentMapper;
 import com.liy.mapper.UserMapper;
+import com.liy.config.FileConfig;
 import com.liy.service.ApiCommentService;
 import com.liy.utils.HTMLUtil;
 import com.liy.utils.IpUtil;
@@ -39,6 +40,8 @@ public class ApiCommentServiceImpl implements ApiCommentService {
     private final UserMapper userMapper;
 
     private final ArticleMapper articleMapper;
+
+    private final FileConfig fileConfig;
 
     /**
      * 发表评论
@@ -86,6 +89,7 @@ public class ApiCommentServiceImpl implements ApiCommentService {
         Page<ApiCommentListVO> pageList = commentMapper.selectCommentPage(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()),articleId);
         //获取子级
         for (ApiCommentListVO vo : pageList.getRecords()) {
+            vo.setAvatar(fileConfig.buildUrl(vo.getAvatar()));
             List<Comment> commentList = commentMapper.selectList(
                     new LambdaQueryWrapper<Comment>().eq(Comment::getParentId, vo.getId()).orderByDesc(Comment::getCreateTime));
             for (Comment e : commentList) {
@@ -100,7 +104,7 @@ public class ApiCommentServiceImpl implements ApiCommentService {
                         .replyNickname(replyUserInfo.getNickname())
                         .replyWebSite(replyUserInfo.getWebSite())
                         .content(e.getContent())
-                        .avatar(userInfo1.getAvatar())
+                        .avatar(fileConfig.buildUrl(userInfo1.getAvatar()))
                         .createTimeStr(RelativeDateFormat.format(e.getCreateTime()))
                         .browser(e.getBrowser())
                         .browserVersion(e.getBrowserVersion())

@@ -3,9 +3,11 @@
 <mapper namespace="com.liy.mapper.MenuMapper">
 
     <select id="getMenuByUserId" resultType="java.lang.String">
-        select url from b_menu
-        where id in(select menu_id from b_role_menu
-        where role_id = (select role_id from b_user where id=#{loginId})) and level = 2
+        select perm from b_menu
+        where type = 'BUTTON'
+        and perm is not null
+        and id in(select menu_id from b_role_menu
+        where role_id = (select role_id from b_user where id=#{loginId}))
     </select>
     <select id="selectButtonPermissions" resultType="java.lang.String">
         select perm from b_menu where type = 'BUTTON'

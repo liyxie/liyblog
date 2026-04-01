@@ -199,7 +199,6 @@
           :model="form"
           label-width="120px"
           :rules="rules"
-          ref="formRef"
         >
           <aside>{{ item.typeName }}</aside>
 

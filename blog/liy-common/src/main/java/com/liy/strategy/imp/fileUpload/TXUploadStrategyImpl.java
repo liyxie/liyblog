@@ -88,7 +88,7 @@ public class TXUploadStrategyImpl implements FileUploadStrategy {
             objectMetadata = getObjectMetadata(inputStream, suffix);
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, inputStream, objectMetadata);
             PutObjectResult putObjectResult = cosClient.putObject(putObjectRequest);
-            key = StringUtils.splicingUrl('/', systemFileConfig.getUrl(), key);
+            
         }catch (IOException e){
             e.printStackTrace();
             throw new BusinessException("tx文件上传错误");

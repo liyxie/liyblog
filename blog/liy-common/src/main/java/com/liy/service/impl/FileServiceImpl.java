@@ -14,6 +14,7 @@ import com.liy.event.DataEventPublisherService;
 import com.liy.exception.BusinessException;
 import com.liy.strategy.context.FileUploadStrategyContext;
 import com.liy.utils.FileUtils;
+import com.liy.vo.file.UploadFileVO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,11 +55,12 @@ public class FileServiceImpl implements FileService {
             e.printStackTrace();
             throw new BusinessException("文件类型识别错误");
         }
-        String key = fileUploadStrategyContext.executeFileUploadStrategy(file, FileConstants.Common);
+        String path = fileUploadStrategyContext.executeFileUploadStrategy(file, FileConstants.Common);
+        String fullUrl = fileConfig.buildUrl(path);
 
-        Resource resource = Resource.builder().url(key).type(suffix).platform(fileConfig.getNowFileConfig().getTypeName()).userId(StpUtil.getLoginIdAsString()).build();
-        dataEventPublisherService.publishData(DataEventEnum.RESOURCE_ADD,resource);
-        return ResponseResult.success(key);
+        Resource resource = Resource.builder().url(path).type(suffix).platform(fileConfig.getNowFileConfig().getTypeName()).userId(StpUtil.getLoginIdAsString()).build();
+        dataEventPublisherService.publishData(DataEventEnum.RESOURCE_ADD, resource);
+        return ResponseResult.success(new UploadFileVO(fullUrl, path));
     }
 
 

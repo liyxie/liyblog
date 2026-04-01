@@ -80,7 +80,7 @@
                     `path` = #{systemFileConfig.path},
                 </if>
             </set>
-            WHERE id = #{systemFileConfig.id} ;
+            WHERE id = #{systemFileConfig.id}
     </update>
 
 </mapper>

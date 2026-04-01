@@ -511,7 +511,7 @@ function uploadVideo(file: any, insertFn: any) {
   // 文件对象
   formData.append("multipartFile", files.value);
   upload(formData).then((res: any) => {
-    insertFn(res.data, "");
+    insertFn(res.data.url, "");
     loading.value = false;
   });
 }
@@ -524,7 +524,7 @@ function contentUpload(file: any, insertFn: any) {
   // 文件对象
   formData.append("multipartFile", files.value);
   upload(formData).then((res: any) => {
-    insertFn(res.data, "", res.data);
+    insertFn(res.data.url, "", res.data.url);
     loading.value = false;
   });
 }
@@ -560,7 +560,7 @@ function getWebConfigFun() {
 function handleUploadWxPay(file: any) {
   let fromData = initFromData(file);
   upload(fromData).then((res: any) => {
-    formData.weixinPay = res.data;
+    formData.weixinPay = res.data.url;
     loading.value = false;
   });
 }
@@ -568,7 +568,7 @@ function handleUploadWxPay(file: any) {
 function handleUploadAliPay(file: any) {
   let fromData = initFromData(file);
   upload(fromData).then((res: any) => {
-    formData.aliPay = res.data;
+    formData.aliPay = res.data.url;
     loading.value = false;
   });
 }
@@ -576,7 +576,7 @@ function handleUploadAliPay(file: any) {
 function uploadSectionFile(file: any) {
   let fromData = initFromData(file);
   upload(fromData).then((res: any) => {
-    formData.logo = res.data;
+    formData.logo = res.data.url;
     loading.value = false;
   });
 }
@@ -584,7 +584,7 @@ function uploadSectionFile(file: any) {
 function handleUploadTourist(file: any) {
   let fromData = initFromData(file);
   upload(fromData).then((res: any) => {
-    formData.touristAvatar = res.data;
+    formData.touristAvatar = res.data.url;
     loading.value = false;
   });
 }
@@ -592,7 +592,7 @@ function handleUploadTourist(file: any) {
 function handleUploadAuthor(file: any) {
   let fromData = initFromData(file);
   upload(fromData).then((res: any) => {
-    formData.authorAvatar = res.data;
+    formData.authorAvatar = res.data.url;
     loading.value = false;
   });
 }

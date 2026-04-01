@@ -17,6 +17,7 @@ import com.liy.mapper.ArticleMapper;
 import com.liy.mapper.CollectMapper;
 import com.liy.mapper.FollowedMapper;
 import com.liy.mapper.UserMapper;
+import com.liy.config.FileConfig;
 import com.liy.service.ApiUserService;
 import com.liy.common.Constants;
 import com.liy.common.RedisConstants;
@@ -76,6 +77,8 @@ public class ApiUserServiceImpl implements ApiUserService {
 
     private final EmailService emailService;
 
+    private final FileConfig fileConfig;
+
     @Value("${httpRedirect}")
     private String redirect;
 
@@ -111,8 +114,10 @@ public class ApiUserServiceImpl implements ApiUserService {
         //组装数据
         UserInfoVO userInfoVO = BeanCopyUtil.copyObject(user, UserInfoVO.class);
         userInfoVO.setToken(StpUtil.getTokenValue());
+        userInfoVO.setAvatar(fileConfig.buildUrl(userInfoVO.getAvatar()));
+        userInfoVO.setBjCover(fileConfig.buildUrl(userInfoVO.getBjCover()));
 
-        StpUtil.getSession().set(Constants.CURRENT_USER,userMapper.getById(user.getId()));
+        StpUtil.getSession().set(Constants.CURRENT_USER, userMapper.getById(user.getId()));
 
         return ResponseResult.success(userInfoVO);
     }
@@ -180,6 +185,10 @@ public class ApiUserServiceImpl implements ApiUserService {
     public ResponseResult selectUserInfo(String userId) {
         userId = StringUtils.isNotBlank(userId) ? userId : StpUtil.getLoginIdAsString();
         UserInfoVO userInfo = userMapper.selectInfoByUserId(userId);
+        if (userInfo != null) {
+            userInfo.setAvatar(fileConfig.buildUrl(userInfo.getAvatar()));
+            userInfo.setBjCover(fileConfig.buildUrl(userInfo.getBjCover()));
+        }
         return ResponseResult.success(userInfo);
     }
 
@@ -204,6 +213,8 @@ public class ApiUserServiceImpl implements ApiUserService {
         }
         user = BeanCopyUtil.copyObject(vo, User.class);
         user.setId(StpUtil.getLoginIdAsString());
+        user.setAvatar(fileConfig.stripDomain(user.getAvatar()));
+        user.setBjCover(fileConfig.stripDomain(user.getBjCover()));
         userMapper.updateById(user);
 
         return ResponseResult.success();

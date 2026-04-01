@@ -4,6 +4,7 @@ import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.liy.config.FileConfig;
 import com.liy.service.SayService;
 import com.liy.common.Constants;
 import com.liy.common.ResponseResult;
@@ -16,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -31,6 +34,7 @@ import java.util.List;
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class SayServiceImpl extends ServiceImpl<SayMapper, Say> implements SayService {
 
+    private final FileConfig fileConfig;
 
     @Override
     public ResponseResult selectSayPage(String keywords) {
@@ -39,7 +43,15 @@ public class SayServiceImpl extends ServiceImpl<SayMapper, Say> implements SaySe
             sayLambdaQueryWrapper.eq(Say::getIsPublic, PublishEnum.PUBLISH);
         }
         sayLambdaQueryWrapper.orderByDesc(Say::getCreateTime);
-        Page<Say> sayPage = baseMapper.selectPage(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()),sayLambdaQueryWrapper);
+        Page<Say> sayPage = baseMapper.selectPage(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()), sayLambdaQueryWrapper);
+        sayPage.getRecords().forEach(say -> {
+            if (say.getImgUrl() != null && !say.getImgUrl().isEmpty()) {
+                String assembled = Arrays.stream(say.getImgUrl().split(","))
+                        .map(fileConfig::buildUrl)
+                        .collect(Collectors.joining(","));
+                say.setImgUrl(assembled);
+            }
+        });
         return ResponseResult.success(sayPage);
     }
 
@@ -47,6 +59,7 @@ public class SayServiceImpl extends ServiceImpl<SayMapper, Say> implements SaySe
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult addSay(Say say) {
         say.setUserId(StpUtil.getLoginIdAsString());
+        say.setImgUrl(fileConfig.stripDomainMulti(say.getImgUrl()));
         baseMapper.insert(say);
         return ResponseResult.success();
     }
@@ -67,6 +80,7 @@ public class SayServiceImpl extends ServiceImpl<SayMapper, Say> implements SaySe
     @Override
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult updateSay(Say say) {
+        say.setImgUrl(fileConfig.stripDomainMulti(say.getImgUrl()));
         baseMapper.updateById(say);
         return ResponseResult.success();
     }

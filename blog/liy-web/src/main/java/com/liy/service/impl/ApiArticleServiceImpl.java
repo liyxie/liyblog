@@ -13,6 +13,7 @@ import com.liy.enums.ReadTypeEnum;
 import com.liy.enums.SearchModelEnum;
 import com.liy.exception.BusinessException;
 import com.liy.handle.RelativeDateFormat;
+import com.liy.config.FileConfig;
 import com.liy.service.ApiArticleService;
 import com.liy.service.RedisService;
 import com.liy.service.SystemConfigService;
@@ -61,6 +62,8 @@ public class ApiArticleServiceImpl implements ApiArticleService {
 
     private final SearchStrategyContext searchStrategyContext;
 
+    private final FileConfig fileConfig;
+
     /**
      *  获取文章列表
      * @return
@@ -69,18 +72,10 @@ public class ApiArticleServiceImpl implements ApiArticleService {
     public ResponseResult selectArticleList(Integer categoryId,Integer tagId,String orderByDescColumn) {
         Page<ApiArticleListVO> articlePage = articleMapper.selectPublicArticleList(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()),
                 categoryId,tagId,orderByDescColumn);
-        articlePage.getRecords().forEach(item ->{
+        articlePage.getRecords().forEach(item -> {
+            item.setAvatar(fileConfig.buildUrl(item.getAvatar()));
+            item.setUserAvatar(fileConfig.buildUrl(item.getUserAvatar()));
             setCommentAndLike(item);
-//            //获取文章
-//            int collectCount = collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getArticleId, item.getId()));
-//            item.setCollectCount(collectCount);
-//            //判断当前登录用户是否收藏该文章 标记为收藏
-//            if (StpUtil.getLoginIdDefaultNull() != null) {
-//                collectCount = collectMapper.selectCount(new LambdaQueryWrapper<Collect>().eq(Collect::getArticleId, item.getId())
-//                        .eq(Collect::getUserId,StpUtil.getLoginIdAsString()));
-//                item.setIsCollect(collectCount > 0);
-//            }
-            //格式化时间为几秒前 几分钟前等
             item.setFormatCreateTime(RelativeDateFormat.format(item.getCreateTime()));
         });
         return ResponseResult.success(articlePage);
@@ -106,6 +101,7 @@ public class ApiArticleServiceImpl implements ApiArticleService {
         List<Comment> comments = commentMapper.selectList(
                 new LambdaQueryWrapper<Comment>().eq(Comment::getArticleId, id));
         apiArticleInfoVO.setCommentCount(comments.size());
+        apiArticleInfoVO.setAvatar(fileConfig.buildUrl(apiArticleInfoVO.getAvatar()));
         //获取点赞数量
         Map<String, Object> map = redisService.getCacheMap(ARTICLE_LIKE_COUNT);
         if (map!= null && map.size() > 0){

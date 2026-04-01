@@ -371,7 +371,7 @@ function uploadSectionFile(param) {
   upload(formData)
     .then((res) => {
       //上传之后发送消息
-      let content = `<img src="${res.data}" alt="" class="messageImg" style="width: 150px;height: 150px;">`;
+      let content = `<img src="${res.data.url}" alt="" class="messageImg" style="width: 150px;height: 150px;">`;
       doSend(content, 2);
       imgDialogVisible.value = false;
     })

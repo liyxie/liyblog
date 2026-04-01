@@ -77,13 +77,13 @@ public class SystemConfigServiceImpl extends ServiceImpl<SystemConfigMapper, Sys
                 .map(SystemFileConfig::voToPo)
                 .collect(Collectors.toList());
 
-        int j = systemFileConfigMapper.updateBatchById(systemFileConfigList);
+        systemFileConfigList.forEach(systemFileConfigMapper::MyUpdateById);
 
         // 更新当前文件存储配置
         fileConfig.init();
         fileUploadStrategyContext.init();
 
-        return ResponseResult.check(i, j);
+        return ResponseResult.check(i, 1);
     }
 
     //---------自定义方法----------

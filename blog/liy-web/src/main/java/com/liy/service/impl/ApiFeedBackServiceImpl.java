@@ -2,6 +2,7 @@ package com.liy.service.impl;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.liy.common.ResponseResult;
+import com.liy.config.FileConfig;
 import com.liy.entity.FeedBack;
 import com.liy.mapper.FeedBackMapper;
 import com.liy.service.ApiFeedBackService;
@@ -15,6 +16,8 @@ public class ApiFeedBackServiceImpl implements ApiFeedBackService {
 
     private final FeedBackMapper feedBackMapper;
 
+    private final FileConfig fileConfig;
+
     /**
      * 添加反馈
      *
@@ -25,6 +28,7 @@ public class ApiFeedBackServiceImpl implements ApiFeedBackService {
     @Transactional(rollbackFor = Exception.class)
     public ResponseResult addFeedback(FeedBack feedBack) {
         feedBack.setUserId(StpUtil.getLoginIdAsString());
+        feedBack.setImgUrl(fileConfig.stripDomain(feedBack.getImgUrl()));
         int rows = feedBackMapper.insert(feedBack);
         return rows > 0 ? ResponseResult.success() : ResponseResult.error("添加反馈失败");
     }

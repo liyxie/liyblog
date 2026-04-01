@@ -1,6 +1,7 @@
 package com.liy.config.satoken;
 
 import cn.dev33.satoken.stp.StpInterface;
+import com.liy.common.Constants;
 import com.liy.mapper.MenuMapper;
 import com.liy.mapper.RoleMapper;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,9 @@ public class StpInterfaceImpl implements StpInterface {
      */
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return menuMapper.getMenuByUserId(loginId);
+        List<String> roles = roleMapper.selectByUserId(loginId);
+        boolean isAdmin = roles.contains(Constants.ADMIN_CODE);
+        return menuMapper.selectButtonPermissions(loginId.toString(), isAdmin);
     }
 
     /**

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.liy.common.ResponseResult;
+import com.liy.config.FileConfig;
 import com.liy.entity.Resource;
 import com.liy.mapper.ResourceMapper;
 import com.liy.service.ResourceService;
@@ -21,13 +22,16 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     private final ResourceMapper resourceMapper;
 
+    private final FileConfig fileConfig;
+
     @Override
     public ResponseResult selectResourceList(String type) {
         LambdaQueryWrapper<Resource> queryWrapper = new LambdaQueryWrapper<>();
         if (StringUtils.isNotBlank(type)) {
-            queryWrapper.eq(Resource::getType,type);
+            queryWrapper.eq(Resource::getType, type);
         }
-        Page<Resource> resourcePage = resourceMapper.selectPage(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()),queryWrapper);
+        Page<Resource> resourcePage = resourceMapper.selectPage(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()), queryWrapper);
+        resourcePage.getRecords().forEach(r -> r.setUrl(fileConfig.buildUrlByTypeName(r.getPlatform(), r.getUrl())));
         return ResponseResult.success(resourcePage);
     }
 

@@ -95,8 +95,8 @@ public class AliUploadStrategyImpl implements FileUploadStrategy {
             // 参数一：Bucket名称  参数二：上传到oss文件路径和文件名称  比如 /aa/bb/1.jpg 或者直接使用文件名称  参数三：上传文件的流
             ossClient.putObject(systemFileConfig.getBucket(), newFileName, inputStream);
 
-            //把上传之后的文件路径返回，需要把上传到阿里云路径返回    https://edu-guli-eric.oss-cn-beijing.aliyuncs.com/1.jpg
-            key = StringUtils.splicingUrl('/', systemFileConfig.getUrl(), path, newFileName);
+            //只返回对象路径（即 bucket 内的 key），域名在 FileServiceImpl 中拼接
+            key = newFileName;
         } catch (IOException e) {
             e.printStackTrace();
         }finally {

@@ -258,7 +258,7 @@ function imgAdd(pos, $file) {
   formdata.append("multipartFile", $file);
   upload(formdata)
     .then((res) => {
-      md.value.$img2Url(pos, res.data);
+      md.value.$img2Url(pos, res.data.url);
     })
     .catch((err) => {
       console.log(err);
@@ -345,7 +345,7 @@ function uploadVideo(param) {
       const $vm = md.value;
       // 将文件名与文件路径插入当前光标位置，这是mavon-editor 内置的方法
       $vm.insertText($vm.getTextareaDom(), {
-        prefix: `<video height=100% width=100% controls autoplay src="${res.data}"></video>`,
+        prefix: `<video height=100% width=100% controls autoplay src="${res.data.url}"></video>`,
         subfix: "",
         str: "",
       });
@@ -360,7 +360,7 @@ function uploadSectionFile(param) {
   formData.append("multipartFile", files.value);
   upload(formData)
     .then((res) => {
-      article.value.avatar = res.data;
+      article.value.avatar = res.data.url;
     }).finally(() => (fullscreenLoading.value = false));
 }
 

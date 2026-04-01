@@ -73,7 +73,7 @@ function contentUpload(file: any, insertFn: any) {
   // 文件对象
   formData.append("multipartFile", files.value);
   upload(formData).then((res: any) => {
-    insertFn(res.data, "", res.data);
+    insertFn(res.data.url, "", res.data.url);
     loading.value = false;
   });
 }
@@ -86,7 +86,7 @@ function uploadVideo(file: any, insertFn: any) {
   // 文件对象
   formData.append("multipartFile", files.value);
   upload(formData).then((res: any) => {
-    insertFn(res.data, "");
+    insertFn(res.data.url, "");
     loading.value = false;
   });
 }

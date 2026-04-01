@@ -80,7 +80,7 @@ public class QiNiuUploadStrategyImpl implements FileUploadStrategy {
             Response response = uploadManager.put(inputStream, key, upToken,null,null);
             //解析上传成功的结果
             QiNiuPutRet putRet = response.jsonToObject(QiNiuPutRet.class);
-            key = StringUtils.splicingUrl('/', systemFileConfig.getUrl(), putRet.key);
+            key = putRet.key;
         } catch (QiniuException ex) {
             Response r = ex.response;
             logger.info("QiniuException:{}",r.toString());

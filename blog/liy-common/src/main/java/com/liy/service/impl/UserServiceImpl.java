@@ -15,6 +15,7 @@ import com.liy.entity.Menu;
 import com.liy.entity.User;
 import com.liy.exception.BusinessException;
 import com.liy.mapper.UserMapper;
+import com.liy.config.FileConfig;
 import com.liy.service.MenuService;
 import com.liy.service.RedisService;
 import com.liy.service.UserService;
@@ -49,6 +50,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     private final RedisService redisService;
 
+    private final FileConfig fileConfig;
+
 
     /**
      * 用户列表
@@ -58,7 +61,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public ResponseResult selectUserPage(String username, Integer loginType) {
-        Page<SystemUserInfoVO> page = baseMapper.selectPageRecord(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()),username,loginType);
+        Page<SystemUserInfoVO> page = baseMapper.selectPageRecord(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()), username, loginType);
+        page.getRecords().forEach(u -> u.setAvatar(fileConfig.buildUrl(u.getAvatar())));
         return ResponseResult.success(page);
     }
 
@@ -70,6 +74,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public ResponseResult selectUserById(String id) {
         SystemUserVO user = baseMapper.getById(id);
+        if (user != null) {
+            user.setAvatar(fileConfig.buildUrl(user.getAvatar()));
+        }
         return ResponseResult.success(user);
     }
 

@@ -26,6 +26,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
@@ -96,9 +98,15 @@ public class OperationLoggerAspect {
 
         ExceptionLog exception = ExceptionLog.builder().ip(ip).ipSource(IpUtil.getIp2region(ip))
                 .params(paramsJson).username(user.getUsername()).method(joinPoint.getSignature().getName())
-                .exceptionJson(JSON.toJSONString(e)).exceptionMessage(e.getMessage()).operation(operationName)
+                .exceptionJson(throwableToString(e)).exceptionMessage(e.getMessage()).operation(operationName)
                 .createTime(DateUtil.getNowDate()).build();
         exceptionLogMapper.insert(exception);
+    }
+
+    private static String throwableToString(Throwable e) {
+        StringWriter sw = new StringWriter();
+        e.printStackTrace(new PrintWriter(sw, true));
+        return sw.toString();
     }
 
     /**

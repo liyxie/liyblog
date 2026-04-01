@@ -591,11 +591,11 @@ function uploadBjCoverFile(param) {
     .then((res) => {
       let obj = {
         id: user.value.id,
-        bjCover: res.data,
+        bjCover: res.data.url,
       };
       updateUserInfo(obj)
         .then((ress) => {
-          user.value.bjCover = res.data;
+          user.value.bjCover = res.data.url;
           updateStoreUser();
           proxy.$modal.msgSuccess("修改成功");
           closeLoading();
@@ -618,7 +618,7 @@ function uploadSectionFile(param) {
   formData.append("multipartFile", files.value);
   upload(formData)
     .then((res) => {
-      form.value.avatar = res.data;
+      form.value.avatar = res.data.url;
       closeLoading();
     })
     .catch((err) => {

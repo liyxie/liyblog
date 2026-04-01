@@ -67,8 +67,8 @@ public class LocalUploadStrategyImpl implements FileUploadStrategy {
             e.printStackTrace();
             throw new BusinessException();
         }
-        //返回文件名称
-        return StringUtils.splicingUrl('/', systemFileConfig.getPath(), path, filename);
+        //只返回相对路径（不含磁盘根路径），域名在 FileServiceImpl 中由 FileConfig.buildUrl() 拼接
+        return path + filename;
     }
 
     /**

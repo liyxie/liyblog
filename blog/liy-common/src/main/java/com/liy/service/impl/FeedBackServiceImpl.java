@@ -3,11 +3,13 @@ package com.liy.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.liy.config.FileConfig;
 import com.liy.service.FeedBackService;
 import com.liy.common.ResponseResult;
 import com.liy.entity.FeedBack;
 import com.liy.mapper.FeedBackMapper;
 import com.liy.utils.PageUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +24,10 @@ import java.util.List;
  * @since 2022-01-13
  */
 @Service
+@RequiredArgsConstructor
 public class FeedBackServiceImpl extends ServiceImpl<FeedBackMapper, FeedBack> implements FeedBackService {
+
+    private final FileConfig fileConfig;
 
     /**
      * 反馈列表
@@ -32,7 +37,8 @@ public class FeedBackServiceImpl extends ServiceImpl<FeedBackMapper, FeedBack> i
     @Override
     public ResponseResult selectFeedBackPage(Integer type) {
         Page<FeedBack> feedBackPage = baseMapper.selectPage(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()), new LambdaQueryWrapper<FeedBack>()
-                .orderByDesc(FeedBack::getCreateTime).eq(type != null,FeedBack::getType,type));
+                .orderByDesc(FeedBack::getCreateTime).eq(type != null, FeedBack::getType, type));
+        feedBackPage.getRecords().forEach(fb -> fb.setImgUrl(fileConfig.buildUrl(fb.getImgUrl())));
         return ResponseResult.success(feedBackPage);
     }
 

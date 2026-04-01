@@ -186,7 +186,7 @@ function uploadSectionFile(param: any) {
   // 文件对象
   form.append("multipartFile", files.value);
   upload(form).then((res: any) => {
-    formData.avatar = res.data;
+    formData.avatar = res.data.url;
     loading.value = false;
   });
 }

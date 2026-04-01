@@ -4,6 +4,7 @@ package com.liy.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.liy.config.FileConfig;
 import com.liy.mapper.ArticleMapper;
 import com.liy.mapper.TagsMapper;
 import com.liy.mapper.WebConfigMapper;
@@ -40,6 +41,8 @@ public class ApiHomeServiceImpl implements ApiHomeService {
     private final ArticleMapper articleMapper;
 
     private final TagsMapper tagsMapper;
+
+    private final FileConfig fileConfig;
 
 
 
@@ -79,13 +82,18 @@ public class ApiHomeServiceImpl implements ApiHomeService {
 
         //获取首页轮播
         List<SystemArticleListVO> articles = articleMapper.selectListByBanner();
+        articles.forEach(a -> a.setAvatar(fileConfig.buildUrl(a.getAvatar())));
 
         //获取标签云
         List<Tags> tags = tagsMapper.selectList(null);
         //推荐文章
         List<ApiArticleListVO> apiArticleListVOS = articleMapper.selectRecommendArticle();
+        apiArticleListVOS.forEach(a -> {
+            a.setAvatar(fileConfig.buildUrl(a.getAvatar()));
+            a.setUserAvatar(fileConfig.buildUrl(a.getUserAvatar()));
+        });
 
-        return ResponseResult.success().putExtra("articles",articles).putExtra("newArticleList",apiArticleListVOS).putExtra("tagCloud",tags);
+        return ResponseResult.success().putExtra("articles", articles).putExtra("newArticleList", apiArticleListVOS).putExtra("tagCloud", tags);
 
     }
 
@@ -96,6 +104,13 @@ public class ApiHomeServiceImpl implements ApiHomeService {
     public ResponseResult getWebSiteInfo() {
         //网站信息
         WebConfig webConfig = webConfigMapper.selectOne(null);
+        if (webConfig != null) {
+            webConfig.setLogo(fileConfig.buildUrl(webConfig.getLogo()));
+            webConfig.setAuthorAvatar(fileConfig.buildUrl(webConfig.getAuthorAvatar()));
+            webConfig.setTouristAvatar(fileConfig.buildUrl(webConfig.getTouristAvatar()));
+            webConfig.setAliPay(fileConfig.buildUrl(webConfig.getAliPay()));
+            webConfig.setWeixinPay(fileConfig.buildUrl(webConfig.getWeixinPay()));
+        }
 
         //获取访问量
         Long count = Optional.ofNullable(redisService.getCacheObject(RedisConstants.BLOG_VIEWS_COUNT))
@@ -107,7 +122,7 @@ public class ApiHomeServiceImpl implements ApiHomeService {
         Long visitorAccess = redisService.getCacheSetKeyNumber(RedisConstants.UNIQUE_VISITOR);
 
         return ResponseResult.success(webConfig).putExtra("siteAccess", count)
-                .putExtra("visitorAccess",visitorAccess);
+                .putExtra("visitorAccess", visitorAccess);
     }
 
     /**

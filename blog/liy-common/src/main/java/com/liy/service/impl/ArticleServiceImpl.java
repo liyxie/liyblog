@@ -22,6 +22,7 @@ import com.liy.enums.YesOrNoEnum;
 import com.liy.event.DataEventPublisherService;
 import com.liy.exception.BusinessException;
 import com.liy.mapper.*;
+import com.liy.config.FileConfig;
 import com.liy.service.ArticleService;
 import com.liy.utils.BeanCopyUtil;
 import com.liy.utils.IpUtil;
@@ -75,6 +76,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
     private final DataEventPublisherService dataEventPublisherService;
 
+    private final FileConfig fileConfig;
+
     private final String BAIDU_URL = "http://data.zz.baidu.com/urls?site=www.shiyit.com&token=aw5iVpNEB9aQJOYZ";
 
 
@@ -83,8 +86,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
      * @return
      */
     @Override
-    public ResponseResult selectArticlePage(String title,Integer tagId,Integer categoryId,Integer isPublish) {
-        Page<SystemArticleListVO> data = baseMapper.selectArticle(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()),title,tagId,categoryId,isPublish);
+    public ResponseResult selectArticlePage(String title, Integer tagId, Integer categoryId, Integer isPublish) {
+        Page<SystemArticleListVO> data = baseMapper.selectArticle(new Page<>(PageUtil.getPageNo(), PageUtil.getPageSize()), title, tagId, categoryId, isPublish);
+        data.getRecords().forEach(a -> a.setAvatar(fileConfig.buildUrl(a.getAvatar())));
         return ResponseResult.success(data);
     }
 
@@ -96,6 +100,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult selectArticleById(Long id) {
         ArticleDTO articleDTO = baseMapper.selectArticlePrimaryKey(id);
         articleDTO.setTags(tagsMapper.selectByArticleId(id));
+        articleDTO.setAvatar(fileConfig.buildUrl(articleDTO.getAvatar()));
         return ResponseResult.success(articleDTO);
     }
 
@@ -108,6 +113,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     public ResponseResult addArticle(ArticleDTO article) {
         Article blogArticle = BeanCopyUtil.copyObject(article, Article.class);
         blogArticle.setUserId(StpUtil.getLoginIdAsString());
+        blogArticle.setAvatar(fileConfig.stripDomain(blogArticle.getAvatar()));
         //添加分类
         Long categoryId = savaCategory(article.getCategoryName());
         blogArticle.setCategoryId(categoryId);
@@ -156,6 +162,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
 
         blogArticle = BeanCopyUtil.copyObject(article, Article.class);
         blogArticle.setCategoryId(categoryId);
+        blogArticle.setAvatar(fileConfig.stripDomain(blogArticle.getAvatar()));
         baseMapper.updateById(blogArticle);
 
         //先删出所有标签
