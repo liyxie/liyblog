@@ -30,7 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.annotation.PostConstruct;
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.IOException;
 import java.util.Collections;
 
@@ -71,12 +71,12 @@ public class QiNiuUploadStrategyImpl implements FileUploadStrategy {
     public String fileUpload(MultipartFile file, String path) {
         String suffix;
 
-        FileInputStream inputStream = null;
+        InputStream inputStream = null;
         String key = null;
         try {
             suffix = FileUtils.getExtension(file.getInputStream());
             key = StringUtils.splicingUrl('/', systemFileConfig.getPath(), path , UUIDUtils.getUuid() + "." + suffix);
-            inputStream = (FileInputStream) file.getInputStream();
+            inputStream = file.getInputStream();
             Response response = uploadManager.put(inputStream, key, upToken,null,null);
             //解析上传成功的结果
             QiNiuPutRet putRet = response.jsonToObject(QiNiuPutRet.class);
