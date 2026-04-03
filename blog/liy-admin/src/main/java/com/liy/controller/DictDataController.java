@@ -21,7 +21,7 @@ import java.util.List;
  * 字典数据表 前端控制器
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-25
  */
 @RestController

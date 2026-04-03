@@ -6,7 +6,7 @@ import com.liy.vo.article.ApiArticleSearchVO;
 import java.util.List;
 
 /**
- * @author blue
+ * @author liy
  * @date 2022/1/19
  * @apiNote 搜索策略
  */

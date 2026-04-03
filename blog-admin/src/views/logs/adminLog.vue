@@ -100,7 +100,7 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="expand">
@@ -127,19 +127,20 @@ onMounted(() => {
         <el-table-column
           prop="username"
           align="center"
-          width="100"
+          min-width="80"
           label="操作人"
         />
         <el-table-column
           prop="requestUrl"
           align="center"
-          width="250"
+          min-width="160"
           label="请求接口"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="type"
           align="center"
-          width="100"
+          min-width="80"
           label="请求方式"
         >
           <template #default="scope">
@@ -151,9 +152,9 @@ onMounted(() => {
           </template>
         </el-table-column>
         <el-table-column prop="operationName" align="center" label="接口名" />
-        <el-table-column prop="ip" width="200" align="center" label="IP" />
+        <el-table-column prop="ip" min-width="120" align="center" label="IP" :show-overflow-tooltip="true" />
         <el-table-column prop="source" align="center" label="IP来源" />
-        <el-table-column align="center" label="请求耗时" width="150">
+        <el-table-column align="center" label="请求耗时" min-width="90">
           <template #default="scope">
             <span
               ><el-tag type="info">{{ scope.row.spendTime }} ms</el-tag></span
@@ -163,8 +164,9 @@ onMounted(() => {
         <el-table-column
           prop="createTime"
           align="center"
-          width="200"
+          min-width="140"
           label="创建时间"
+          :show-overflow-tooltip="true"
         />
       </el-table>
       <pagination

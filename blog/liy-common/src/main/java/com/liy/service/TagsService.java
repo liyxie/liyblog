@@ -11,7 +11,7 @@ import java.util.List;
  * 博客标签表 服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-09-09
  */
 public interface TagsService extends IService<Tags> {

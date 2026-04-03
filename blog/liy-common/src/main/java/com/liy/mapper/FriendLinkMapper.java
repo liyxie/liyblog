@@ -13,7 +13,7 @@ import java.util.List;
  * 友情链接表 Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-08-18
  */
 @Repository

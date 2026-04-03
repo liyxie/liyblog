@@ -8,7 +8,7 @@ import com.liy.entity.FeedBack;
  *  Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2022-01-13
  */
 public interface FeedBackMapper extends BaseMapper<FeedBack> {

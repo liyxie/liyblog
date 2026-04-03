@@ -15,7 +15,7 @@ import java.util.Date;
  * 字典表
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-25
  */
 @Data

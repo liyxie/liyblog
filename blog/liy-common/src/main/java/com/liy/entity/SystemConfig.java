@@ -14,7 +14,7 @@ import java.util.Date;
  * 系统配置表
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-25
  */
 @Data

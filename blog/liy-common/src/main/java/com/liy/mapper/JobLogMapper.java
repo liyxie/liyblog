@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * 定时任务调度日志表 Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-12-08
  */
 @Repository

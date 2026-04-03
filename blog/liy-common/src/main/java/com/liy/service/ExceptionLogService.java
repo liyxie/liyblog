@@ -11,7 +11,7 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-11
  */
 public interface ExceptionLogService extends IService<ExceptionLog> {

@@ -13,7 +13,7 @@ import java.util.List;
  * 系统配置表 服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-25
  */
 public interface SystemConfigService extends IService<SystemConfig> {

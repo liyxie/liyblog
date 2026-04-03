@@ -15,7 +15,7 @@ import java.util.Date;
  * 定时任务调度日志表
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-12-08
  */
 @Data

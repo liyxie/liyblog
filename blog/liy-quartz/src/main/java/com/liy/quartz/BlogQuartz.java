@@ -16,7 +16,7 @@ import static com.liy.common.RedisConstants.ARTICLE_READING;
 import static com.liy.common.RedisConstants.TAG_CLICK_VOLUME;
 
 /**
- * @author blue
+ * @author liy
  * @date 2021/12/8
  * @apiNote 定时任务调度
  */
@@ -41,7 +41,7 @@ public class BlogQuartz {
 
     /**
      *  redis心跳,解决总是存在Command timed out after 3 second(s)的问题
-     * @author blue
+     * @author liy
      * @date: 2021/8/18 17:58
      */
     public void redisTimer(){
@@ -50,7 +50,7 @@ public class BlogQuartz {
 
     /**
      *  自动更新阅读数
-     * @author blue
+     * @author liy
      * @date: 2021/8/18 17:58
      */
     public void updateReadQuantity(){

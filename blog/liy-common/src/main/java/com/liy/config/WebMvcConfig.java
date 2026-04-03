@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
 /**
- * @author blue
+ * @author liy
  * @date 2022/3/10
  * @apiNote
  */

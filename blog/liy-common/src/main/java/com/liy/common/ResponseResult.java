@@ -14,7 +14,7 @@ import static com.liy.common.ResultCode.*;
  *  <p> 统一返回结果类 </p>
  *
  * @description :
- * @author :  blue
+ * @author :  liy
  */
 @Schema(description = "统一返回结果类")
 @Data

@@ -8,7 +8,7 @@ import com.liy.entity.Dict;
  * 字典表 Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-25
  */
 public interface DictMapper extends BaseMapper<Dict> {

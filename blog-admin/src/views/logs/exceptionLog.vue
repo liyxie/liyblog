@@ -91,7 +91,7 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column align="center" type="selection" width="55" />
@@ -99,33 +99,36 @@ onMounted(() => {
           prop="exceptionMessage"
           :show-overflow-tooltip="true"
           align="center"
-          width="600"
+          min-width="200"
           label="异常内容"
         />
         <el-table-column
           prop="operation"
           align="center"
-          width="200"
+          min-width="120"
           label="接口名"
+          :show-overflow-tooltip="true"
         />
-        <el-table-column prop="ip" align="center" width="130" label="IP" />
+        <el-table-column prop="ip" align="center" min-width="110" label="IP" :show-overflow-tooltip="true" />
         <el-table-column
           prop="ipSource"
           align="center"
-          width="200"
+          min-width="120"
           label="IP来源"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="username"
           align="center"
-          width="130"
+          min-width="80"
           label="操作人"
         />
         <el-table-column
           prop="createTime"
           align="center"
-          width="200"
+          min-width="140"
           label="创建时间"
+          :show-overflow-tooltip="true"
         />
         <el-table-column label="操作" align="center">
           <template #default="scope">

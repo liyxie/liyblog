@@ -16,7 +16,7 @@ import java.util.List;
  * 博客分类表 Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-12-29
  */
 @Repository

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * github登录配置属性
  *
- * @author blue
+ * @author liy
  * @date 2021/10/14
  **/
 @Data

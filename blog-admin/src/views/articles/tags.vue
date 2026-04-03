@@ -197,7 +197,7 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center" />

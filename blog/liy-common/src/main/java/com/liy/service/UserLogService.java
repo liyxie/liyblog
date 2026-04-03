@@ -11,7 +11,7 @@ import java.util.List;
  * 日志表 服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-09
  */
 public interface UserLogService extends IService<UserLog> {

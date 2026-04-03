@@ -4,7 +4,7 @@ package com.liy.common;
  *  <p> 全局常用变量 </p>
  *
  * @description :
- * @author : by blue
+ * @author : by liy
  * @date : 2019/10/12 14:47
  */
 public class Constants {

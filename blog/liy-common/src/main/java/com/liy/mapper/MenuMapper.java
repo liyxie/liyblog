@@ -12,7 +12,7 @@ import java.util.List;
  * 系统管理-权限资源表  Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-07-30
  */
 @Repository

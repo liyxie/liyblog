@@ -9,7 +9,7 @@ import com.liy.entity.WebConfig;
  * 网站配置表 服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-27
  */
 public interface WebConfigService extends IService<WebConfig> {

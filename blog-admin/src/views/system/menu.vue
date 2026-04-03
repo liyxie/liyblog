@@ -16,6 +16,7 @@
         v-loading="loading"
         :data="menuList"
         highlight-current-row
+        max-height="calc(100vh - 280px)"
         row-key="id"
         :expand-row-keys="['1']"
         @row-click="onRowClick"

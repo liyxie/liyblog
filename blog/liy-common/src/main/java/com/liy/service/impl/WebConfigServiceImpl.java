@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 网站配置表 服务实现类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-27
  */
 @Service

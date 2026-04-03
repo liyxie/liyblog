@@ -291,9 +291,9 @@ onMounted(() => {
       </template>
 
       <el-table ref="dataTableRef" v-loading="loading" :data="tabelData" highlight-current-row stripe fit
-        @selection-change="handleSelectionChange">
+        max-height="calc(100vh - 280px)" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="任务名称" width="160" align="center" prop="jobName" :show-overflow-tooltip="true" />
+        <el-table-column label="任务名称" min-width="120" align="center" prop="jobName" :show-overflow-tooltip="true" />
         <el-table-column label="任务组名" align="center">
           <template #default="scope">
             <span v-for="(dict, index) in jobDictList" :key="index">
@@ -312,7 +312,7 @@ onMounted(() => {
           </template>
         </el-table-column>
         <el-table-column label="创建者" prop="createBy" align="center" />
-        <el-table-column label="创建时间" align="center" width="160" prop="createTime" />
+        <el-table-column label="创建时间" align="center" min-width="140" prop="createTime" :show-overflow-tooltip="true" />
         <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
           <template #default="scope">
             <el-button type="primary" link @click="openDialog(scope.row)" size="small" icon="Edit"

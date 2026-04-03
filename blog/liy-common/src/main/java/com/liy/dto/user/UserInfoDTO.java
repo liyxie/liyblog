@@ -3,7 +3,7 @@ package com.liy.dto.user;
 import lombok.Data;
 
 /**
- * @author blue
+ * @author liy
  * @date 2022/2/25
  * @apiNote
  */

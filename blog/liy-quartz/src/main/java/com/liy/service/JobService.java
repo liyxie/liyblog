@@ -13,7 +13,7 @@ import java.util.List;
  * 定时任务调度表 服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-12-08
  */
 public interface JobService extends IService<Job> {

@@ -11,7 +11,7 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2022-01-13
  */
 public interface FeedBackService extends IService<FeedBack> {

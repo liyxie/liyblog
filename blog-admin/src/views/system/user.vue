@@ -281,25 +281,26 @@ onMounted(() => {
         v-loading="loading"
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column prop="avatar" align="center" width="100" label="头像">
+        <el-table-column prop="avatar" align="center" min-width="80" label="头像">
           <template #default="scope">
             <img :src="scope.row.avatar" width="60" height="60" />
           </template>
         </el-table-column>
         <el-table-column
           prop="nickname"
-          width="200px"
+          min-width="120"
           align="center"
           label="昵称"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="loginType"
           align="center"
-          width="150px"
+          min-width="100"
           label="登录方式"
         >
           <template #default="scope">
@@ -324,27 +325,31 @@ onMounted(() => {
         </el-table-column>
         <el-table-column
           prop="ipAddress"
-          width="200px"
+          min-width="120"
           align="center"
           label="登录IP"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="ipSource"
-          width="200px"
+          min-width="120"
           align="center"
           label="登录地址"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="createTime"
           align="center"
-          width="180"
+          min-width="140"
           label="创建时间"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           align="center"
-          width="180"
+          min-width="140"
           label="最后登录时间"
           prop="lastLoginTime"
+          :show-overflow-tooltip="true"
         />
 
         <!--        <el-table-column align="center" label="状态">
@@ -355,7 +360,7 @@ onMounted(() => {
         <el-table-column
           align="center"
           label="操作"
-          width="200"
+          width="150"
           class-name="small-padding fixed-width"
         >
           <template #default="scope">

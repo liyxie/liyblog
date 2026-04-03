@@ -16,7 +16,7 @@ import java.util.List;
  * 系统管理-权限资源表 
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-07-30
  */
 @Data

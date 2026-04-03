@@ -32,7 +32,7 @@ const total = ref(0);
 
 const queryParams = reactive<any>({
   pageNo: 1,
-  pageSize: 25,
+  pageSize: 15,
 });
 
 const tableData = ref<any[]>();
@@ -481,54 +481,58 @@ onMounted(() => {
 
       <!-- 列表 -->
       <el-table ref="dataTableRef" :data="tableData" highlight-current-row stripe fit
-        @selection-change="handleSelectionChange" v-loading="loading" max-height="600px">
-        <el-table-column type="selection" width="30" align="center" />
-        <el-table-column width="150" align="center" label="文章封面">
+        @selection-change="handleSelectionChange" v-loading="loading" max-height="calc(100vh - 280px)">
+        <el-table-column type="selection" width="45" align="center" />
+        <el-table-column min-width="110" align="center" label="文章封面">
           <template #default="scope">
             <el-image class="article-cover" :src="scope.row.avatar" />
           </template>
         </el-table-column>
-        <el-table-column prop="title" align="center" label="文章名称" width="220">
+        <el-table-column prop="title" align="center" label="文章名称" min-width="160">
           <template #default="scope">
-            <el-link :underline="false" :href="homeUrl + scope.row.id" target="_blank">{{ scope.row.title }}</el-link>
+            <div class="cell-line-clamp">
+              <el-link :underline="false" :href="homeUrl + scope.row.id" target="_blank">{{ scope.row.title }}</el-link>
+            </div>
           </template>
         </el-table-column>
-        <el-table-column align="center" width="120" label="状态">
+        <el-table-column align="center" min-width="70" label="状态">
           <template #default="scope">
             <span v-for="(item, index) in publishList" :key="index">
               <el-tag v-if="item.value == scope.row.isPublish" :type="item.style">{{ item.label }}</el-tag>
             </span>
           </template>
         </el-table-column>
-        <el-table-column align="center" width="100" label="分类">
+        <el-table-column align="center" min-width="80" label="分类">
           <template #default="scope">
             <el-tag style="margin-left: 3px" align="center" type="warning">{{ scope.row.categoryName }}
             </el-tag>
           </template>
         </el-table-column>
-        <el-table-column align="center" width="220" label="标签">
+        <el-table-column align="center" min-width="120" label="标签">
           <template #default="scope">
-            <el-tag style="margin-left: 3px" align="center" type="primary" v-for="item in strSplit(scope.row.tagNames)"
-              :key="item">{{ item }}
-            </el-tag>
+            <div class="cell-tags">
+              <el-tag style="margin-left: 3px" align="center" type="primary" v-for="item in strSplit(scope.row.tagNames)"
+                :key="item">{{ item }}
+              </el-tag>
+            </div>
           </template>
         </el-table-column>
-        <el-table-column prop="isStick" align="center" width="120" label="置顶" v-hasPerm="['system:article:top']">
+        <el-table-column prop="isStick" align="center" width="65" label="置顶" v-hasPerm="['system:article:top']">
           <template #default="scope">
             <el-switch v-model="scope.row.isStick" :active-value="1" :inactive-value="0" @change="handleTop(scope.row)"
               active-color="#13ce66" />
           </template>
         </el-table-column>
-        <el-table-column align="center" width="120" label="阅读方式">
+        <el-table-column align="center" min-width="80" label="阅读方式">
           <template #default="scope">
             <el-tag :type="readTypeStyle[scope.row.readType]">{{
               readTypeList[scope.row.readType]
               }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column prop="nickname" width="100" align="center" label="文章作者" />
-        <el-table-column width="200" align="center" prop="createTime" sortable label="添加时间" />
-        <el-table-column align="center" width="100" label="类型">
+        <el-table-column prop="nickname" min-width="80" align="center" label="文章作者" :show-overflow-tooltip="true" />
+        <el-table-column min-width="140" align="center" prop="createTime" sortable label="添加时间" :show-overflow-tooltip="true" />
+        <el-table-column align="center" min-width="60" label="类型">
           <template #default="scope">
             <span v-for="(item, index) in isOriginalList" :key="index">
               <el-tag :type="scope.row.isOriginal === 0 ? 'warning' : 'success'" :key="index"
@@ -537,7 +541,7 @@ onMounted(() => {
             </span>
           </template>
         </el-table-column>
-        <el-table-column width="220" fixed="right" align="center" label="操作">
+        <el-table-column width="180" fixed="right" align="center" label="操作">
           <template #default="scope">
             <el-button v-hasPerm="['system:article:toggleArticlePublication']" type="info" link size="small"
               v-if="scope.row.isPublish === 1" @click="handleUpdateStatus(scope.row, 0)" icon="Bottom">下架</el-button>
@@ -553,7 +557,7 @@ onMounted(() => {
         </el-table-column>
       </el-table>
 
-      <pagination v-if="total > 0" :pager-count="3" :page-sizes="[25, 50, 100]" v-model:total="total"
+      <pagination v-if="total > 0" :pager-count="3" :page-sizes="[15, 50, 100]" v-model:total="total"
         v-model:page="queryParams.pageNo" v-model:limit="queryParams.pageSize" @pagination="handleQuery" />
     </el-card>
 

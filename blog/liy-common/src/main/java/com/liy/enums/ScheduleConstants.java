@@ -1,7 +1,7 @@
 package com.liy.enums;
 
 /**
- * @author blue
+ * @author liy
  * @date 2021/12/8
  * @apiNote 任务调度通用常量
  */

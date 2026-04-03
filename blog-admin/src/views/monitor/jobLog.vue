@@ -235,7 +235,7 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="55" align="center" />
@@ -290,7 +290,8 @@ onMounted(() => {
           label="执行时间"
           align="center"
           prop="createTime"
-          width="180"
+          min-width="140"
+          :show-overflow-tooltip="true"
         />
 
         <el-table-column

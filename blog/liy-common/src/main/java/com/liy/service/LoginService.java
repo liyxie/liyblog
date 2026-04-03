@@ -5,7 +5,7 @@ import com.liy.common.ResponseResult;
 import com.liy.dto.user.LoginDTO;
 
 /**
- * @author blue
+ * @author liy
  * @description:
  * @date 2021/7/30 14:58
  */

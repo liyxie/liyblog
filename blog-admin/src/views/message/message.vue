@@ -116,11 +116,11 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" align="center"> </el-table-column>
-        <el-table-column prop="avatar" align="center" width="100" label="头像">
+        <el-table-column prop="avatar" align="center" min-width="80" label="头像">
           <template #default="scope">
             <el-avatar
               shape="square"
@@ -132,28 +132,32 @@ onMounted(() => {
         <el-table-column
           prop="nickname"
           align="center"
-          width="130"
+          min-width="100"
           label="昵称"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="content"
           align="center"
-          width="300"
+          min-width="160"
           label="内容"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="ipAddress"
           align="center"
-          width="150"
+          min-width="110"
           label="ip地址"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="ipSource"
           align="center"
-          width="200"
+          min-width="120"
           label="ip来源"
+          :show-overflow-tooltip="true"
         />
-        <el-table-column prop="status" align="center" width="180" label="状态">
+        <el-table-column prop="status" align="center" min-width="80" label="状态">
           <template #default="scope">
             <el-tag type="success" v-if="scope.row.status === 1">正常</el-tag>
             <el-tag v-else type="info">审核中</el-tag>
@@ -163,7 +167,7 @@ onMounted(() => {
         <el-table-column
           align="center"
           label="操作"
-          width="160"
+          width="140"
           class-name="small-padding fixed-width"
         >
           <template #default="scope">

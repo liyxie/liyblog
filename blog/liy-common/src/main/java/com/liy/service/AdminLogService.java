@@ -9,7 +9,7 @@ import java.util.List;
 /**
  *  操作日志服务类
  *
- * @author blue
+ * @author liy
  * @since 2021-11-10
  */
 public interface AdminLogService extends IService<AdminLog> {

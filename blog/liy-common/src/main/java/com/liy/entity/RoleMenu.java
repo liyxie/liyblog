@@ -13,7 +13,7 @@ import java.util.Date;
  * 系统管理 - 角色-权限资源关联表 
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-07-30
  */
 @Data

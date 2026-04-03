@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 /**
- * @author blue
+ * @author liy
  * @Description: 博客前台博客文章控制器
  * @Date 2021-07-25 19:04
  */

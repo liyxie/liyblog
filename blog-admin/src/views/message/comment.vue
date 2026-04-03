@@ -116,11 +116,11 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" align="center" />
-        <el-table-column prop="avatar" align="center" width="150" label="头像">
+        <el-table-column prop="avatar" align="center" min-width="80" label="头像">
           <template #default="scope">
             <el-avatar
               shape="square"
@@ -132,31 +132,35 @@ onMounted(() => {
         <el-table-column
           prop="nickname"
           align="center"
-          width="200"
+          min-width="100"
           label="评论用户"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="replyNickname"
           align="center"
-          width="200"
+          min-width="100"
           label="回复用户"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="articleTitle"
           align="center"
-          width="250"
+          min-width="140"
           label="所属文章"
+          :show-overflow-tooltip="true"
         />
-        <el-table-column prop="content" align="center" width="400" label="内容">
+        <el-table-column prop="content" align="center" min-width="180" label="内容" class-name="cell-line-clamp-col">
           <template #default="scope">
-            <span v-html="scope.row.content" class="comment-content" />
+            <div class="cell-line-clamp" v-html="scope.row.content" />
           </template>
         </el-table-column>
         <el-table-column
           prop="createTime"
-          width="250"
+          min-width="140"
           align="center"
           label="评论时间"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           align="center"

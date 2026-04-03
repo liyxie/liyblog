@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 字典数据表
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-25
  */
 @Data

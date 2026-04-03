@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * 友情链接表 前端控制器
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-08-18
  */
 @Tag(name = "友情链接API-V1")

@@ -232,6 +232,7 @@ onMounted(() => {
       <el-table
         v-loading="loading"
         :data="dictList"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" width="50" />

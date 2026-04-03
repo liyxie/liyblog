@@ -14,7 +14,7 @@ import java.util.Date;
  * 博客分类表
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-12-29
  */
 @Data

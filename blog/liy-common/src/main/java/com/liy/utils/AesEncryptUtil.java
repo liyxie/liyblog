@@ -6,7 +6,7 @@ import cn.dev33.satoken.secure.SaSecureUtil;
  *  <p> 加密工具 </p>
  *
  * @description:
- * @author: blue
+ * @author: liy
  * @date: 2019/10/13 0013 15:25
  */
 public class AesEncryptUtil {

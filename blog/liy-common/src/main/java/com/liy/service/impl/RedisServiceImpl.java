@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  *  redis 工具类
  *
- * @author blue
+ * @author liy
  **/
 @SuppressWarnings(value = { "unchecked", "rawtypes" })
 @Service

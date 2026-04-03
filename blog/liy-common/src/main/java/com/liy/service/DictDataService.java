@@ -11,7 +11,7 @@ import java.util.List;
  * 字典数据表 服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-25
  */
 public interface DictDataService extends IService<DictData> {

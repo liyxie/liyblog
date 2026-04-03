@@ -12,7 +12,7 @@ import java.util.Date;
  * 博客评论表
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-07-19
  */
 @Data

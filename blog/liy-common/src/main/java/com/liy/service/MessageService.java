@@ -12,7 +12,7 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-09-03
  */
 public interface MessageService extends IService<Message> {

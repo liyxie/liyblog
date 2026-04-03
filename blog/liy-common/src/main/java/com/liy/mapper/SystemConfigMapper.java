@@ -10,7 +10,7 @@ import com.liy.vo.system.TableListVO;
  * 系统配置表 Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-25
  */
 public interface SystemConfigMapper extends BaseMapper<SystemConfig> {

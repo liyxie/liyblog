@@ -8,7 +8,7 @@ import com.liy.entity.WebConfig;
  * 网站配置表 Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-27
  */
 public interface WebConfigMapper extends BaseMapper<WebConfig> {

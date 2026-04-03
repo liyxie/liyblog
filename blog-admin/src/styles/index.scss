@@ -1,20 +1,60 @@
 @use "./reset";
 
 .app-container {
-  padding: 10px;
+  padding: 16px 20px;
 }
 
 .search-container {
-  padding: 18px 0 0 10px;
-  margin-bottom: 10px;
+  padding: 18px 18px 0;
+  margin-bottom: 16px;
   background-color: var(--el-bg-color-overlay);
   border: 1px solid var(--el-border-color-light);
-  border-radius: 4px;
-  box-shadow: var(--el-box-shadow-light);
+  border-radius: 6px;
+  box-shadow: var(--el-box-shadow-lighter);
 }
 
-.table-container > .el-card__header {
-  padding: calc(var(--el-card-padding) - 8px) var(--el-card-padding);
+.table-container {
+  border-radius: 6px;
+
+  > .el-card__header {
+    padding: calc(var(--el-card-padding) - 4px) var(--el-card-padding);
+  }
+
+  .el-table {
+    width: 100%;
+
+    th.el-table__cell {
+      background-color: var(--el-fill-color-lighter);
+      font-weight: 600;
+    }
+
+    // 限制单元格内容高度，防止长内容撑大行高
+    .cell {
+      max-height: 80px;
+      overflow: hidden;
+      line-height: 1.6;
+    }
+
+    // 多标签列：单行显示，溢出隐藏
+    .cell-tags {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      gap: 4px;
+      align-items: center;
+    }
+
+    // 文本截断：限制为2行
+    .cell-line-clamp {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-all;
+    }
+  }
 }
 
 .link-type,

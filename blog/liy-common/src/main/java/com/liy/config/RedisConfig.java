@@ -11,7 +11,7 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 /**
- * @author blue
+ * @author liy
  * @description:
  * @date 2021/7/30 15:16
  */
@@ -20,7 +20,7 @@ public class RedisConfig {
 
     /**
      *  配置redis序列化
-     * @author blue
+     * @author liy
      * @date: 2021/7/30 15:17
      */
     @Bean

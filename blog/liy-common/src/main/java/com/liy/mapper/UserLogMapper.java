@@ -14,7 +14,7 @@ import java.util.Map;
  * 日志表 Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-09
  */
 @Repository

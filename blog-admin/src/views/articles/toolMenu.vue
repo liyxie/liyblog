@@ -8,7 +8,7 @@
       </template>
 
       <el-table v-loading="loading" :data="menuList" highlight-current-row row-key="id" :expand-row-keys="['1']"
-        @row-click="onRowClick" :tree-props="{
+        @row-click="onRowClick" max-height="calc(100vh - 280px)" :tree-props="{
           children: 'childToolList',
           hasChildren: 'hasChildren',
         }">

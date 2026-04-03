@@ -11,7 +11,7 @@ import java.util.List;
  * 友情链接表 服务类
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-08-18
  */
 public interface FriendLinkService extends IService<FriendLink> {

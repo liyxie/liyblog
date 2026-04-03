@@ -18,7 +18,7 @@ import java.util.Date;
 
 
 /**
- * @author blue
+ * @author liy
  * @date 2021/12/8
  * @apiNote 抽象quartz调用
  */

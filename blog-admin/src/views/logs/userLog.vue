@@ -81,16 +81,17 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column align="center" type="selection" width="55" />
-        <el-table-column prop="ip" align="center" width="130" label="IP" />
+        <el-table-column prop="ip" align="center" min-width="110" label="IP" :show-overflow-tooltip="true" />
         <el-table-column
           prop="address"
           align="center"
-          width="200"
+          min-width="120"
           label="IP来源"
+          :show-overflow-tooltip="true"
         />
         <el-table-column prop="accessOs" align="center" label="平台" />
         <el-table-column prop="browser" align="center" label="浏览器" />
@@ -101,9 +102,10 @@ onMounted(() => {
         <el-table-column
           prop="createTime"
           align="center"
-          width="200"
+          min-width="140"
           sortable
           label="操作时间"
+          :show-overflow-tooltip="true"
         >
           <template #default="scope">
             <span>{{ scope.row.createTime }}</span>

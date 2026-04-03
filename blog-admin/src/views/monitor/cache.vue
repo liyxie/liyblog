@@ -154,7 +154,7 @@
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
       >
         <el-table-column label="键" align="center" prop="key" />
         <el-table-column

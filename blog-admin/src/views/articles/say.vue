@@ -233,7 +233,7 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" align="center" />
@@ -246,19 +246,21 @@ onMounted(() => {
         <el-table-column
           prop="address"
           align="center"
-          width="200"
+          min-width="140"
           label="关联地址"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="content"
           align="center"
-          width="600"
+          min-width="200"
           label="内容"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="isPublic"
           align="center"
-          width="180"
+          min-width="80"
           label="是否公开"
         >
           <template #default="scope">
@@ -270,7 +272,7 @@ onMounted(() => {
         <el-table-column
           align="center"
           label="操作"
-          width="180"
+          width="160"
           class-name="small-padding fixed-width"
         >
           <template #default="scope">

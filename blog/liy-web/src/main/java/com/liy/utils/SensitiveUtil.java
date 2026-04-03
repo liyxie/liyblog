@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * 敏感词过滤工具类（需要在resource下放置敏感词文件）
  *
- * @author blue
+ * @author liy
  * @date 2021/12/28
  * @since 1.0.0
  **/

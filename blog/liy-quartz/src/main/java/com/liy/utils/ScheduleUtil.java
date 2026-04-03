@@ -8,7 +8,7 @@ import com.liy.quartz.QuartzJobExecution;
 import org.quartz.*;
 
 /**
- * @author blue
+ * @author liy
  * @date 2021/12/8
  * @apiNote
  */

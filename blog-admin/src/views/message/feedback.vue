@@ -128,14 +128,14 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
         @selection-change="handleSelectionChange"
       >
         <el-table-column type="selection" align="center" />
         <el-table-column
           prop="type"
           align="center"
-          width="100"
+          min-width="80"
           label="反馈类型"
         >
           <template #default="scope">
@@ -146,17 +146,18 @@ onMounted(() => {
         <el-table-column
           prop="title"
           align="center"
-          width="250"
+          min-width="140"
           label="需求标题"
+          :show-overflow-tooltip="true"
         />
-        <el-table-column prop="content" align="center" label="详细内容" />
+        <el-table-column prop="content" align="center" label="详细内容" :show-overflow-tooltip="true" />
         <el-table-column
           prop="imgUrl"
-          width="160"
+          min-width="100"
           align="center"
           label="附加图片"
         />
-        <el-table-column prop="status" align="center" width="160" label="状态">
+        <el-table-column prop="status" align="center" min-width="80" label="状态">
           <template #default="scope">
             <el-tag v-if="scope.row.status === 1" type="success">解决</el-tag>
             <el-tag v-else type="danger">未解决</el-tag>
@@ -164,14 +165,15 @@ onMounted(() => {
         </el-table-column>
         <el-table-column
           prop="createTime"
-          width="160"
+          min-width="140"
           align="center"
           label="反馈时间"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           align="center"
           label="操作"
-          width="160"
+          width="150"
           class-name="small-padding fixed-width"
         >
           <template #default="scope">

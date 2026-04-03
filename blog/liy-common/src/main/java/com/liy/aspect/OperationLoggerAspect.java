@@ -40,7 +40,7 @@ import static com.liy.common.ResultCode.NO_PERMISSION;
 /**
  * 日志切面
  *
- * @author blue
+ * @author liy
  * @date 2020年12月31日21:26:04
  */
 @Aspect

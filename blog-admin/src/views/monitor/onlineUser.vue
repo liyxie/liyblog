@@ -88,8 +88,9 @@ onMounted(() => {
         highlight-current-row
         stripe
         fit
+        max-height="calc(100vh - 280px)"
       >
-        <el-table-column align="center" prop="avatar" label="头像" width="180">
+        <el-table-column align="center" prop="avatar" label="头像" min-width="80">
           <template #default="scope">
             <div class="block">
               <el-avatar :size="50" :src="scope.row.avatar"></el-avatar>
@@ -100,7 +101,8 @@ onMounted(() => {
           align="center"
           prop="nickname"
           label="昵称"
-          width="180"
+          min-width="100"
+          :show-overflow-tooltip="true"
         />
         <el-table-column align="center" prop="ip" label="IP地址" />
         <el-table-column align="center" prop="city" label="登录地址" />
@@ -110,7 +112,8 @@ onMounted(() => {
           align="center"
           prop="loginTime"
           label="登录时间"
-          width="180"
+          min-width="140"
+          :show-overflow-tooltip="true"
         />
         <el-table-column align="center" label="操作">
           <template #default="scope">

@@ -17,7 +17,7 @@ import java.util.Map;
  * 博客标签表 Mapper 接口
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-07-19
  */
 @Repository

@@ -1,7 +1,7 @@
 package com.liy.common;
 
 /**
- * @author blue
+ * @author liy
  * @description: redis常用常量
  * @date 2021/7/30 15:12
  */

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author blue
+ * @author liy
  * @date: 2021/7/30 17:17
  */
 public interface UserService extends IService<User> {

@@ -7,7 +7,7 @@ import static com.liy.common.ResultCode.ERROR;
 import static com.liy.common.ResultCode.ERROR_DEFAULT;
 
 /**
- * @author blue
+ * @author liy
  * @description: 异常返回类
  * @date 2021/7/19 10:40
  */

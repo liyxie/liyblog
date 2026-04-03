@@ -13,7 +13,7 @@ import java.util.Date;
  * 网站配置表
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-11-27
  */
 @Data

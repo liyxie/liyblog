@@ -259,10 +259,10 @@ onMounted(() => {
         stripe
         fit
         @selection-change="handleSelectionChange"
-        max-height="600px"
+        max-height="calc(100vh - 280px)"
       >
         <el-table-column type="selection" align="center" />
-        <el-table-column label="网站图标" width="120" align="center">
+        <el-table-column label="网站图标" min-width="90" align="center">
           <template #default="scope">
             <img
               v-if="scope.row.avatar"
@@ -275,19 +275,23 @@ onMounted(() => {
           prop="name"
           align="center"
           label="网站名称"
-          width="200"
+          min-width="120"
+          :show-overflow-tooltip="true"
         />
         <el-table-column
           prop="info"
           align="center"
-          width="200"
+          min-width="120"
           label="网站描述"
+          :show-overflow-tooltip="true"
         />
-        <el-table-column align="center" width="350" label="网站地址">
+        <el-table-column align="center" min-width="180" label="网站地址">
           <template #default="scope">
-            <el-link :underline="false" :href="scope.row.url" target="_blank">{{
-              scope.row.url
-            }}</el-link>
+            <div class="cell-line-clamp">
+              <el-link :underline="false" :href="scope.row.url" target="_blank">{{
+                scope.row.url
+              }}</el-link>
+            </div>
           </template>
         </el-table-column>
 
@@ -310,8 +314,9 @@ onMounted(() => {
         <el-table-column
           align="center"
           prop="createTime"
-          width="200"
+          min-width="140"
           label="创建时间"
+          :show-overflow-tooltip="true"
         >
           <template #default="scope">
             <span>{{ scope.row.createTime }}</span>
@@ -320,7 +325,7 @@ onMounted(() => {
         <el-table-column
           align="center"
           label="操作"
-          width="230"
+          width="200"
           class-name="small-padding fixed-width"
         >
           <template #default="scope">

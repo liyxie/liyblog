@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import com.baomidou.mybatisplus.extension.plugins.*;
 
 /**
- * @author blue
+ * @author liy
  * @description: mybatis-plus分页功能
  * @date 2021/7/19 14:41
  */

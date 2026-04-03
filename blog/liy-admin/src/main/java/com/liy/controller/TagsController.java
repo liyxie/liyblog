@@ -21,7 +21,7 @@ import java.util.List;
  * 博客标签表 前端控制器
  * </p>
  *
- * @author blue
+ * @author liy
  * @since 2021-09-09
  */
 @RestController

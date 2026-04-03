@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  *  聊天服务类
  *
- * @author blue
+ * @author liy
  * @since 2021-11-10
  */
 public interface ApiImMessageService {

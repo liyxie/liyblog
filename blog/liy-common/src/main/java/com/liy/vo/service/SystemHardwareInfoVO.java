@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * @author blue
+ * @author liy
  */
 @Data
 public class SystemHardwareInfoVO implements Serializable {
