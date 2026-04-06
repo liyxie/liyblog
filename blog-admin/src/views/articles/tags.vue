@@ -21,6 +21,48 @@ const queryParams = reactive<TagQuery>({
 
 const tagList = ref<TagPageVO[]>();
 
+// Tag Cloud variables
+const viewMode = ref('list');
+const cloudSortMode = ref('random');
+const allTagsList = ref<any[]>([]);
+
+const fetchAllTags = () => {
+  loading.value = true;
+  getTagPage({ pageNo: 1, pageSize: 1000 })
+    .then(({ data }: any) => {
+      allTagsList.value = data.records.map((tag: any) => ({
+        ...tag,
+        hue: Math.floor(Math.random() * 360),
+        sat: Math.floor(Math.random() * 40) + 50,
+        delay: Math.random() * 2 + 's',
+        duration: (Math.random() * 2 + 3) + 's'
+      }));
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+};
+
+const handleViewModeChange = (val: any) => {
+  if (val === 'cloud' && allTagsList.value.length === 0) {
+    fetchAllTags();
+  }
+};
+
+const sortedCloudTags = computed(() => {
+  const list = [...allTagsList.value];
+  if (cloudSortMode.value === 'count') {
+    list.sort((a, b) => (b.articleCount || 0) - (a.articleCount || 0));
+  } else if (cloudSortMode.value === 'random') {
+    list.sort(() => Math.random() - 0.5);
+  }
+  return list;
+});
+
+const handleCloudTagClick = (tag: any) => {
+  openDialog(tag);
+};
+
 const dialog = reactive({
   title: "",
   visible: false,
@@ -48,6 +90,10 @@ function handleQuery() {
     .finally(() => {
       loading.value = false;
     });
+
+  if (viewMode.value === 'cloud') {
+    fetchAllTags();
+  }
 }
 /** 重置查询 */
 function resetQuery() {
@@ -153,7 +199,14 @@ onMounted(() => {
 
 <template>
   <div class="app-container">
-    <div class="search-container">
+    <div class="view-switcher" style="margin-bottom: 20px;">
+      <el-radio-group v-model="viewMode" @change="handleViewModeChange" size="large">
+        <el-radio-button label="list"><i-ep-list style="margin-right: 4px;" />列表视图</el-radio-button>
+        <el-radio-button label="cloud"><i-ep-element-plus style="margin-right: 4px;" />标签云视图</el-radio-button>
+      </el-radio-group>
+    </div>
+
+    <div class="search-container" v-show="viewMode === 'list'">
       <el-form ref="queryFormRef" :model="queryParams" :inline="true">
         <el-form-item prop="name" label="标签名">
           <el-input
@@ -173,7 +226,7 @@ onMounted(() => {
       </el-form>
     </div>
 
-    <el-card shadow="never" class="table-container">
+    <el-card shadow="never" class="table-container" v-show="viewMode === 'list'">
       <template #header>
         <el-button
           type="success"
@@ -238,6 +291,50 @@ onMounted(() => {
       />
     </el-card>
 
+    <!-- 标签云视图 -->
+    <el-card shadow="never" class="cloud-container" v-show="viewMode === 'cloud'" v-loading="loading">
+      <template #header>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <el-button
+            type="success"
+            @click="openDialog()"
+            v-hasPerm="['system:tags:add']"
+            ><i-ep-plus />新增</el-button
+          >
+          <div class="cloud-controls">
+            <span style="margin-right: 10px; font-size: 14px; color: #606266;">排序方式:</span>
+            <el-radio-group v-model="cloudSortMode" size="small">
+              <el-radio-button label="random">随机排序</el-radio-button>
+              <el-radio-button label="count">文章量排行</el-radio-button>
+            </el-radio-group>
+          </div>
+        </div>
+      </template>
+
+      <div class="tag-cloud-wrapper">
+        <el-tooltip
+          v-for="tag in sortedCloudTags"
+          :key="tag.id"
+          effect="dark"
+          :content="`文章数：${tag.articleCount || 0}`"
+          placement="top"
+        >
+          <div 
+            class="floating-tag" 
+            :style="{ 
+              '--tag-h': tag.hue,
+              '--tag-s': tag.sat + '%',
+              animationDelay: tag.delay,
+              animationDuration: tag.duration
+            }"
+            @click="handleCloudTagClick(tag)"
+          >
+            {{ tag.name }}
+          </div>
+        </el-tooltip>
+      </div>
+    </el-card>
+
     <!-- 标签表单弹窗 -->
     <el-dialog
       v-model="dialog.visible"
@@ -274,3 +371,68 @@ onMounted(() => {
     </el-dialog>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.view-switcher {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.tag-cloud-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 20px;
+  min-height: 400px;
+  justify-content: center;
+  align-items: center;
+}
+
+.floating-tag {
+  background-color: hsl(var(--tag-h), var(--tag-s), 65%);
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  animation: float ease-in-out infinite;
+
+  &:hover {
+    transform: scale(1.15) translateY(-8px) rotate(-2deg);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    filter: brightness(1.05);
+    z-index: 10;
+    // pause animation on hover
+    animation-play-state: paused;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+</style>
+
+<style lang="scss">
+html.dark .floating-tag {
+  background-color: hsl(var(--tag-h), var(--tag-s), 30%) !important;
+  color: #e5eaf3 !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4) !important;
+
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.6) !important;
+    filter: brightness(1.25) !important;
+  }
+}
+</style>
